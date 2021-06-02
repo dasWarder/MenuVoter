@@ -1,0 +1,30 @@
+version: '3.0'
+
+services:
+  postgre:
+      image: postgres:12
+      restart: always
+      ports:
+      -5444:5444
+      environment:
+        POSTGRES_USER: user
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: menu-voter
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+    - 8081:8081
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
+  menu-voter:
+    depends_on:
+      - postgre
+      - mongo
+    build:
+      context: .
+    ports:
+    - 8080:8080
+
+

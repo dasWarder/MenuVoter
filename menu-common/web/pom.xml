@@ -12,5 +12,23 @@
 
     <artifactId>service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase.ext</groupId>
+            <artifactId>liquibase-mongodb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+        </dependency>
+
+    </dependencies>
+
 
 </project>
