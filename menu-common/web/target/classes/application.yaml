@@ -1,0 +1,19 @@
+spring:
+  liquibase:
+    enabled: false
+  data:
+    mongodb:
+      username: user
+      password: password
+      database: mongodb://localhost:8082
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:8081/menu-voter
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+  test:
+    database:
+      replace: none

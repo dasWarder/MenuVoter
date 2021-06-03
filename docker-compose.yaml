@@ -5,7 +5,7 @@ services:
       image: postgres:12
       restart: always
       ports:
-      -5444:5444
+        - 8081:5432
       environment:
         POSTGRES_USER: user
         POSTGRES_PASSWORD: password
@@ -14,7 +14,7 @@ services:
     image: mongo
     restart: always
     ports:
-    - 8081:8081
+    - 8082:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: user
       MONGO_INITDB_ROOT_PASSWORD: password
