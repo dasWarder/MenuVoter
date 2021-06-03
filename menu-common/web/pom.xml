@@ -27,7 +27,40 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.liquibase</groupId>
+                    <artifactId>liquibase-maven-plugin</artifactId>
+                    <version>3.4.1</version>
+                    <configuration>
+                        <propertyFile>src/main/resources/db/changelog/postgre/liquibase.properties</propertyFile>
+                        <changeLogFile>src/main/resources/db/changelog/postgre/pg.changelog-master.xml</changeLogFile>
+                        <url>jdbc:postgresql://localhost:8081/menu-voter</url>
+                        <driver>org.postgresql.Driver</driver>
+                        <username>user</username>
+                        <password>password</password>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.postgresql</groupId>
+                            <artifactId>postgresql</artifactId>
+                            <version>42.2.20</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>

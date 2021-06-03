@@ -2,6 +2,6 @@
 
 docker-compose down
 
-mvn clean package
+mvn clean install
 
 docker-compose up -d

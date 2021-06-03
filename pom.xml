@@ -25,9 +25,6 @@
         <openapi.ui.version>1.5.1</openapi.ui.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <liquibase.version>4.3.0</liquibase.version>
-        <liquibase.mongodb.version>4.3.0</liquibase.mongodb.version>
-        <jakarta.xml.bind.version>2.3.2</jakarta.xml.bind.version>
-        <postgre.version>42.2.20</postgre.version>
     </properties>
 
     <dependencies>
@@ -55,6 +52,11 @@
                 <version>${openapi.ui.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

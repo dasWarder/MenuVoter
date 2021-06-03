@@ -1,9 +1,4 @@
 spring:
-  data:
-    mongodb:
-      username: user
-      password: password
-      database: mongodb://localhost:8082
 
   liquibase:
     enabled: true
