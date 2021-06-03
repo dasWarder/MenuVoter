@@ -1,3 +1,4 @@
+com\example\model\Dish.class
 com\example\model\Menu.class
 com\example\model\Restaurant.class
-com\example\model\Dish.class
+com\example\model\AbstractIdEntity.class

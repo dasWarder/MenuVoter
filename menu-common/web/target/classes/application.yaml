@@ -1,19 +1,25 @@
 spring:
-  liquibase:
-    enabled: false
   data:
     mongodb:
       username: user
       password: password
       database: mongodb://localhost:8082
+
+  liquibase:
+    enabled: false
+    change-log: db/changelog/postgre/pg.changelog-master.xml
+
   datasource:
     username: user
     password: password
     url: jdbc:postgresql://localhost:8081/menu-voter
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: none
+    show-sql: true
+
   test:
     database:
       replace: none

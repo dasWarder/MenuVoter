@@ -27,6 +27,7 @@
         <liquibase.version>4.3.0</liquibase.version>
         <liquibase.mongodb.version>4.3.0</liquibase.mongodb.version>
         <jakarta.xml.bind.version>2.3.2</jakarta.xml.bind.version>
+        <postgre.version>42.2.20</postgre.version>
     </properties>
 
     <dependencies>
@@ -54,21 +55,8 @@
                 <version>${openapi.ui.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.liquibase.ext</groupId>
-                <artifactId>liquibase-mongodb</artifactId>
-                <version>${liquibase.mongodb.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
-
-
 
     <build>
         <pluginManagement>
@@ -103,23 +91,6 @@
                         </compilerArgs>
                     </configuration>
                 </plugin>
-                <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.liquibase.ext</groupId>
-                        <artifactId>liquibase-mongodb</artifactId>
-                        <version>${liquibase.mongodb.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                        <version>${jakarta.xml.bind.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
             </plugins>
         </pluginManagement>
     </build>

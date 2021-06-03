@@ -1,0 +1,3 @@
+com\example\dao\DishRepository.class
+com\example\dao\MenuRepository.class
+com\example\dao\RestaurantRepository.class
