@@ -1431,7 +1431,7 @@ true posixrules
 13108||-9223372036854775808|U|G
 13108||10|U|G</Grants>
       <Owner>user</Owner>
-      <IntrospectionStateNumber>502</IntrospectionStateNumber>
+      <IntrospectionStateNumber>539</IntrospectionStateNumber>
       <Current>1</Current>
     </database>
     <database id="3" parent="1" name="postgres">
@@ -1501,7 +1501,7 @@ true posixrules
       <Comment>standard public schema</Comment>
       <StateNumber>276</StateNumber>
       <Owner>user</Owner>
-      <IntrospectionStateNumber>503</IntrospectionStateNumber>
+      <IntrospectionStateNumber>540</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="18" parent="2" name="plpgsql">
@@ -1602,56 +1602,199 @@ true posixrules
       <Type>index</Type>
     </access-method>
     <sequence id="30" parent="17" name="global_seq">
-      <ObjectId>16385</ObjectId>
+      <ObjectId>16502</ObjectId>
       <Owner>user</Owner>
-      <StateNumber>500</StateNumber>
+      <StateNumber>536</StateNumber>
       <DataType>bigint|0s</DataType>
     </sequence>
-    <table id="31" parent="17" name="dish">
-      <ObjectId>16409</ObjectId>
+    <table id="31" parent="17" name="databasechangelog">
+      <ObjectId>16496</ObjectId>
       <Owner>user</Owner>
-      <StateNumber>496</StateNumber>
+      <StateNumber>531</StateNumber>
     </table>
-    <table id="32" parent="17" name="menu">
-      <ObjectId>16397</ObjectId>
+    <table id="32" parent="17" name="databasechangeloglock">
+      <ObjectId>16491</ObjectId>
       <Owner>user</Owner>
-      <StateNumber>493</StateNumber>
+      <StateNumber>528</StateNumber>
     </table>
-    <table id="33" parent="17" name="menus_dishes">
-      <ObjectId>16418</ObjectId>
+    <table id="33" parent="17" name="dish">
+      <ObjectId>16526</ObjectId>
       <Owner>user</Owner>
-      <StateNumber>496</StateNumber>
+      <StateNumber>534</StateNumber>
     </table>
-    <table id="34" parent="17" name="restaurant">
-      <ObjectId>16387</ObjectId>
+    <table id="34" parent="17" name="menu">
+      <ObjectId>16514</ObjectId>
       <Owner>user</Owner>
-      <StateNumber>493</StateNumber>
+      <StateNumber>534</StateNumber>
     </table>
-    <column id="35" parent="31" name="id">
+    <table id="35" parent="17" name="menus_dishes">
+      <ObjectId>16535</ObjectId>
+      <Owner>user</Owner>
+      <StateNumber>534</StateNumber>
+    </table>
+    <table id="36" parent="17" name="restaurant">
+      <ObjectId>16504</ObjectId>
+      <Owner>user</Owner>
+      <StateNumber>534</StateNumber>
+    </table>
+    <column id="37" parent="31" name="id">
       <Position>1</Position>
-      <DataType>bigint|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>495</StateNumber>
-      <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
-      <TypeId>20</TypeId>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
     </column>
-    <column id="36" parent="31" name="title">
+    <column id="38" parent="31" name="author">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>495</StateNumber>
+      <StateNumber>531</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="37" parent="31" name="description">
+    <column id="39" parent="31" name="filename">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="40" parent="31" name="dateexecuted">
+      <Position>4</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>531</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="41" parent="31" name="orderexecuted">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>531</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="42" parent="31" name="exectype">
+      <Position>6</Position>
+      <DataType>varchar(10)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="43" parent="31" name="md5sum">
+      <Position>7</Position>
+      <DataType>varchar(35)|0s</DataType>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="44" parent="31" name="description">
+      <Position>8</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="45" parent="31" name="comments">
+      <Position>9</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="46" parent="31" name="tag">
+      <Position>10</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="47" parent="31" name="liquibase">
+      <Position>11</Position>
+      <DataType>varchar(20)|0s</DataType>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="48" parent="31" name="contexts">
+      <Position>12</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="49" parent="31" name="labels">
+      <Position>13</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="50" parent="31" name="deployment_id">
+      <Position>14</Position>
+      <DataType>varchar(10)|0s</DataType>
+      <StateNumber>531</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="51" parent="32" name="id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>528</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="52" parent="32" name="locked">
+      <Position>2</Position>
+      <DataType>boolean|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>528</StateNumber>
+      <TypeId>16</TypeId>
+    </column>
+    <column id="53" parent="32" name="lockgranted">
+      <Position>3</Position>
+      <DataType>timestamp|0s</DataType>
+      <StateNumber>528</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="54" parent="32" name="lockedby">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <StateNumber>528</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="55" parent="32" name="databasechangeloglock_pkey">
+      <ObjectId>16494</ObjectId>
+      <StateNumber>528</StateNumber>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>0</CollationIds>
+      <ClassIds>1978</ClassIds>
+    </index>
+    <key id="56" parent="32" name="databasechangeloglock_pkey">
+      <ObjectId>16495</ObjectId>
+      <StateNumber>528</StateNumber>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>databasechangeloglock_pkey</UnderlyingIndexName>
+    </key>
+    <column id="57" parent="33" name="id">
+      <Position>1</Position>
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>534</StateNumber>
+      <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="58" parent="33" name="title">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>534</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="59" parent="33" name="description">
       <Position>3</Position>
       <DataType>varchar(500)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>495</StateNumber>
+      <StateNumber>534</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="38" parent="31" name="dish_pkey">
-      <ObjectId>16416</ObjectId>
-      <StateNumber>495</StateNumber>
+    <index id="60" parent="33" name="dish_pkey">
+      <ObjectId>16533</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -1659,44 +1802,44 @@ true posixrules
       <CollationIds>0</CollationIds>
       <ClassIds>3124</ClassIds>
     </index>
-    <key id="39" parent="31" name="dish_pkey">
-      <ObjectId>16417</ObjectId>
-      <StateNumber>495</StateNumber>
+    <key id="61" parent="33" name="dish_pkey">
+      <ObjectId>16534</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>dish_pkey</UnderlyingIndexName>
     </key>
-    <column id="40" parent="32" name="id">
+    <column id="62" parent="34" name="id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>493</StateNumber>
+      <StateNumber>534</StateNumber>
       <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
       <TypeId>20</TypeId>
     </column>
-    <column id="41" parent="32" name="rate">
+    <column id="63" parent="34" name="rate">
       <Position>2</Position>
       <DataType>double precision|0s</DataType>
-      <StateNumber>493</StateNumber>
+      <StateNumber>534</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <column id="42" parent="32" name="creating_date">
+    <column id="64" parent="34" name="creating_date">
       <Position>3</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>493</StateNumber>
+      <StateNumber>534</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <column id="43" parent="32" name="restaurant_id">
+    <column id="65" parent="34" name="restaurant_id">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>493</StateNumber>
+      <StateNumber>534</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="44" parent="32" name="menu_pkey">
-      <ObjectId>16401</ObjectId>
-      <StateNumber>493</StateNumber>
+    <index id="66" parent="34" name="menu_pkey">
+      <ObjectId>16518</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -1704,9 +1847,9 @@ true posixrules
       <CollationIds>0</CollationIds>
       <ClassIds>3124</ClassIds>
     </index>
-    <index id="45" parent="32" name="rest_id_date">
-      <ObjectId>16408</ObjectId>
-      <StateNumber>494</StateNumber>
+    <index id="67" parent="34" name="rest_id_date">
+      <ObjectId>16525</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>restaurant_id
 creating_date</ColNames>
       <Unique>1</Unique>
@@ -1714,40 +1857,40 @@ creating_date</ColNames>
       <CollationIds>0,0</CollationIds>
       <ClassIds>1978,3128</ClassIds>
     </index>
-    <key id="46" parent="32" name="menu_pkey">
-      <ObjectId>16402</ObjectId>
-      <StateNumber>493</StateNumber>
+    <key id="68" parent="34" name="menu_pkey">
+      <ObjectId>16519</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>menu_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="47" parent="32" name="menu_restaurant_id_fkey">
-      <ObjectId>16403</ObjectId>
-      <StateNumber>493</StateNumber>
+    <foreign-key id="69" parent="34" name="menu_restaurant_id_fkey">
+      <ObjectId>16520</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>restaurant_id</ColNames>
-      <RefTableId>16387</RefTableId>
+      <RefTableId>16504</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>restaurant</RefTableName>
       <RefKeyName>restaurant_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="48" parent="33" name="menu_id">
+    <column id="70" parent="35" name="menu_id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>496</StateNumber>
+      <StateNumber>534</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="49" parent="33" name="dish_id">
+    <column id="71" parent="35" name="dish_id">
       <Position>2</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>496</StateNumber>
+      <StateNumber>534</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <index id="50" parent="33" name="menu_dish_idx">
-      <ObjectId>16431</ObjectId>
-      <StateNumber>497</StateNumber>
+    <index id="72" parent="35" name="menu_dish_idx">
+      <ObjectId>16548</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>menu_id
 dish_id</ColNames>
       <Unique>1</Unique>
@@ -1755,51 +1898,51 @@ dish_id</ColNames>
       <CollationIds>0,0</CollationIds>
       <ClassIds>3124,3124</ClassIds>
     </index>
-    <foreign-key id="51" parent="33" name="menus_dishes_menu_id_fkey">
-      <ObjectId>16421</ObjectId>
-      <StateNumber>496</StateNumber>
+    <foreign-key id="73" parent="35" name="menus_dishes_menu_id_fkey">
+      <ObjectId>16538</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>menu_id</ColNames>
-      <RefTableId>16397</RefTableId>
+      <RefTableId>16514</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>menu</RefTableName>
       <RefKeyName>menu_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="52" parent="33" name="menus_dishes_dish_id_fkey">
-      <ObjectId>16426</ObjectId>
-      <StateNumber>496</StateNumber>
+    <foreign-key id="74" parent="35" name="menus_dishes_dish_id_fkey">
+      <ObjectId>16543</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>dish_id</ColNames>
-      <RefTableId>16409</RefTableId>
+      <RefTableId>16526</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>dish</RefTableName>
       <RefKeyName>dish_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="53" parent="34" name="id">
+    <column id="75" parent="36" name="id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>491</StateNumber>
+      <StateNumber>534</StateNumber>
       <DefaultExpression>nextval(&apos;global_seq&apos;::regclass)</DefaultExpression>
       <TypeId>20</TypeId>
     </column>
-    <column id="54" parent="34" name="name">
+    <column id="76" parent="36" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>491</StateNumber>
+      <StateNumber>534</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="55" parent="34" name="description">
+    <column id="77" parent="36" name="description">
       <Position>3</Position>
       <DataType>varchar(2000)|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>491</StateNumber>
+      <StateNumber>534</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="56" parent="34" name="id_name_idx">
-      <ObjectId>16396</ObjectId>
-      <StateNumber>492</StateNumber>
+    <index id="78" parent="36" name="id_name_idx">
+      <ObjectId>16513</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>id
 name</ColNames>
       <Unique>1</Unique>
@@ -1809,9 +1952,9 @@ name</ColNames>
 default</CollationNames>
       <ClassIds>3124,3126</ClassIds>
     </index>
-    <index id="57" parent="34" name="restaurant_pkey">
-      <ObjectId>16394</ObjectId>
-      <StateNumber>491</StateNumber>
+    <index id="79" parent="36" name="restaurant_pkey">
+      <ObjectId>16511</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
@@ -1819,9 +1962,9 @@ default</CollationNames>
       <CollationIds>0</CollationIds>
       <ClassIds>3124</ClassIds>
     </index>
-    <key id="58" parent="34" name="restaurant_pkey">
-      <ObjectId>16395</ObjectId>
-      <StateNumber>491</StateNumber>
+    <key id="80" parent="36" name="restaurant_pkey">
+      <ObjectId>16512</ObjectId>
+      <StateNumber>534</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>restaurant_pkey</UnderlyingIndexName>

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MenuService {
 
-    List<Menu> getAll();
+    List<Menu> getMenuByRestaurant_Id(long restId);
 }

@@ -18,7 +18,9 @@ public class MenuServiceImpl implements MenuService {
         this.menuRepository = menuRepository;
     }
 
-    public List<Menu> getAll() {
-        return (List<Menu>) menuRepository.findAll();
+
+    @Override
+    public List<Menu> getMenuByRestaurant_Id(long restId) {
+        return menuRepository.getMenuByRestaurant_Id(restId);
     }
 }

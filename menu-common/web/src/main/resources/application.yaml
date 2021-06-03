@@ -6,7 +6,7 @@ spring:
       database: mongodb://localhost:8082
 
   liquibase:
-    enabled: false
+    enabled: true
     change-log: db/changelog/postgre/pg.changelog-master.xml
 
   datasource:
