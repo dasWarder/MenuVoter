@@ -1,6 +1,7 @@
 version: '3.0'
 
 services:
+#PostgreSQL database image
   postgre:
       image: postgres:12
       restart: always
@@ -10,6 +11,7 @@ services:
         POSTGRES_USER: user
         POSTGRES_PASSWORD: password
         POSTGRES_DB: menu-voter
+#MongoDB database image
   mongo:
     image: mongo
     restart: always
@@ -19,6 +21,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: user
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: menu
+#The main app image depends on the databases
   menu-voter:
     depends_on:
       - postgre
