@@ -31,18 +31,24 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant save(Restaurant restaurant) {
+        notNull(restaurant, "The restaurant for storing must be NOT null");
+
         log.info("Storing the restaurant with ID = ", restaurant.getId());
         return restaurantRepository.save(restaurant);
     }
 
     @Override
     public void delete(long restaurantId) {
+        notNull(restaurantId, "The ID of the restaurant must be NOT null");
+
         log.info("Removing the restaurant with ID = ", restaurantId);
         restaurantRepository.deleteById(restaurantId);
     }
 
     @Override
     public Restaurant getById(long restaurantId) {
+        notNull(restaurantId, "The ID of the restaurant must be NOT null");
+
         Optional<Restaurant> possibleRestaurant = restaurantRepository.findById(restaurantId);
 
         if(possibleRestaurant.isPresent()) {
@@ -57,6 +63,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant getByName(String name) {
+        notNull(name, "The name of the restaurant must be NOT null");
+
         Optional<Restaurant> possibleRestaurant = restaurantRepository.getRestaurantByName(name);
 
         if(possibleRestaurant.isPresent()) {

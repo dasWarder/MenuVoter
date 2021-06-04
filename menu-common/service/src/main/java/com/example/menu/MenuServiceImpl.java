@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.Conversions.notNull;
+import static org.springframework.util.Assert.notNull;
 
 
 @Slf4j
@@ -27,12 +27,17 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> getAllByRestaurantId(long restaurantId) {
+        notNull(restaurantId, "The ID of the restaurant must be NOT null");
+
         log.info("Receiving a collection of menus for the restaurant with ID = ", restaurantId);
         return menuRepository.getAllByRestaurantId(restaurantId);
     }
 
     @Override
     public Menu save(Menu menu, long restaurantId) {
+        notNull(menu, "The menu for storing must be NOT null");
+        notNull(restaurantId, "The ID of a restaurant must be NOT null");
+
         log.info("Storing the menu with ID = {} for a restaurant with ID = {}", menu.getId(), restaurantId);
         menu.setRestaurantId(restaurantId);
 
@@ -41,6 +46,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu getById(String menuId, long restaurantId) {
+        notNull(restaurantId, "The ID of a restaurant must be NOT null");
+        notNull(menuId, "The ID of a menu must be NOT null");
+
         Optional<Menu> possibleMenu = menuRepository.getMenuByIdAndRestaurantId(menuId, restaurantId);
 
         if(possibleMenu.isPresent()) {
@@ -55,12 +63,17 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public void deleteById(String menuId, long restaurantId) {
+        notNull(menuId, "The ID for the menu must be NOT null");
+        notNull(restaurantId, "The ID for the restaurant must be NOT null");
+
         log.info("Removing the menu with ID = ", menuId);
         menuRepository.deleteMenuByIdAndRestaurantId(menuId, restaurantId);
     }
 
     @Override
     public Menu getByCreatingDate(LocalDateTime creatingDate) {
+        notNull(creatingDate, "The creating date must be NOT null");
+
         Optional<Menu> possibleMenu = menuRepository.getMenuByCreatingDate(creatingDate);
 
         if(possibleMenu.isPresent()) {
@@ -75,6 +88,10 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Menu update(long restaurantId, String menuId, Menu menu) {
+        notNull(restaurantId, "The ID of the restaurant must be NOT null");
+        notNull(menuId, "The ID for the menu must be NOT null");
+        notNull(menu, "The menu must be NOT null");
+
         Optional<Menu> possibleMenu = menuRepository.getMenuByIdAndRestaurantId(menuId, restaurantId);
 
         if(possibleMenu.isPresent()) {
