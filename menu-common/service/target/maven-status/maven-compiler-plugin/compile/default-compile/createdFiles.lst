@@ -1,6 +1,4 @@
-com\example\service\menu\MenuService.class
-com\example\service\menu\MenuServiceImpl.class
-com\example\service\restaurant\RestaurantServiceImpl.class
-com\example\service\dish\DishService.class
-com\example\service\dish\DishServiceImpl.class
-com\example\service\restaurant\RestaurantService.class
+com\example\menu\MenuService.class
+com\example\menu\MenuServiceImpl.class
+com\example\restaurant\RestaurantService.class
+com\example\restaurant\RestaurantServiceImpl.class

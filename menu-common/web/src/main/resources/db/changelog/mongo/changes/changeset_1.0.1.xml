@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd
+      http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="mg_2" author="andrey">
+        <ext:insertMany collectionName="menu">
+            <ext:documents>
+                [
+                    {
+                            restaurant_id: 1,
+                            rate: 6.5,
+                            creating_date: "2021-04-21T09:30:00",
+                            dishes: [
+                                {     name: "Pizza",
+                                      description: "The pizza text"
+                                },
+                                {     name: "Pasta",
+                                      description: "The pasta text"
+                                }
+                            ]
+                    }
+                ]
+            </ext:documents>
+        </ext:insertMany>
+    </changeSet>
+</databaseChangeLog>

@@ -1,11 +1,12 @@
 package com.example.controller;
 
-import com.example.model.Menu;
-import com.example.service.menu.MenuService;
+
+import com.example.Menu;
+import com.example.menu.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +20,15 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    @GetMapping(value = "/menus/{id}")
-    public List<Menu> getAll(@PathVariable("id") long id) {
-        return menuService.getMenuByRestaurant_Id(id);
+    @GetMapping(value = "/restaurants/{id}")
+    public List<Menu> getAllByRestaurant(@PathVariable("id") long restaurantId) {
+        return menuService.getAllByRestaurantId(restaurantId);
+    }
+
+    @PostMapping(value = "/restaurants/menu")
+    public ResponseEntity<Menu> saveMenu(@RequestBody Menu menu) {
+        Menu stored = menuService.save(menu);
+
+        return new ResponseEntity<>(stored, HttpStatus.CREATED);
     }
 }

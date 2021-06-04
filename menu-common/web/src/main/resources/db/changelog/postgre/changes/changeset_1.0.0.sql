@@ -18,7 +18,7 @@ CREATE TABLE menu (
     id BIGINT NOT NULL PRIMARY KEY DEFAULT nextval('global_seq'),
     rate FLOAT,
     creating_date TIMESTAMP NOT NULL,
-    restaurant_id INT NOT NULL,
+    restaurant_id BIGINT NOT NULL,
     FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)
 );
 

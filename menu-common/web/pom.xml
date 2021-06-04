@@ -26,12 +26,6 @@
 
         <dependency>
             <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.liquibase</groupId>
             <artifactId>liquibase-maven-plugin</artifactId>
         </dependency>
     </dependencies>
@@ -42,7 +36,7 @@
                 <plugin>
                     <groupId>org.liquibase</groupId>
                     <artifactId>liquibase-maven-plugin</artifactId>
-                    <version>3.4.1</version>
+                    <version>${liquibase.maven.plugin.version}</version>
                     <configuration>
                         <propertyFile>src/main/resources/db/changelog/postgre/liquibase.properties</propertyFile>
                         <changeLogFile>src/main/resources/db/changelog/postgre/pg.changelog-master.xml</changeLogFile>
@@ -57,10 +51,34 @@
                             <artifactId>postgresql</artifactId>
                             <version>42.2.20</version>
                         </dependency>
+                        <dependency>
+                            <groupId>jakarta.xml.bind</groupId>
+                            <artifactId>jakarta.xml.bind-api</artifactId>
+                            <version>${jakarta.xml.bind.version}</version>
+                        </dependency>
                     </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>mongo</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.liquibase.ext</groupId>
+                    <artifactId>liquibase-mongodb</artifactId>
+                    <version>${liquibase.ext.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>postgre</id>
+        </profile>
+    </profiles>
 
 </project>

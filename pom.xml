@@ -24,7 +24,10 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <openapi.ui.version>1.5.1</openapi.ui.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <liquibase.ext.version>4.3.0</liquibase.ext.version>
         <liquibase.version>4.3.0</liquibase.version>
+        <liquibase.maven.plugin.version>4.3.0</liquibase.maven.plugin.version>
+        <jakarta.xml.bind.version>2.3.2</jakarta.xml.bind.version>
     </properties>
 
     <dependencies>
@@ -55,7 +58,7 @@
             <dependency>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.version}</version>
+                <version>${liquibase.maven.plugin.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

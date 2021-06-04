@@ -1,13 +1,14 @@
 package com.example.controller;
 
 
-import com.example.model.Restaurant;
-import com.example.service.restaurant.RestaurantService;
+
+import com.example.restaurant.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 public class RestaurantController {
@@ -20,7 +21,7 @@ public class RestaurantController {
     }
 
     @GetMapping(value = "/restaurants")
-    public List<Restaurant> getAll() {
-        return restaurantService.getAll();
+    public ResponseEntity getAll() {
+        return new ResponseEntity(restaurantService.getAll(), HttpStatus.OK);
     }
 }
