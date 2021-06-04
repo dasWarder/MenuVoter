@@ -1,4 +1,7 @@
 com\example\menu\MenuService.class
 com\example\menu\MenuServiceImpl.class
 com\example\restaurant\RestaurantService.class
+com\example\exception\RestaurantNotFoundException.class
 com\example\restaurant\RestaurantServiceImpl.class
+com\example\exception\MenuNotFoundException.class
+com\example\dto\MenuDto.class
