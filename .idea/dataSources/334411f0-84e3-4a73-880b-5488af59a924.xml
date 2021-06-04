@@ -7,5 +7,115 @@
     <schema id="2" parent="1" name="admin"/>
     <schema id="3" parent="1" name="config"/>
     <schema id="4" parent="1" name="local"/>
+    <schema id="5" parent="1" name="menu">
+      <Current>1</Current>
+    </schema>
+    <table id="6" parent="5" name="DATABASECHANGELOG"/>
+    <table id="7" parent="5" name="DATABASECHANGELOGLOCK"/>
+    <table id="8" parent="5" name="menu"/>
+    <column id="9" parent="6" name="_id">
+      <Position>1</Position>
+      <DataType>ObjectId|12s</DataType>
+    </column>
+    <column id="10" parent="6" name="author">
+      <Position>1</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="11" parent="6" name="dateExecuted">
+      <Position>1</Position>
+      <DataType>ISODate|91s</DataType>
+    </column>
+    <column id="12" parent="6" name="execType">
+      <Position>1</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="13" parent="6" name="md5sum">
+      <Position>1</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="14" parent="6" name="tag">
+      <Position>1</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="15" parent="6" name="comments">
+      <Position>2</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="16" parent="6" name="deploymentId">
+      <Position>2</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="17" parent="6" name="fileName">
+      <Position>2</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="18" parent="6" name="orderExecuted">
+      <Position>2</Position>
+      <DataType>Int32|4s</DataType>
+    </column>
+    <column id="19" parent="6" name="contexts">
+      <Position>3</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="20" parent="6" name="description">
+      <Position>3</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="21" parent="6" name="id">
+      <Position>3</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="22" parent="6" name="labels">
+      <Position>4</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="23" parent="6" name="liquibase">
+      <Position>5</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="24" parent="7" name="_id">
+      <Position>1</Position>
+      <DataType>Int32|4s</DataType>
+    </column>
+    <column id="25" parent="7" name="lockGranted">
+      <Position>1</Position>
+      <DataType>ISODate|91s</DataType>
+    </column>
+    <column id="26" parent="7" name="locked">
+      <Position>2</Position>
+      <DataType>Boolean|12s</DataType>
+    </column>
+    <column id="27" parent="7" name="lockedBy">
+      <Position>3</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="28" parent="8" name="_id">
+      <Position>1</Position>
+      <DataType>ObjectId|12s</DataType>
+    </column>
+    <column id="29" parent="8" name="creating_date">
+      <Position>1</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="30" parent="8" name="dishes">
+      <Position>1</Position>
+      <DataType>list|4999545s</DataType>
+    </column>
+    <column id="31" parent="8" name="rate">
+      <Position>1</Position>
+      <DataType>Double|8s</DataType>
+    </column>
+    <column id="32" parent="8" name="dishes.description">
+      <Position>2</Position>
+      <DataType>String|12s</DataType>
+    </column>
+    <column id="33" parent="8" name="restaurant_id">
+      <Position>2</Position>
+      <DataType>Int32|4s</DataType>
+    </column>
+    <column id="34" parent="8" name="dishes.name">
+      <Position>3</Position>
+      <DataType>String|12s</DataType>
+    </column>
   </database-model>
 </dataSource>

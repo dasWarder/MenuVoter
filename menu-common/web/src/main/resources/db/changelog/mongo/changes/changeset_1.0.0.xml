@@ -13,6 +13,38 @@
                     validator: {
                         $jsonSchema: {
                             bsonType: "object",
+                            required: ["restaurant_id", "rate", "creating_date", "dishes"],
+                            properties: {
+                                restaurant_id: {
+                                    bsonType: "long",
+                                    description: "The id of a restaurant that the menu is belong"
+                                },
+                                rate: {
+                                    bsonType: "double",
+                                    description: "The rate of the current menu"
+                                },
+                                creating_date: {
+                                    bsonType: "date",
+                                    description: "The date of creating menu"
+                                },
+                                dishes: {
+                                    bsonType: "array",
+                                    items: {
+                                        bsonType: "object",
+                                        required: ["name", "description"],
+                                        properties: {
+                                            name: {
+                                                bsonType: "string",
+                                                description: "a name of a dish"
+                                            },
+                                            description: {
+                                                bsonType: "string",
+                                                description: "a description of a dish"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                     validationAction: "warn",
