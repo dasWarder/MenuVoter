@@ -4,7 +4,7 @@ import com.example.Menu;
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface MenuService {
@@ -17,7 +17,7 @@ public interface MenuService {
 
     void deleteById(String menuId, long restaurantId);
 
-    MenuRatedDto getByCreatingDate(LocalDateTime creatingDate);
+    MenuRatedDto getByCreatingDate(LocalDate creatingDate);
 
     MenuRatedDto update(long restaurantId, String menuId, MenuDto menuDto);
 }

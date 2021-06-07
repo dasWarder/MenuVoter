@@ -93,27 +93,31 @@
       <Position>1</Position>
       <DataType>ObjectId|12s</DataType>
     </column>
-    <column id="29" parent="8" name="creating_date">
+    <column id="29" parent="8" name="_class">
       <Position>1</Position>
       <DataType>String|12s</DataType>
     </column>
-    <column id="30" parent="8" name="dishes">
+    <column id="30" parent="8" name="creating_date">
+      <Position>1</Position>
+      <DataType>ISODate|91s</DataType>
+    </column>
+    <column id="31" parent="8" name="dishes">
       <Position>1</Position>
       <DataType>list|4999545s</DataType>
     </column>
-    <column id="31" parent="8" name="rate">
+    <column id="32" parent="8" name="rate">
       <Position>1</Position>
       <DataType>Double|8s</DataType>
     </column>
-    <column id="32" parent="8" name="dishes.description">
+    <column id="33" parent="8" name="dishes.description">
       <Position>2</Position>
       <DataType>String|12s</DataType>
     </column>
-    <column id="33" parent="8" name="restaurant_id">
+    <column id="34" parent="8" name="restaurant_id">
       <Position>2</Position>
-      <DataType>Int32|4s</DataType>
+      <DataType>Int64|12s</DataType>
     </column>
-    <column id="34" parent="8" name="dishes.name">
+    <column id="35" parent="8" name="dishes.name">
       <Position>3</Position>
       <DataType>String|12s</DataType>
     </column>

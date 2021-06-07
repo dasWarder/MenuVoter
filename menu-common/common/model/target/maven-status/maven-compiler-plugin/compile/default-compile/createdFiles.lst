@@ -1,3 +1,6 @@
 com\example\Dish.class
 com\example\Menu.class
+com\example\Restaurant$RestaurantBuilder.class
 com\example\Restaurant.class
+com\example\Menu$MenuBuilder.class
+com\example\Dish$DishBuilder.class

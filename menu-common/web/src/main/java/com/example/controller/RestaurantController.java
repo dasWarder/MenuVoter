@@ -14,6 +14,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping(value = "/restaurants")
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
@@ -23,7 +24,7 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
-    @GetMapping(value = "/restaurants")
+    @GetMapping
     public ResponseEntity<List<Restaurant>> getAll() {
 
         log.info("Receiving a collection of restaurants into the restaurant controller");
@@ -32,7 +33,7 @@ public class RestaurantController {
         return new ResponseEntity(restaurants, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/restaurants/restaurant")
+    @PostMapping(value = "/restaurant")
     public ResponseEntity<Restaurant> save(@RequestBody Restaurant restaurant) {
 
         log.info("Storing a new restaurant with the name = {}", restaurant.getName());
@@ -41,7 +42,7 @@ public class RestaurantController {
         return new ResponseEntity(storedRestaurant, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/restaurants/restaurant/{id}")
+    @GetMapping(value = "/restaurant/{id}")
     public ResponseEntity<Restaurant> getOne(@PathVariable("id") Long restaurantId) {
 
         log.info("Receiving a restaurant with ID = ", restaurantId);
@@ -50,7 +51,7 @@ public class RestaurantController {
         return new ResponseEntity(receivedRestaurant, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/restaurants/restaurant/{id}")
+    @PutMapping(value = "/restaurant/{id}")
     public ResponseEntity<Restaurant> update(@PathVariable("id") Long restaurantId,
                                  @RequestBody Restaurant restaurant) {
 
@@ -60,7 +61,7 @@ public class RestaurantController {
         return new ResponseEntity(storedRestaurant, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/restaurants/restaurant/{id}")
+    @DeleteMapping(value = "/restaurant/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") Long restaurantId) {
 
         log.info("Removing a restaurant with ID = ", restaurantId);
@@ -69,6 +70,15 @@ public class RestaurantController {
         String response = String.format("The restaurant with ID = %d was successfully removed", restaurantId);
 
         return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/restaurant")
+    public ResponseEntity<Restaurant> getByName(@RequestParam("name") String name) {
+
+        log.info("Receiving a restaurant by its name = {}", name);
+        Restaurant restaurantByName = restaurantService.getByName(name);
+
+        return new ResponseEntity<>(restaurantByName, HttpStatus.OK);
     }
 
 }

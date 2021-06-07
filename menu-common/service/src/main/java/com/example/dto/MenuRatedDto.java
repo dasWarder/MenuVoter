@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -20,7 +20,9 @@ public class MenuRatedDto {
 
     private Double rate;
 
-    private LocalDateTime creatingDate;
+    private Long votes;
+
+    private LocalDate creatingDate;
 
     private List<Dish> dishes;
 }

@@ -12,8 +12,8 @@
                 [
                     {
                             restaurant_id: 1,
-                            rate: 6.5,
-                            creating_date: "2021-04-21T09:30:00",
+                            rate: 0.0,
+                            creating_date: "2021-04-21",
                             dishes: [
                                 {     name: "Pizza",
                                       description: "The pizza text"

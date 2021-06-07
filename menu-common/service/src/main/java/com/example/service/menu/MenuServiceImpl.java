@@ -10,10 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Objects.isNull;
 import static org.springframework.util.Assert.notNull;
 
 
@@ -92,10 +93,16 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuRatedDto getByCreatingDate(LocalDateTime creatingDate) {
-        notNull(creatingDate, "The creating date must be NOT null");
+    public MenuRatedDto getByCreatingDate(LocalDate creatingDate) {
+        Optional<Menu> possibleMenu;
 
-        Optional<Menu> possibleMenu = menuRepository.getMenuByCreatingDate(creatingDate);
+        if(creatingDate == null) {
+            log.info("Receiving a menu for today");
+            possibleMenu = menuRepository.getMenuByCreatingDate(LocalDate.now());
+        } else {
+            log.info("Receiving a menu for a creating date = {}", creatingDate);
+            possibleMenu = menuRepository.getMenuByCreatingDate(creatingDate);
+        }
 
         if(possibleMenu.isPresent()) {
             log.info("Receiving the menu with the date of creating = {}", creatingDate);

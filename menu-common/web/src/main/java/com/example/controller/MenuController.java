@@ -10,11 +10,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping(value = "/restaurants/restaurant/{restId}/menus")
 public class MenuController {
 
     private final MenuService menuService;
@@ -24,7 +26,7 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    @GetMapping(value = "/restaurants/restaurant/{restId}/menus")
+    @GetMapping
     public ResponseEntity<List<MenuRatedDto>> getAllByRestaurant(@PathVariable("restId") long restaurantId) {
 
         log.info("Receiving a collection of menus for a restaurant with ID = {}", restaurantId);
@@ -33,7 +35,7 @@ public class MenuController {
         return new ResponseEntity(menus, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/restaurants/restaurant/{restId}/menu")
+    @PostMapping(value = "/menu")
     public ResponseEntity<MenuRatedDto> save(@RequestBody MenuDto menuDto,
                                          @PathVariable("restId") Long restaurantId) {
 
@@ -45,7 +47,7 @@ public class MenuController {
         return new ResponseEntity<>(stored, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/restaurants/restaurant/{restId}/menu/{menuId}")
+    @GetMapping(value = "/menu/{menuId}")
     public ResponseEntity<MenuRatedDto> getOne(@PathVariable("restId") Long restaurantId,
                                  @PathVariable("menuId") String menuId) {
 
@@ -55,7 +57,7 @@ public class MenuController {
         return new ResponseEntity(receivedMenu, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/restaurants/restaurant/{restId}/menu/{menuId}")
+    @DeleteMapping(value = "/menu/{menuId}")
     public ResponseEntity<String> delete(@PathVariable("restId") Long restaurantId,
                                  @PathVariable("menuId") String menuId) {
 
@@ -69,7 +71,7 @@ public class MenuController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/restaurants/restaurant/{restId}/menu/{menuId}")
+    @PutMapping(value = "/menu/{menuId}")
     public ResponseEntity<MenuRatedDto> update(@PathVariable("restId") Long restaurantId,
                                  @PathVariable("menuId") String menuId,
                                  @RequestBody MenuDto menuDto) {
@@ -80,15 +82,16 @@ public class MenuController {
         return new ResponseEntity(updatedMenu, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/restaurants/restaurant/{restId}/menu")
+    @GetMapping(value = "/menu")
     public ResponseEntity<MenuRatedDto> getOnDateMenu(@PathVariable("restId") Long restaurantId,
-                                                      @RequestParam(value = "date")
+                                                      @RequestParam(value = "date", required = false)
                                                       @DateTimeFormat(iso =
-                                                              DateTimeFormat.ISO.DATE_TIME) LocalDateTime menuDate) {
+                                                              DateTimeFormat.ISO.DATE_TIME) LocalDate menuDate) {
 
         log.info("Get the menu by the date of creating menu for the restaurant with ID = {}", restaurantId);
         MenuRatedDto menu = menuService.getByCreatingDate(menuDate);
 
         return new ResponseEntity<>(menu, HttpStatus.OK);
     }
+
 }

@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Menu {
     private Double rate;
 
     @Field(value = "creating_date")
-    private LocalDateTime creatingDate;
+    private LocalDate creatingDate;
 
     @Field(value = "dishes")
     private List<Dish> dishes;
