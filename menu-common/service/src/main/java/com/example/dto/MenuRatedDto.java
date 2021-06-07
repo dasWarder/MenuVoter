@@ -9,13 +9,16 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuDto {
+public class MenuRatedDto {
 
     private String id;
+
+    private Double rate;
 
     private LocalDateTime creatingDate;
 

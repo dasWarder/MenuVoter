@@ -3,7 +3,7 @@ package com.example.controller;
 
 
 import com.example.Restaurant;
-import com.example.restaurant.RestaurantService;
+import com.example.service.restaurant.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class RestaurantController {
     }
 
     @GetMapping(value = "/restaurants")
-    public ResponseEntity getAll() {
+    public ResponseEntity<List<Restaurant>> getAll() {
 
         log.info("Receiving a collection of restaurants into the restaurant controller");
         List<Restaurant> restaurants = restaurantService.getAll();
@@ -33,7 +33,7 @@ public class RestaurantController {
     }
 
     @PostMapping(value = "/restaurants/restaurant")
-    public ResponseEntity save(@RequestBody Restaurant restaurant) {
+    public ResponseEntity<Restaurant> save(@RequestBody Restaurant restaurant) {
 
         log.info("Storing a new restaurant with the name = {}", restaurant.getName());
         Restaurant storedRestaurant = restaurantService.save(restaurant);
@@ -42,7 +42,7 @@ public class RestaurantController {
     }
 
     @GetMapping(value = "/restaurants/restaurant/{id}")
-    public ResponseEntity getOne(@PathVariable("id") Long restaurantId) {
+    public ResponseEntity<Restaurant> getOne(@PathVariable("id") Long restaurantId) {
 
         log.info("Receiving a restaurant with ID = ", restaurantId);
         Restaurant receivedRestaurant = restaurantService.getById(restaurantId);
@@ -51,7 +51,7 @@ public class RestaurantController {
     }
 
     @PutMapping(value = "/restaurants/restaurant/{id}")
-    public ResponseEntity update(@PathVariable("id") Long restaurantId,
+    public ResponseEntity<Restaurant> update(@PathVariable("id") Long restaurantId,
                                  @RequestBody Restaurant restaurant) {
 
         log.info("Updating a restaurant with ID = ", restaurantId);
@@ -61,7 +61,7 @@ public class RestaurantController {
     }
 
     @DeleteMapping(value = "/restaurants/restaurant/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long restaurantId) {
+    public ResponseEntity<String> delete(@PathVariable("id") Long restaurantId) {
 
         log.info("Removing a restaurant with ID = ", restaurantId);
         restaurantService.delete(restaurantId);

@@ -1,8 +1,9 @@
 package com.example.controller;
 
 
-import com.example.Menu;
-import com.example.menu.MenuService;
+import com.example.dto.MenuDto;
+import com.example.dto.MenuRatedDto;
+import com.example.service.menu.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,37 +24,38 @@ public class MenuController {
     }
 
     @GetMapping(value = "/restaurants/restaurant/{restId}/menus")
-    public ResponseEntity getAllByRestaurant(@PathVariable("restId") long restaurantId) {
+    public ResponseEntity<List<MenuRatedDto>> getAllByRestaurant(@PathVariable("restId") long restaurantId) {
 
-        log.info("Receiving a collection of menus for a restaurant with ID = ", restaurantId);
-        List<Menu> menus = menuService.getAllByRestaurantId(restaurantId);
+        log.info("Receiving a collection of menus for a restaurant with ID = {}", restaurantId);
+        List<MenuRatedDto> menus = menuService.getAllByRestaurantId(restaurantId);
 
         return new ResponseEntity(menus, HttpStatus.OK);
     }
 
     @PostMapping(value = "/restaurants/restaurant/{restId}/menu")
-    public ResponseEntity<Menu> save(@RequestBody Menu menu,
+    public ResponseEntity<MenuRatedDto> save(@RequestBody MenuDto menuDto,
                                          @PathVariable("restId") Long restaurantId) {
 
-        log.info("Storing the menu with ID = {} for a restaurant with ID = ",
-                menu.getId(), menu.getRestaurantId());
-        Menu stored = menuService.save(menu, restaurantId);
+        log.info("Storing the menu from = {} for a restaurant with ID = {}",
+                menuDto.getCreatingDate(), restaurantId);
+
+        MenuRatedDto stored = menuService.save(menuDto, restaurantId);
 
         return new ResponseEntity<>(stored, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/restaurants/restaurant/{restId}/menu/{menuId}")
-    public ResponseEntity getOne(@PathVariable("restId") Long restaurantId,
+    public ResponseEntity<MenuRatedDto> getOne(@PathVariable("restId") Long restaurantId,
                                  @PathVariable("menuId") String menuId) {
 
         log.info("Receiving the menu with ID = {} and a restaurant ID = {}", menuId, restaurantId);
-        Menu receivedMenu = menuService.getById(menuId, restaurantId);
+        MenuRatedDto receivedMenu = menuService.getById(menuId, restaurantId);
 
         return new ResponseEntity(receivedMenu, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/restaurants/restaurant/{restId}/menu/{menuId}")
-    public ResponseEntity delete(@PathVariable("restId") Long restaurantId,
+    public ResponseEntity<String> delete(@PathVariable("restId") Long restaurantId,
                                  @PathVariable("menuId") String menuId) {
 
         log.info("Removing a menu for ID = {} and the restaurant ID = {}", menuId, restaurantId);
@@ -67,12 +69,12 @@ public class MenuController {
     }
 
     @PutMapping(value = "/restaurants/restaurant/{restId}/menu/{menuId}")
-    public ResponseEntity update(@PathVariable("restId") Long restaurantId,
+    public ResponseEntity<MenuRatedDto> update(@PathVariable("restId") Long restaurantId,
                                  @PathVariable("menuId") String menuId,
-                                 @RequestBody Menu menu) {
+                                 @RequestBody MenuDto menuDto) {
 
         log.info("Updating the menu with ID = {} and a restaurant ID = {}", menuId, restaurantId);
-        Menu updatedMenu = menuService.update(restaurantId, menuId, menu);
+        MenuRatedDto updatedMenu = menuService.update(restaurantId, menuId, menuDto);
 
         return new ResponseEntity(updatedMenu, HttpStatus.OK);
     }
