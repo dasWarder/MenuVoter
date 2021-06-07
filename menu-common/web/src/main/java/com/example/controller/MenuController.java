@@ -6,10 +6,11 @@ import com.example.dto.MenuRatedDto;
 import com.example.service.menu.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -77,5 +78,17 @@ public class MenuController {
         MenuRatedDto updatedMenu = menuService.update(restaurantId, menuId, menuDto);
 
         return new ResponseEntity(updatedMenu, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/restaurants/restaurant/{restId}/menu")
+    public ResponseEntity<MenuRatedDto> getOnDateMenu(@PathVariable("restId") Long restaurantId,
+                                                      @RequestParam(value = "date")
+                                                      @DateTimeFormat(iso =
+                                                              DateTimeFormat.ISO.DATE_TIME) LocalDateTime menuDate) {
+
+        log.info("Get the menu by the date of creating menu for the restaurant with ID = {}", restaurantId);
+        MenuRatedDto menu = menuService.getByCreatingDate(menuDate);
+
+        return new ResponseEntity<>(menu, HttpStatus.OK);
     }
 }
