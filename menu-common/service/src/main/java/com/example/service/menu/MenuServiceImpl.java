@@ -97,8 +97,9 @@ public class MenuServiceImpl implements MenuService {
         Optional<Menu> possibleMenu;
 
         if(creatingDate == null) {
-            log.info("Receiving a menu for today");
-            possibleMenu = menuRepository.getMenuByCreatingDate(LocalDate.now());
+            creatingDate = LocalDate.now();
+            log.info("Receiving a menu for today {}", creatingDate);
+            possibleMenu = menuRepository.getMenuByCreatingDate(creatingDate);
         } else {
             log.info("Receiving a menu for a creating date = {}", creatingDate);
             possibleMenu = menuRepository.getMenuByCreatingDate(creatingDate);

@@ -13,13 +13,51 @@
                     {
                             restaurant_id: 1,
                             rate: 0.0,
+                            votes: 0,
                             creating_date: "2021-04-21",
                             dishes: [
-                                {     name: "Pizza",
-                                      description: "The pizza text"
+                                {     name: "Risotto",
+                                      description: "Classic Italian risotto"
                                 },
-                                {     name: "Pasta",
-                                      description: "The pasta text"
+                                {     name: "Pasta with seafood",
+                                      description: "Seafood pasta with octopus, shrimps and etc"
+                                },
+                                {     name: "Cappuccino",
+                                      description: "A cup of hot cappuccino with your favorite topping"
+                                }
+                            ]
+                    },
+                    {
+                            restaurant_id: 2,
+                            rate: 0.0,
+                            votes: 0,
+                            creating_date: "2021-06-07",
+                            dishes: [
+                                {     name: "Yakitori",
+                                      description: "The hot yakitori"
+                                },
+                                {     name: "Miso soup",
+                                      description: "A classic Japanese type of soups with miso cheeze"
+                                },
+                                {     name: "Green tea",
+                                      description: "Classic matcha green tea"
+                                }
+                            ]
+                    },
+                    {
+                            restaurant_id: 1,
+                            rate: 0.0,
+                            votes: 0,
+                            creating_date: "2021-06-07",
+                            dishes: [
+                                {       name: "Tomato soup",
+                                        description: "Fresh summer soup with tomatoes"
+                                },
+                                {       name: "Pizza margaretta",
+                                        description: "A piece of delicious margaretta pizza"
+                                },
+                                {       name: "Latte",
+                                        description: "A coup of latte"
                                 }
                             ]
                     }

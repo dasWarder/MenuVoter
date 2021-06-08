@@ -86,7 +86,7 @@ public class MenuController {
     public ResponseEntity<MenuRatedDto> getOnDateMenu(@PathVariable("restId") Long restaurantId,
                                                       @RequestParam(value = "date", required = false)
                                                       @DateTimeFormat(iso =
-                                                              DateTimeFormat.ISO.DATE_TIME) LocalDate menuDate) {
+                                                              DateTimeFormat.ISO.DATE) LocalDate menuDate) {
 
         log.info("Get the menu by the date of creating menu for the restaurant with ID = {}", restaurantId);
         MenuRatedDto menu = menuService.getByCreatingDate(menuDate);

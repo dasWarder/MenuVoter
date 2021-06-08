@@ -3,7 +3,6 @@ package com.example.service.mapping;
 import com.example.Menu;
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
-import com.example.dto.VoteDto;
 import com.example.service.rate.util.VoteCounter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class MappingServiceImpl implements MappingService {
                 .creatingDate(dto.getCreatingDate())
                 .dishes(dto.getDishes())
                 .rate(0.0)
-                .build();
+                .votes(0L).build();
 
         if(dto.getId() != null) {
             log.info("Mapping DTO with ID = {}", dto.getId());
@@ -53,13 +52,12 @@ public class MappingServiceImpl implements MappingService {
         notNull(menu, "The menu object must be not NULL");
 
         log.info("Mapping from menu to menuDTO an object with ID = {}", menu.getId());
-        long votes = voteCounter.getCurrentCount(menu.getId());
-
+        Long rate = Math.round(menu.getRate());
         MenuRatedDto dto = MenuRatedDto.builder()
                 .id(menu.getId())
                 .creatingDate(menu.getCreatingDate())
-                .rate(menu.getRate())
-                .votes(votes)
+                .rate(rate.doubleValue())
+                .votes(menu.getVotes())
                 .dishes(menu.getDishes())
                 .build();
 
@@ -81,7 +79,8 @@ public class MappingServiceImpl implements MappingService {
                             .creatingDate(dto.getCreatingDate())
                             .restaurantId(restaurantId)
                             .dishes(dto.getDishes())
-                            .rate(0.0).build());
+                            .rate(0.0)
+                            .votes(0L).build());
         });
 
         return menus;
@@ -94,15 +93,14 @@ public class MappingServiceImpl implements MappingService {
 
        log.info("Mapping from Menu List to Menu Rated DTO List");
        menuList.forEach(menu -> {
-           long votes = voteCounter.getCurrentCount(menu.getId());
-
+            Long rate = Math.round(menu.getRate());
            menuRatedDtoList.add(
                    MenuRatedDto.builder()
                            .id(menu.getId())
                            .creatingDate(menu.getCreatingDate())
                            .dishes(menu.getDishes())
-                           .rate(menu.getRate())
-                           .votes(votes).build());
+                           .rate(rate.doubleValue())
+                           .votes(menu.getVotes()).build());
        });
 
        return menuRatedDtoList;

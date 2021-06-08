@@ -3,6 +3,7 @@ com\example\service\restaurant\RestaurantServiceImpl.class
 com\example\dto\MenuRatedDto.class
 com\example\service\mapping\MappingServiceImpl.class
 com\example\service\menu\MenuService.class
+com\example\scheduler\EverydayVoteUpdating.class
 com\example\dto\VoteDto$VoteDtoBuilder.class
 com\example\service\rate\RateServiceImpl.class
 com\example\service\rate\util\VoteCounter.class

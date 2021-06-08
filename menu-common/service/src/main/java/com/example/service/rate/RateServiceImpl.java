@@ -39,9 +39,10 @@ public class RateServiceImpl implements RateService {
     @Override
     public Double calculateRate(String menuId, Double userRate, Long restaurantId) {
         notNull(menuId, "The menu ID must be not NULL");
+        Menu menu = getNonNullableMenu(menuId, restaurantId);
 
-        voteCounter.incrementCounter(menuId);
-        Double averageRate = getAverageRate(menuId, userRate);
+        voteCounter.incrementCounter(menu);
+        Double averageRate = getAverageRate(menu, userRate);
 
         return averageRate;
     }
@@ -54,6 +55,7 @@ public class RateServiceImpl implements RateService {
 
         Menu menu = getNonNullableMenu(menuId, restaurantId);
         menu.setRate(averageMenuRate);
+        menu.setVotes(voteCounter.getCurrentCount(menu));
         Menu storedMenu = menuRepository.save(menu);
 
         log.info("Mapping a menu with ID = {} to RatedDTO object for upgrading the current menu");
@@ -78,26 +80,32 @@ public class RateServiceImpl implements RateService {
     }
 
 
-    private Double getAverageRate(String menuId, Double userRate) {
+    private Double getAverageRate(Menu menu, Double userRate) {
+        String menuId = menu.getId();
+        //in case when there is no rate for the menu need to add a new 0.0 value
         rateMap.computeIfAbsent(menuId, k -> {
             log.info("Creating a new rate for a menu with ID = {}", menuId);
-            return 0.0d;
+            return menu.getRate();
         });
 
         log.info("Calculate average menu rate for menu with ID = {}", menuId);
-        rateMap.computeIfPresent(menuId, getCountingFunction(menuId, userRate));
+        rateMap.computeIfPresent(menuId, getCountingFunction(menu, userRate));
 
         return rateMap.get(menuId);
     }
 
-    private BiFunction<String, Double, Double> getCountingFunction(String menuId, Double userRate) {
+    private BiFunction<String, Double, Double> getCountingFunction(Menu menu, Double userRate) {
         BiFunction<String, Double, Double> countingFunction;
-
-        if(voteCounter.getCurrentCount(menuId) == 1 && rateMap.get(menuId) == 0.0d ) {
-            log.info("Creating counting function for the first rate for menu with ID = {}", menuId);
+        //for the first vote the formula must be different, when the counter = 1 (only one vote) and
+        // hashMap without rate for this menu
+        if(menu.getVotes() < 1) {
+            //i.e. if userRate = 6.0 for the first vote the formula will be calculate like 6.0 + 0.0
+            log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}", menu.getId());
             countingFunction = (k,v) -> (v + userRate);
         } else {
-            log.info("Creating counting function for the first rate for menu with ID = {}", menuId);
+            //i.e. userRate = 7.0 and the average rate for the menu is 5.5 then
+            // 5.5 + 7.0 = 12.5 and 12.5/2 = 6.25
+            log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}", menu.getId());
             countingFunction = (k,v) -> (v + userRate) / 2;
         }
 

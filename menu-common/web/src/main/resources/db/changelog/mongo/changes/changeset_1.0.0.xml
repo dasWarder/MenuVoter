@@ -13,7 +13,7 @@
                     validator: {
                         $jsonSchema: {
                             bsonType: "object",
-                            required: ["restaurant_id", "rate", "creating_date", "dishes"],
+                            required: ["restaurant_id", "rate", "votes", "creating_date", "dishes"],
                             properties: {
                                 restaurant_id: {
                                     bsonType: "long",
@@ -22,6 +22,10 @@
                                 rate: {
                                     bsonType: "double",
                                     description: "The rate of the current menu"
+                                },
+                                votes: {
+                                    bsonType: "long",
+                                    description: "The count of votes"
                                 },
                                 creating_date: {
                                     bsonType: "date",

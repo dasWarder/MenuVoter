@@ -29,6 +29,9 @@ public class Menu {
     @Field(value = "rate")
     private Double rate;
 
+    @Field(value = "votes")
+    private Long votes;
+
     @Field(value = "creating_date")
     private LocalDate creatingDate;
 
