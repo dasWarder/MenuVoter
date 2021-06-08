@@ -1,10 +1,12 @@
 package com.example.service.rate;
 
 import com.example.dto.MenuRatedDto;
+import com.example.dto.VoteDto;
+import com.example.menu.Menu;
 
 public interface RateService {
 
-    Double calculateRate(String menuId, Double userRate, Long restaurantId);
+    Double calculateRate(Menu menu, Double userRate);
 
-    MenuRatedDto updateRate(String menuId, Long restaurantId, Double averageMenuRate);
+    MenuRatedDto updateRate(VoteDto voteDto, Long restaurantId);
 }

@@ -1,8 +1,10 @@
 package com.example.controller;
 
 
+import com.example.customer.Customer;
 import com.example.dto.MenuRatedDto;
 import com.example.dto.VoteDto;
+import com.example.service.customer.CustomerService;
 import com.example.service.menu.MenuService;
 import com.example.service.rate.RateService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,24 +19,41 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/restaurants/restaurant/{restId}/menus/menu")
 public class RateController {
 
+    private static final String VOTED_MESSAGE = "You already voted today, please back tomorrow!";
+
     private final RateService rateService;
 
+    private final CustomerService customerService;
+
     @Autowired
-    public RateController(RateService rateService) {
+    public RateController(RateService rateService, CustomerService customerService) {
         this.rateService = rateService;
+        this.customerService = customerService;
     }
 
     @PostMapping(value = "/rate")
-    public ResponseEntity<MenuRatedDto> vote(@RequestBody VoteDto voteDto,
+    public ResponseEntity vote(@RequestBody VoteDto voteDto,
                                         @PathVariable("restId") Long restaurantId) {
 
-        log.info("Voting for menu of a restaurant with ID = {}", restaurantId);
-        Double rate = voteDto.getRate();
-        String menuId = voteDto.getMenuId();
+        String email = voteDto.getEmail();
+        Customer customer = customerService.getByEmail(email);
 
-        Double averageRate = rateService.calculateRate(menuId, rate, restaurantId);
-        MenuRatedDto menuRatedDto = rateService.updateRate(menuId, restaurantId, averageRate);
+        if(customer == null) {
+            customer = customerService.save(new Customer(email));
+        }
 
-        return new ResponseEntity<>(menuRatedDto, HttpStatus.OK);
+        if(!customer.isVoted()) {
+            customerService.update(
+                    new Customer(customer.getEmail(), true),
+                    customer.getId());
+
+            log.info("Voting for menu of a restaurant with ID = {}", restaurantId);
+            MenuRatedDto menuRatedDto = rateService.updateRate(voteDto, restaurantId);
+
+            return new ResponseEntity(menuRatedDto, HttpStatus.OK);
+        }
+
+
+        return new ResponseEntity(VOTED_MESSAGE, HttpStatus.OK);
     }
 }

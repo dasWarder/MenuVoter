@@ -1,6 +1,7 @@
 package com.example.service.rate;
 
 
+import com.example.dto.VoteDto;
 import com.example.menu.Menu;
 import com.example.MenuRepository;
 import com.example.dto.MenuRatedDto;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
+import static com.example.service.rate.util.NonNullableMenu.getNonNullableMenu;
 import static org.springframework.util.Assert.notNull;
 
 @Slf4j
@@ -37,9 +39,9 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public Double calculateRate(String menuId, Double userRate, Long restaurantId) {
-        notNull(menuId, "The menu ID must be not NULL");
-        Menu menu = getNonNullableMenu(menuId, restaurantId);
+    public Double calculateRate(Menu menu, Double userRate) {
+        notNull(menu, "The menu must be not NULL");
+        notNull(userRate, "The user rate must be not NULL");
 
         voteCounter.incrementCounter(menu);
         Double averageRate = getAverageRate(menu, userRate);
@@ -48,37 +50,20 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
-    public MenuRatedDto updateRate(String menuId, Long restaurantId, Double averageMenuRate) {
-        notNull(menuId, "The ID of a menu must be not NULL");
-        notNull(restaurantId, "The ID of a restaurant must be not NULL");
-        notNull(averageMenuRate, "The average rate must be not NULL");
+    public MenuRatedDto updateRate(VoteDto voteDto, Long restaurantId) {
+        notNull(voteDto, "The vote DTO must be not NULL");
+        notNull(voteDto, "The restaurant ID must be not NULL");
 
-        Menu menu = getNonNullableMenu(menuId, restaurantId);
-        menu.setRate(averageMenuRate);
-        menu.setVotes(voteCounter.getCurrentCount(menu));
-        Menu storedMenu = menuRepository.save(menu);
+        String menuId = voteDto.getMenuId();
+        Double userRate = voteDto.getRate();
+
+        Menu storedMenu = getAndUpdateMenu(menuId, restaurantId, userRate);
 
         log.info("Mapping a menu with ID = {} to RatedDTO object for upgrading the current menu");
         MenuRatedDto menuRatedDto = mappingService.fromMenuToRatedDto(storedMenu);
 
         return menuRatedDto;
     }
-
-    private Menu getNonNullableMenu(String menuId, Long restaurantId) {
-        Optional<Menu> possibleMenu = menuRepository.getMenuByIdAndRestaurantId(menuId, restaurantId);
-
-        if (possibleMenu.isPresent()) {
-            log.info("Receiving a menu with ID = {} for the restaurant with ID = {}", menuId, restaurantId);
-            Menu menu = possibleMenu.get();
-
-            return menu;
-        }
-
-        throw new MenuNotFoundException(String
-                                        .format("The menu with ID = %s for a restaurant with ID = %d hasn't been found",
-                                                                                                    menuId, restaurantId));
-    }
-
 
     private Double getAverageRate(Menu menu, Double userRate) {
         String menuId = menu.getId();
@@ -109,5 +94,18 @@ public class RateServiceImpl implements RateService {
         }
 
         return countingFunction;
+    }
+
+    private Menu getAndUpdateMenu(String menuId, long restaurantId, Double userRate) {
+        log.info("Get menu with ID = {} to update it for voting", menuId);
+
+        Menu menu = getNonNullableMenu(menuRepository, menuId, restaurantId);
+        Double averageMenuRate = calculateRate(menu, userRate);
+
+        menu.setRate(averageMenuRate);
+        menu.setVotes(voteCounter.getCurrentCount(menu));
+        Menu storedMenu = menuRepository.save(menu);
+
+        return storedMenu;
     }
 }

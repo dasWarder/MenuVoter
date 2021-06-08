@@ -3,6 +3,7 @@ package com.example.service.customer;
 import com.example.CustomerRepository;
 import com.example.customer.Customer;
 import com.example.exception.CustomerNotFoundException;
+import com.example.restaurant.Restaurant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer save(Customer customer) {
         notNull(customer, "The customer must be not NULL");
         log.info("Storing a customer");
+        customer.setVoted(false);
 
         return customerRepository.save(customer);
     }
@@ -66,9 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
             return possibleCustomer.get();
         }
 
-        log.info("The exception for a customer with email = {} has been occurred", email);
-        throw new CustomerNotFoundException(String
-                .format("The customer with email = %d not found", email));
+        return null;
     }
 
     @Override
@@ -83,5 +83,17 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("Receiving a list of all already voted customers");
 
         return customerRepository.getAllByVotedTrue();
+    }
+
+    @Override
+    public Customer update(Customer customer, Long customerId) {
+        notNull(customer, "The customer must be not NULL");
+        notNull(customer, "The customer ID must be not NULL");
+
+        log.info("Update the customer with ID = ", customerId);
+        customer.setId(customerId);
+        Customer updatedCustomer = customerRepository.save(customer);
+
+        return updatedCustomer;
     }
 }

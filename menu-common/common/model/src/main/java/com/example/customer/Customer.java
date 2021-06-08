@@ -9,14 +9,13 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "customer")
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
     @SequenceGenerator(name = "users_seq", sequenceName = "users_seq", allocationSize = 1)
     private Long id;
 
@@ -26,4 +25,12 @@ public class Customer {
     @Column(name = "voted")
     private boolean voted;
 
+    public Customer(String email) {
+        this.email = email;
+    }
+
+    public Customer(String email, boolean voted) {
+        this.email = email;
+        this.voted = voted;
+    }
 }

@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VoteDto {
 
+    private String email;
+
     private String menuId;
 
     private Double rate;

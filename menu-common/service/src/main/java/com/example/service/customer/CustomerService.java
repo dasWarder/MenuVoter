@@ -17,4 +17,6 @@ public interface CustomerService {
     List<Customer> getAll();
 
     List<Customer> getAllVoted();
+
+    Customer update(Customer customer, Long customerId);
 }
