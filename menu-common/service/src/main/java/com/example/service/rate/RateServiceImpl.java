@@ -1,7 +1,7 @@
 package com.example.service.rate;
 
 
-import com.example.Menu;
+import com.example.menu.Menu;
 import com.example.MenuRepository;
 import com.example.dto.MenuRatedDto;
 import com.example.exception.MenuNotFoundException;
@@ -96,8 +96,7 @@ public class RateServiceImpl implements RateService {
 
     private BiFunction<String, Double, Double> getCountingFunction(Menu menu, Double userRate) {
         BiFunction<String, Double, Double> countingFunction;
-        //for the first vote the formula must be different, when the counter = 1 (only one vote) and
-        // hashMap without rate for this menu
+        //for the first vote the formula must be different, when the counter < 1 (only one vote)
         if(menu.getVotes() < 1) {
             //i.e. if userRate = 6.0 for the first vote the formula will be calculate like 6.0 + 0.0
             log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}", menu.getId());

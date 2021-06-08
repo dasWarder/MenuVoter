@@ -2,7 +2,7 @@ package com.example.service.restaurant;
 
 
 import com.example.RestaurantRepository;
-import com.example.Restaurant;
+import com.example.restaurant.Restaurant;
 import com.example.exception.RestaurantNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

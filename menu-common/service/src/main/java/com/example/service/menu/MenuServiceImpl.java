@@ -1,7 +1,7 @@
 package com.example.service.menu;
 
 import com.example.MenuRepository;
-import com.example.Menu;
+import com.example.menu.Menu;
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
 import com.example.exception.MenuNotFoundException;
@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Objects.isNull;
 import static org.springframework.util.Assert.notNull;
 
 

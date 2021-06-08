@@ -1,6 +1,10 @@
-com\example\Dish.class
-com\example\Menu.class
-com\example\Restaurant$RestaurantBuilder.class
-com\example\Restaurant.class
-com\example\Menu$MenuBuilder.class
-com\example\Dish$DishBuilder.class
+com\example\menu\Menu.class
+com\example\user\Customer$CustomerBuilder.class
+com\example\restaurant\Restaurant$RestaurantBuilder.class
+com\example\menu\Menu$MenuBuilder.class
+com\example\user\Customer.class
+com\example\restaurant\Restaurant.class
+com\example\menu\Dish$DishBuilder.class
+com\example\menu\Dish.class
+com\example\user\AbstractIdEntity.class
+com\example\user\Role.class

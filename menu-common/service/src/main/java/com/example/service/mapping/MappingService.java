@@ -1,9 +1,8 @@
 package com.example.service.mapping;
 
-import com.example.Menu;
+import com.example.menu.Menu;
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
-import com.example.dto.VoteDto;
 
 import java.util.List;
 

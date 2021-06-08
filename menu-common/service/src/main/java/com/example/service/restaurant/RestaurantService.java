@@ -1,6 +1,6 @@
 package com.example.service.restaurant;
 
-import com.example.Restaurant;
+import com.example.restaurant.Restaurant;
 
 import java.util.List;
 

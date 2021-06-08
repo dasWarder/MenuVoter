@@ -1,6 +1,5 @@
 package com.example.service.menu;
 
-import com.example.Menu;
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
 

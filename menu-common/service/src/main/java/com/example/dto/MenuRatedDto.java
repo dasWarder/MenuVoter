@@ -1,6 +1,6 @@
 package com.example.dto;
 
-import com.example.Dish;
+import com.example.menu.Dish;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

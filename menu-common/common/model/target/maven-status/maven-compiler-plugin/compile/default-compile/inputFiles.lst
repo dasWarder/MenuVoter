@@ -1,3 +1,6 @@
-C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\Restaurant.java
-C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\Dish.java
-C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\Menu.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\menu\Menu.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\menu\Dish.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\user\AbstractIdEntity.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\restaurant\Restaurant.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\user\Customer.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\common\model\src\main\java\com\example\user\Role.java

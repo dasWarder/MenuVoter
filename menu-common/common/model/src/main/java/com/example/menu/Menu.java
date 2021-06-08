@@ -1,4 +1,4 @@
-package com.example;
+package com.example.menu;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

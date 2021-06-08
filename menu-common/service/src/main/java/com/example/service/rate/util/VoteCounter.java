@@ -1,7 +1,7 @@
 package com.example.service.rate.util;
 
 
-import com.example.Menu;
+import com.example.menu.Menu;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
