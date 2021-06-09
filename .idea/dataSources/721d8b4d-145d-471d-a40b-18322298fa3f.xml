@@ -1632,6 +1632,7 @@ true posixrules
     </table>
     <table id="35" parent="17" name="restaurant">
       <ObjectId>16601</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>user</Owner>
       <StateNumber>744</StateNumber>
     </table>

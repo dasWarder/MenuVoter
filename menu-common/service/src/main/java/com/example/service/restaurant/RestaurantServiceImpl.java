@@ -17,7 +17,7 @@ import static org.springframework.util.Assert.notNull;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private final RestaurantRepository restaurantRepository;
+    private RestaurantRepository restaurantRepository;
 
     @Autowired
     public RestaurantServiceImpl(RestaurantRepository restaurantRepository) {
@@ -33,26 +33,26 @@ public class RestaurantServiceImpl implements RestaurantService {
     public Restaurant save(Restaurant restaurant) {
         notNull(restaurant, "The restaurant for storing must be NOT null");
 
-        log.info("Storing the restaurant with ID = ", restaurant.getId());
+        log.info("Storing the restaurant with the name = {}", restaurant.getName());
         return restaurantRepository.save(restaurant);
     }
 
     @Override
-    public void delete(long restaurantId) {
+    public void delete(Long restaurantId) {
         notNull(restaurantId, "The ID of the restaurant must be NOT null");
 
-        log.info("Removing the restaurant with ID = ", restaurantId);
+        log.info("Removing the restaurant with ID = {}", restaurantId);
         restaurantRepository.deleteById(restaurantId);
     }
 
     @Override
-    public Restaurant getById(long restaurantId) {
+    public Restaurant getById(Long restaurantId) {
         notNull(restaurantId, "The ID of the restaurant must be NOT null");
 
         Optional<Restaurant> possibleRestaurant = restaurantRepository.findById(restaurantId);
 
         if(possibleRestaurant.isPresent()) {
-            log.info("Receiving the restaurant by ID = ", restaurantId);
+            log.info("Receiving the restaurant by ID = {}", restaurantId);
             return possibleRestaurant.get();
         }
 
@@ -68,7 +68,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         Optional<Restaurant> possibleRestaurant = restaurantRepository.getRestaurantByName(name);
 
         if(possibleRestaurant.isPresent()) {
-            log.info("Receiving the restaurant with the name = ", name);
+            log.info("Receiving the restaurant with the name = {}", name);
             return possibleRestaurant.get();
         }
 
@@ -82,7 +82,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         notNull(restaurant, "The restaurant must be not null");
         notNull(restaurantId, "The ID must be not null");
 
-        log.info("Update the restaurant with ID = ", restaurantId);
+        log.info("Update the restaurant with ID = {}", restaurantId);
         restaurant.setId(restaurantId);
         Restaurant updatedRestaurant = restaurantRepository.save(restaurant);
 

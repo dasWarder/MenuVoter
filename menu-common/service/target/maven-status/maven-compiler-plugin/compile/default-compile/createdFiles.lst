@@ -1,6 +1,7 @@
 com\example\service\menu\MenuServiceImpl.class
 com\example\service\restaurant\RestaurantServiceImpl.class
 com\example\dto\MenuRatedDto.class
+com\example\util\JsonMapper.class
 com\example\service\customer\CustomerServiceImpl.class
 com\example\service\mapping\MappingServiceImpl.class
 com\example\service\menu\MenuService.class

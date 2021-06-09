@@ -10,9 +10,9 @@ public interface RestaurantService {
 
     Restaurant save(Restaurant restaurant);
 
-    void delete(long restaurantId);
+    void delete(Long restaurantId);
 
-    Restaurant getById(long restaurantId);
+    Restaurant getById(Long restaurantId);
 
     Restaurant getByName(String name);
 
