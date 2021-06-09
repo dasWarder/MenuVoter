@@ -16,7 +16,7 @@ public interface MenuService {
 
     void deleteById(String menuId, long restaurantId);
 
-    MenuRatedDto getByCreatingDate(LocalDate creatingDate);
+    MenuRatedDto getByCreatingDate(LocalDate creatingDate, Long restaurantId);
 
     MenuRatedDto update(long restaurantId, String menuId, MenuDto menuDto);
 }

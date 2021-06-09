@@ -1,6 +1,7 @@
 package com.example.dto;
 
 import com.example.menu.Dish;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,8 @@ public class MenuRatedDto {
 
     private Long votes;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",
+            shape = JsonFormat.Shape.STRING)
     private LocalDate creatingDate;
 
     private List<Dish> dishes;

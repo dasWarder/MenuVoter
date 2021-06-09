@@ -17,5 +17,5 @@ public interface MenuRepository extends MongoRepository<Menu, String> {
 
     void deleteMenuByIdAndRestaurantId(String menuId, long restaurantId);
 
-    Optional<Menu> getMenuByCreatingDate(LocalDate creatingDate);
+    Optional<Menu> getMenuByCreatingDateAndRestaurantId(LocalDate creatingDate, long restaurantId);
 }

@@ -1,5 +1,6 @@
 package com.example.menu;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -33,6 +34,8 @@ public class Menu {
     private Long votes;
 
     @Field(value = "creating_date")
+    @JsonFormat(pattern = "yyyy-MM-dd",
+            shape = JsonFormat.Shape.STRING)
     private LocalDate creatingDate;
 
     @Field(value = "dishes")

@@ -1,2 +1,3 @@
 com\example\RestaurantRepository.class
 com\example\MenuRepository.class
+com\example\CustomerRepository.class

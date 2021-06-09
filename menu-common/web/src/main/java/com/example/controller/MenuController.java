@@ -89,7 +89,7 @@ public class MenuController {
                                                               DateTimeFormat.ISO.DATE) LocalDate menuDate) {
 
         log.info("Get the menu by the date of creating menu for the restaurant with ID = {}", restaurantId);
-        MenuRatedDto menu = menuService.getByCreatingDate(menuDate);
+        MenuRatedDto menu = menuService.getByCreatingDate(menuDate, restaurantId);
 
         return new ResponseEntity<>(menu, HttpStatus.OK);
     }

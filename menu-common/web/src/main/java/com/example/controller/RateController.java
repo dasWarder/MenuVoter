@@ -5,7 +5,6 @@ import com.example.customer.Customer;
 import com.example.dto.MenuRatedDto;
 import com.example.dto.VoteDto;
 import com.example.service.customer.CustomerService;
-import com.example.service.menu.MenuService;
 import com.example.service.rate.RateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class RateController {
         this.customerService = customerService;
     }
 
-    @PostMapping(value = "/rate")
+    @PutMapping(value = "/rate")
     public ResponseEntity vote(@RequestBody VoteDto voteDto,
                                         @PathVariable("restId") Long restaurantId) {
 

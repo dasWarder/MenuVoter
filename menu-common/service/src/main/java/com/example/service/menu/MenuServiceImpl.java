@@ -92,20 +92,27 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuRatedDto getByCreatingDate(LocalDate creatingDate) {
+    public MenuRatedDto getByCreatingDate(LocalDate creatingDate, Long restaurantId) {
         Optional<Menu> possibleMenu;
 
         if(creatingDate == null) {
             creatingDate = LocalDate.now();
-            log.info("Receiving a menu for today {}", creatingDate);
-            possibleMenu = menuRepository.getMenuByCreatingDate(creatingDate);
+
+            log.info("Receiving a menu for today {} and restaurant with ID = {}",
+                    creatingDate, restaurantId);
+
+            possibleMenu = menuRepository.getMenuByCreatingDateAndRestaurantId(creatingDate, restaurantId);
         } else {
-            log.info("Receiving a menu for a creating date = {}", creatingDate);
-            possibleMenu = menuRepository.getMenuByCreatingDate(creatingDate);
+            log.info("Receiving a menu for a creating date = {} and restaurant with ID = {}",
+                    creatingDate, restaurantId);
+
+            possibleMenu = menuRepository.getMenuByCreatingDateAndRestaurantId(creatingDate, restaurantId);
         }
 
         if(possibleMenu.isPresent()) {
-            log.info("Receiving the menu with the date of creating = {}", creatingDate);
+            log.info("Receiving the menu with the date of creating = {} and restaurant with ID = {}",
+                    creatingDate, restaurantId);
+
             Menu menu = possibleMenu.get();
 
             log.info("Mapping from the Menu to Rated DTO for a menu with ID = {}", menu.getId());
