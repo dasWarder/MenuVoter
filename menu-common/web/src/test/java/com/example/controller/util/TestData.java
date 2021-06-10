@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.util;
 
 import com.example.dto.MenuDto;
 import com.example.menu.Dish;

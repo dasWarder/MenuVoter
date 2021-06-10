@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer save(Customer customer) {
         notNull(customer, "The customer must be not NULL");
-        log.info("Storing a customer");
+        log.info("Storing a customer with email = {}", customer.getEmail());
         customer.setVoted(false);
 
         return customerRepository.save(customer);
@@ -90,7 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
         notNull(customer, "The customer must be not NULL");
         notNull(customerId, "The customer ID must be not NULL");
 
-        log.info("Update the customer with ID = ", customerId);
+        log.info("Update the customer with ID = {}", customerId);
         customer.setId(customerId);
         Customer updatedCustomer = customerRepository.save(customer);
 

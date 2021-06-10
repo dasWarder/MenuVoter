@@ -1617,6 +1617,7 @@ true posixrules
     </sequence>
     <table id="32" parent="17" name="customer">
       <ObjectId>16614</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>user</Owner>
       <StateNumber>748</StateNumber>
     </table>
