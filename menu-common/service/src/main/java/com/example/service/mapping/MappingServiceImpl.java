@@ -18,13 +18,6 @@ import static org.springframework.util.Assert.notNull;
 @Service
 public class MappingServiceImpl implements MappingService {
 
-    private VoteCounter voteCounter;
-
-    @Autowired
-    public MappingServiceImpl(VoteCounter voteCounter) {
-        this.voteCounter = voteCounter;
-    }
-
     @Override
     public Menu fromDtoToMenu(MenuDto dto, Long restaurantId) {
         notNull(dto, "The DTO object must be not NULL");

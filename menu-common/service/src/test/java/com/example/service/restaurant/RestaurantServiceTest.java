@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.service.util.TestData.*;
+import static com.example.service.TestData.*;
 
 
 @Slf4j
@@ -21,7 +21,7 @@ class RestaurantServiceTest {
 
     private RestaurantRepository restaurantRepository = Mockito.mock(RestaurantRepository.class);
 
-    public RestaurantService restaurantService = new RestaurantServiceImpl(restaurantRepository);
+    private RestaurantService restaurantService = new RestaurantServiceImpl(restaurantRepository);
 
 
     @Test
@@ -50,7 +50,8 @@ class RestaurantServiceTest {
         log.info("Test throwing IllegalArgumentException when saving NULL");
         Restaurant restaurant = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> restaurantService.save(restaurant));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.save(restaurant));
     }
 
 
@@ -70,7 +71,8 @@ class RestaurantServiceTest {
         log.info("Test throwing IllegalArgumentException when getById = NULL");
         Long restaurantId = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> restaurantService.getById(restaurantId));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.getById(restaurantId));
     }
 
     @Test
@@ -80,7 +82,8 @@ class RestaurantServiceTest {
         Restaurant restaurant = null;
         Mockito.when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.ofNullable(restaurant));
 
-        Assertions.assertThrows(RestaurantNotFoundException.class, () -> restaurantService.getById(restaurantId));
+        Assertions.assertThrows(RestaurantNotFoundException.class,
+                () -> restaurantService.getById(restaurantId));
     }
 
 
@@ -100,7 +103,8 @@ class RestaurantServiceTest {
         log.info("Test throwing IllegalArgumentException when a name = NULL");
         String name = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> restaurantService.getByName(name));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.getByName(name));
     }
 
     @Test
@@ -109,7 +113,8 @@ class RestaurantServiceTest {
         String name = WRONG_NAME;
         Mockito.when(restaurantRepository.getRestaurantByName(name)).thenReturn(Optional.ofNullable(null));
 
-        Assertions.assertThrows(RestaurantNotFoundException.class, () -> restaurantService.getByName(name));
+        Assertions.assertThrows(RestaurantNotFoundException.class,
+                () -> restaurantService.getByName(name));
     }
 
     @Test
@@ -133,7 +138,8 @@ class RestaurantServiceTest {
         Restaurant updating = TEST_UPDATING_RESTAURANT;
         updating.setId(restaurantId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> restaurantService.update(restaurantId, updating));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.update(restaurantId, updating));
     }
 
     @Test
@@ -142,7 +148,8 @@ class RestaurantServiceTest {
         Long restaurantId = TEST_RESTAURANT.getId();
         Restaurant updating = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> restaurantService.update(restaurantId, updating));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.update(restaurantId, updating));
     }
 
     @Test
@@ -150,7 +157,8 @@ class RestaurantServiceTest {
         log.info("Test throwing IllegalArgumentException when a restaurant ID is NULL");
         Long restaurantId = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> restaurantService.delete(restaurantId));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> restaurantService.delete(restaurantId));
     }
 
 

@@ -88,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer update(Customer customer, Long customerId) {
         notNull(customer, "The customer must be not NULL");
-        notNull(customer, "The customer ID must be not NULL");
+        notNull(customerId, "The customer ID must be not NULL");
 
         log.info("Update the customer with ID = ", customerId);
         customer.setId(customerId);
