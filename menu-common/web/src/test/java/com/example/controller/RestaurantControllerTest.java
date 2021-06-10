@@ -25,9 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = { "classpath:db/init.sql", "classpath:db/populate.sql" })
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Sql(scripts = { "classpath:db/init.sql", "classpath:db/populate.sql" })
 class RestaurantControllerTest {
 
     @Autowired
@@ -41,7 +41,9 @@ class RestaurantControllerTest {
 
     @Test
     @Order(1)
-    public void shouldBeStatusOkAndReturnAllRestaurants() throws Exception {
+    public void shouldBeStatusOkAndReturnAllRestaurantsProperly() throws Exception {
+        log.info("Test correctness of GET method by path /restaurants to get all restaurants");
+
         mockMvc.perform(get("/restaurants"))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -52,7 +54,9 @@ class RestaurantControllerTest {
 
     @Test
     @Order(2)
-    public void shouldBeStatusOkAndRestaurantById() throws Exception {
+    public void shouldBeStatusOkAndRestaurantByIdProperly() throws Exception {
+        log.info("Test correctness of GET method by path /restaurants/restaurant to get a restaurant by ID");
+
         mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId()))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -63,7 +67,9 @@ class RestaurantControllerTest {
 
     @Test
     @Order(3)
-    public void shouldBeStatusOkAndRestaurantByName() throws Exception {
+    public void shouldBeStatusOkAndRestaurantByNameProperly() throws Exception {
+        log.info("Test correctness of GET method by path /restaurants/restaurant to get a restaurant by @param NAME");
+
         mockMvc.perform(get("/restaurants/restaurant")
                 .param(NAME_PARAM, SECOND_RESTAURANT.getName()))
                 .andDo(print())
@@ -75,7 +81,9 @@ class RestaurantControllerTest {
 
     @Test
     @Order(4)
-    public void shouldStatusCreateAndCreatedRestaurant() throws Exception {
+    public void shouldStatusCreateAndCreatedRestaurantProperly() throws Exception {
+        log.info("Test correctness of POST method by path /restaurants/restaurant to store a restaurant");
+
         mockMvc.perform(post("/restaurants/restaurant")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonMapper.getJsonObject(CREATE_RESTAURANT)))
@@ -88,7 +96,9 @@ class RestaurantControllerTest {
 
     @Test
     @Order(5)
-    public void shouldStatusOkAndUpdateRestaurant() throws Exception {
+    public void shouldStatusOkAndUpdateRestaurantProperly() throws Exception {
+        log.info("Test correctness of PUT method by path /restaurants/restaurant/{restId} to update a restaurant");
+
         mockMvc.perform(put("/restaurants/restaurant/" + CREATE_RESTAURANT.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonMapper.getJsonObject(UPDATE_RESTAURANT)))
@@ -101,7 +111,9 @@ class RestaurantControllerTest {
 
     @Test
     @Order(6)
-    public void shouldStatusOkAndDeleteRestaurant() throws Exception {
+    public void shouldStatusOkAndDeleteRestaurantProperly() throws Exception {
+        log.info("Test correctness of DELETE method by path /restaurants/restaurant/{restId} to remove a restaurant by ID");
+
         mockMvc.perform(delete("/restaurants/restaurant/" + UPDATED_RESTAURANT.getId()))
                 .andDo(print())
                 .andExpect(content().string(DELETE_MESSAGE))

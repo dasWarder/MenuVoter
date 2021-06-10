@@ -98,4 +98,12 @@ public class MappingServiceImpl implements MappingService {
 
        return menuRatedDtoList;
     }
+
+    @Override
+    public MenuRatedDto fromDtoToRatedDTO(MenuDto dto, Long restaurantId) {
+        Menu menu = fromDtoToMenu(dto, restaurantId);
+        MenuRatedDto menuRatedDto = fromMenuToRatedDto(menu);
+
+        return menuRatedDto;
+    }
 }

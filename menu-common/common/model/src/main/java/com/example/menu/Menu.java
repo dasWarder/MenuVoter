@@ -43,4 +43,12 @@ public class Menu {
 
     @Field(value = "dishes")
     private List<Dish> dishes;
+
+    public Menu(Long restaurantId, Double rate, Long votes, LocalDate creatingDate, List<Dish> dishes) {
+        this.restaurantId = restaurantId;
+        this.rate = rate;
+        this.votes = votes;
+        this.creatingDate = creatingDate;
+        this.dishes = dishes;
+    }
 }

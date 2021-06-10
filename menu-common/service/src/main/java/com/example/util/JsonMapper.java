@@ -24,4 +24,8 @@ public class JsonMapper {
         public String getJsonObject(Object serializationObject) throws JsonProcessingException {
                 return mapper.writeValueAsString(serializationObject);
         }
+
+        public String getJsonObject(Object... serializationObjects) throws JsonProcessingException {
+                return mapper.writeValueAsString(serializationObjects);
+        }
 }
