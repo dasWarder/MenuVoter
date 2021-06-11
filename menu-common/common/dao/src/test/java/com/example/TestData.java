@@ -1,4 +1,4 @@
-package com.example.util;
+package com.example;
 
 import com.example.customer.Customer;
 import com.example.menu.Dish;

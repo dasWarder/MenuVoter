@@ -1,22 +1,23 @@
 package com.example;
 
 
-import com.example.menu.Dish;
+import com.example.config.RepoConfig;
 import com.example.menu.Menu;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.util.TestData.*;
+import static com.example.TestData.*;
 
 @Slf4j
+@SpringBootTest(classes = { RepoConfig.class })
 class MenuRepositoryTest {
 
     private final MenuRepository menuRepository = Mockito.mock(MenuRepository.class);
