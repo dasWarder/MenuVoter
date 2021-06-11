@@ -56,7 +56,6 @@ public class RateController {
             return new ResponseEntity(menuRatedDto, HttpStatus.OK);
         }
 
-
         return new ResponseEntity(VOTED_MESSAGE, HttpStatus.OK);
     }
 }
