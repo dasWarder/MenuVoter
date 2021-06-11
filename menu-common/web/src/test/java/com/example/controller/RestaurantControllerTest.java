@@ -2,6 +2,8 @@ package com.example.controller;
 
 
 import com.example.util.JsonMapper;
+import com.example.validation.violation.ValidationErrorResponse;
+import com.example.validation.violation.Violation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -16,7 +18,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
+
 import static com.example.controller.util.TestData.*;
+import static com.example.controller.util.TestRestaurantData.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -66,6 +71,18 @@ class RestaurantControllerTest {
     }
 
     @Test
+    public void shouldThrowExceptionWhenWrongRestaurantId() throws Exception {
+        log.info("Test throwing RestaurantNotFoundException when try to receive a restaurant with a wrong ID");
+
+        mockMvc.perform(get("/restaurants/restaurant/" + WRONG_ID))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(jsonMapper.getJsonObject(RESTAURANT_NOT_FOUND)))
+                .andExpect(status().isNotFound())
+                .andReturn();
+    }
+
+    @Test
     @Order(3)
     public void shouldBeStatusOkAndRestaurantByNameProperly() throws Exception {
         log.info("Test correctness of GET method by path /restaurants/restaurant to get a restaurant by @param NAME");
@@ -95,6 +112,56 @@ class RestaurantControllerTest {
     }
 
     @Test
+    public void shouldThrowExceptionWhenCreateRestaurant() throws Exception {
+        log.info("Test throwing a violation when try to create a restaurant with a short description");
+
+        ValidationErrorResponse customResponse = getCustomResponse(WRONG_RESTAURANT_DESCRIPTION);
+
+        mockMvc.perform(post("/restaurants/restaurant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonMapper.getJsonObject(WRONG_DESCRIPTION_RESTAURANT)))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(jsonMapper.getJsonObject(customResponse)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenCreateEmptyTitleRestaurant() throws Exception {
+        log.info("Test throwing a violation when try to create a restaurant with an empty title");
+
+        ValidationErrorResponse customResponse = getCustomResponse(EMPTY_RESTAURANT_TITLE, MANDATORY_RESTAURANT_TITLE);
+
+        mockMvc.perform(post("/restaurants/restaurant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonMapper.getJsonObject(EMPTY_NAME_RESTAURANT)))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(jsonMapper.getJsonObject(customResponse)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenGetRestaurantWithNullNameParam() throws Exception {
+        log.info("Test throwing an exception when try to get a restaurant with null name param");
+
+        ValidationErrorResponse customResponse = getCustomResponse(GET_EMPTY_TITLE_RESTAURANT,
+                                                        GET_EMPTY_TITLE_RESTAURANT_VALIDATION);
+        String value = "";
+
+        mockMvc.perform(get("/restaurants/restaurant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param(NAME_PARAM,value))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(jsonMapper.getJsonObject(customResponse)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
     @Order(5)
     public void shouldStatusOkAndUpdateRestaurantProperly() throws Exception {
         log.info("Test correctness of PUT method by path /restaurants/restaurant/{restId} to update a restaurant");
@@ -119,6 +186,15 @@ class RestaurantControllerTest {
                 .andExpect(content().string(DELETE_MESSAGE))
                 .andExpect(status().isOk())
                 .andReturn();
+    }
+
+    private ValidationErrorResponse getCustomResponse(Violation ... violations) {
+        ValidationErrorResponse response = new ValidationErrorResponse();
+
+        Arrays.stream(violations)
+                .forEach(v -> response.getViolations().add(v));
+
+        return response;
     }
 
 }

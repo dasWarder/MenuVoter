@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -48,7 +50,8 @@ public class RestaurantController {
 
     @GetMapping(value = "/restaurant/{id}")
     public ResponseEntity<Restaurant> getOne(@PathVariable("id")
-                                                 @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId) {
+                                                 @Min(value = 1, message = "The Id must be greater that 0")
+                                                 @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId) {
 
         log.info("Receiving a restaurant with ID = ", restaurantId);
         Restaurant receivedRestaurant = restaurantService.getById(restaurantId);
@@ -58,7 +61,8 @@ public class RestaurantController {
 
     @PutMapping(value = "/restaurant/{id}")
     public ResponseEntity<Restaurant> update(@PathVariable("id")
-                                                 @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
+                                                 @Min(value = 1, message = "The Id must be greater that 0")
+                                                 @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId,
                                  @RequestBody @Valid Restaurant restaurant) {
 
         log.info("Updating a restaurant with ID = ", restaurantId);
@@ -69,7 +73,8 @@ public class RestaurantController {
 
     @DeleteMapping(value = "/restaurant/{id}")
     public ResponseEntity<String> delete(@PathVariable(value = "id")
-                                             @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId) {
+                                             @Min(value = 1, message = "The Id must be greater that 0")
+                                             @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId) {
 
         log.info("Removing a restaurant with ID = ", restaurantId);
         restaurantService.delete(restaurantId);
@@ -81,7 +86,8 @@ public class RestaurantController {
 
     @GetMapping(value = "/restaurant")
     public ResponseEntity<Restaurant> getByName(@RequestParam("name")
-                                                    @Size(min = 1, max = 60, message = "The name must be between 1 and 60") String name) {
+                                                    @Size(min = 1, max = 60, message = "The name must be between 1 and 60")
+                                                    @NotBlank(message = "The name must be not empty") String name) {
 
         log.info("Receiving a restaurant by its name = {}", name);
         Restaurant restaurantByName = restaurantService.getByName(name);

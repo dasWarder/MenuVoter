@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class MenuController {
 
     @GetMapping
     public ResponseEntity<List<MenuRatedDto>> getAllByRestaurant(@PathVariable("restId")
-                                                                     @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId) {
+                                                                     @Min(value = 1, message = "The Id must be greater that 0")
+                                                                     @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId) {
 
         log.info("Receiving a collection of menus for a restaurant with ID = {}", restaurantId);
         List<MenuRatedDto> menus = menuService.getAllByRestaurantId(restaurantId);
@@ -44,7 +46,8 @@ public class MenuController {
     @PostMapping(value = "/menu")
     public ResponseEntity<MenuRatedDto> save(@RequestBody @Valid MenuDto menuDto,
                                          @PathVariable("restId")
-                                            @Min(value = 1,message = "The Id must be greater that 0") Long restaurantId) {
+                                            @Min(value = 1,message = "The Id must be greater that 0")
+                                            @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId) {
 
         log.info("Storing the menu from = {} for a restaurant with ID = {}",
                 menuDto.getCreatingDate(), restaurantId);
@@ -56,7 +59,8 @@ public class MenuController {
 
     @GetMapping(value = "/menu/{menuId}")
     public ResponseEntity<MenuRatedDto> getOne(@PathVariable("restId")
-                                                   @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
+                                                   @Min(value = 1, message = "The Id must be greater that 0")
+                                                   @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId,
                                  @PathVariable("menuId")
                                     @NotBlank String menuId) {
 
@@ -68,7 +72,8 @@ public class MenuController {
 
     @DeleteMapping(value = "/menu/{menuId}")
     public ResponseEntity<String> delete(@PathVariable("restId")
-                                             @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
+                                             @Min(value = 1, message = "The Id must be greater that 0")
+                                             @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId,
                                  @PathVariable("menuId")
                                     @NotBlank String menuId) {
 
@@ -84,7 +89,8 @@ public class MenuController {
 
     @PutMapping(value = "/menu/{menuId}")
     public ResponseEntity<MenuRatedDto> update(@PathVariable("restId")
-                                                   @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
+                                                   @Min(value = 1, message = "The Id must be greater that 0")
+                                                   @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId,
                                  @PathVariable("menuId")
                                     @NotBlank String menuId,
                                  @RequestBody @Valid MenuDto menuDto) {
@@ -97,7 +103,8 @@ public class MenuController {
 
     @GetMapping(value = "/menu")
     public ResponseEntity<MenuRatedDto> getOnDateMenu(@PathVariable("restId")
-                                                          @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
+                                                          @Min(value = 1, message = "The Id must be greater that 0")
+                                                          @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId,
                                                       @RequestParam(value = "date", required = false)
                                                       @DateTimeFormat(iso =
                                                               DateTimeFormat.ISO.DATE) LocalDate menuDate) {

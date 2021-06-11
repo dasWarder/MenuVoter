@@ -18,12 +18,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static com.example.controller.util.TestData.*;
+import static com.example.controller.util.TestMenuData.*;
+import static com.example.controller.util.TestRestaurantData.FIRST_RESTAURANT;
+import static com.example.controller.util.TestRestaurantData.SECOND_RESTAURANT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 
 
@@ -88,6 +90,19 @@ class MenuControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(jsonMapper.getJsonObject(menuRatedDto)))
                 .andExpect(status().isOk())
+                .andReturn();
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenWrongMenuId() throws Exception {
+        log.info("Test throwing MenuNotFoundException when try to receive a menu with a wrong ID");
+
+        mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId() +
+                "/menus/menu/" + WRONG_ID_STRING))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(jsonMapper.getJsonObject(MENU_NOT_FOUND)))
+                .andExpect(status().isNotFound())
                 .andReturn();
     }
 

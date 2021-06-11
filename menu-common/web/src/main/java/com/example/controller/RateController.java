@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 
 @Slf4j
@@ -36,7 +37,8 @@ public class RateController {
     @PutMapping(value = "/rate")
     public ResponseEntity vote(@RequestBody @Valid VoteDto voteDto,
                                         @PathVariable("restId")
-                                            @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId) {
+                                            @Min(value = 1, message = "The Id must be greater that 0")
+                                            @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId) {
 
         String email = voteDto.getEmail();
         Customer customer = customerService.getByEmail(email);
