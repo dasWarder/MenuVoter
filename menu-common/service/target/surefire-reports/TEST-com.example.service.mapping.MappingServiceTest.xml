@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.example.service.restaurant.RestaurantServiceTest" time="0.036" tests="13" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.example.service.mapping.MappingServiceTest" time="0.018" tests="13" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="16"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -55,17 +55,17 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="60.0"/>
   </properties>
-  <testcase name="shouldThrowExceptionWhenGetWrongName" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldThrowExceptionWhenGetByNullName" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldThrowExceptionWhenGetByNullId" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldUpdateRestaurantProperly" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldGetRestaurantByNameProperly" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldThrowExceptionWhenUpdateRestaurantIsNull" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldReturnAllRestaurantsProperly" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldGetRestaurantByIdProperly" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldThrowExceptionWhenDeleteRestaurantNullId" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.002"/>
-  <testcase name="shouldThrowExceptionWhenGetByIdWrong" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.002"/>
-  <testcase name="shouldThrowExceptionWhenWhenUpdateRestaurantNullId" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldThrowExceptionWhenSaveWrongRestaurant" classname="com.example.service.restaurant.RestaurantServiceTest" time="0.001"/>
-  <testcase name="shouldSaveRestaurantProperly" classname="com.example.service.restaurant.RestaurantServiceTest" time="0"/>
+  <testcase name="shouldThrowExceptionWhenListIsOkAndRestaurantIdIsNull" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldThrowExceptionWhenMenuDtoListIsNull" classname="com.example.service.mapping.MappingServiceTest" time="0"/>
+  <testcase name="shouldMapForEmptyMenuDtoListProperly" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldThrowExceptionWhenMenuListIsNull" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldThrowExceptionWhenRestaurantIdIsNull" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldThrowExceptionWhenMenuIsNull" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldMapFromDtoToMenuProperly" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldThrowExceptionWhenDTOIsNull" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldMapFromNullIdDtoToMenuProperly" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldMapFromMenuToRatedDtoProperly" classname="com.example.service.mapping.MappingServiceTest" time="0.002"/>
+  <testcase name="shouldMapFromListOfMenuDtoToMenuListProperly" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldMapFromMenuListToRatedDtoListProperly" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
+  <testcase name="shouldMapEmptyMenuListProperly" classname="com.example.service.mapping.MappingServiceTest" time="0.001"/>
 </testsuite>

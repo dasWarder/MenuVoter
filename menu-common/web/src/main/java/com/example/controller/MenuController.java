@@ -9,12 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
+@Validated
 @RestController
 @RequestMapping(value = "/restaurants/restaurant/{restId}/menus")
 public class MenuController {
@@ -27,7 +32,8 @@ public class MenuController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MenuRatedDto>> getAllByRestaurant(@PathVariable("restId") long restaurantId) {
+    public ResponseEntity<List<MenuRatedDto>> getAllByRestaurant(@PathVariable("restId")
+                                                                     @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId) {
 
         log.info("Receiving a collection of menus for a restaurant with ID = {}", restaurantId);
         List<MenuRatedDto> menus = menuService.getAllByRestaurantId(restaurantId);
@@ -36,8 +42,9 @@ public class MenuController {
     }
 
     @PostMapping(value = "/menu")
-    public ResponseEntity<MenuRatedDto> save(@RequestBody MenuDto menuDto,
-                                         @PathVariable("restId") Long restaurantId) {
+    public ResponseEntity<MenuRatedDto> save(@RequestBody @Valid MenuDto menuDto,
+                                         @PathVariable("restId")
+                                            @Min(value = 1,message = "The Id must be greater that 0") Long restaurantId) {
 
         log.info("Storing the menu from = {} for a restaurant with ID = {}",
                 menuDto.getCreatingDate(), restaurantId);
@@ -48,8 +55,10 @@ public class MenuController {
     }
 
     @GetMapping(value = "/menu/{menuId}")
-    public ResponseEntity<MenuRatedDto> getOne(@PathVariable("restId") Long restaurantId,
-                                 @PathVariable("menuId") String menuId) {
+    public ResponseEntity<MenuRatedDto> getOne(@PathVariable("restId")
+                                                   @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
+                                 @PathVariable("menuId")
+                                    @NotBlank String menuId) {
 
         log.info("Receiving the menu with ID = {} and a restaurant ID = {}", menuId, restaurantId);
         MenuRatedDto receivedMenu = menuService.getById(menuId, restaurantId);
@@ -58,8 +67,10 @@ public class MenuController {
     }
 
     @DeleteMapping(value = "/menu/{menuId}")
-    public ResponseEntity<String> delete(@PathVariable("restId") Long restaurantId,
-                                 @PathVariable("menuId") String menuId) {
+    public ResponseEntity<String> delete(@PathVariable("restId")
+                                             @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
+                                 @PathVariable("menuId")
+                                    @NotBlank String menuId) {
 
         log.info("Removing a menu for ID = {} and the restaurant ID = {}", menuId, restaurantId);
         menuService.deleteById(menuId, restaurantId);
@@ -72,9 +83,11 @@ public class MenuController {
     }
 
     @PutMapping(value = "/menu/{menuId}")
-    public ResponseEntity<MenuRatedDto> update(@PathVariable("restId") Long restaurantId,
-                                 @PathVariable("menuId") String menuId,
-                                 @RequestBody MenuDto menuDto) {
+    public ResponseEntity<MenuRatedDto> update(@PathVariable("restId")
+                                                   @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
+                                 @PathVariable("menuId")
+                                    @NotBlank String menuId,
+                                 @RequestBody @Valid MenuDto menuDto) {
 
         log.info("Updating the menu with ID = {} and a restaurant ID = {}", menuId, restaurantId);
         MenuRatedDto updatedMenu = menuService.update(restaurantId, menuId, menuDto);
@@ -83,7 +96,8 @@ public class MenuController {
     }
 
     @GetMapping(value = "/menu")
-    public ResponseEntity<MenuRatedDto> getOnDateMenu(@PathVariable("restId") Long restaurantId,
+    public ResponseEntity<MenuRatedDto> getOnDateMenu(@PathVariable("restId")
+                                                          @Min(value = 1, message = "The Id must be greater that 0") Long restaurantId,
                                                       @RequestParam(value = "date", required = false)
                                                       @DateTimeFormat(iso =
                                                               DateTimeFormat.ISO.DATE) LocalDate menuDate) {

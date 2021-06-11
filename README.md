@@ -34,21 +34,21 @@ only Json. </p>
 
 <h3>Restaurant</h3>
 <p>
-    To receive a list of all restaurants (<b>GET request</b>): 
+    To receive a list of all restaurants (<b><i>GET</i> request</b>): 
 
     hostname:port/restaurants
 </p>
 
 
 <p>
-    To receive a one restaurant by its ID (<b>GET request</b>):
+    To receive a one restaurant by its ID (<b><i>GET</i> request</b>):
 
     hostname:port/restaurants/restaurant/{restaurantId}
 </p>
 
 
 <p>
-    To receive a one restaurant by its NAME (<b>GET request</b>):
+    To receive a one restaurant by its NAME (<b><i>GET</i> request</b>):
 
     hostname:port/restaurants/restaurant + parameter name
 
@@ -57,7 +57,7 @@ only Json. </p>
 
 
 <p>
-    To create a new restaurant (<b>POST request</b>):
+    To create a new restaurant (<b><i>POST</i> request</b>):
 
     hostname:port/restaurants/restaurant + a restaurant body
 
@@ -70,7 +70,7 @@ only Json. </p>
 
 
 <p>
-    To update a restaurant by its ID (<b>PUT request</b>):
+    To update a restaurant by its ID (<b><i>PUT</i> request</b>):
 
     hostname:port/restaurants/restaurant/{restaurantId} + a new restaurant body
 
@@ -83,7 +83,7 @@ only Json. </p>
 
 
 <p>
-    To delete a restaurant by its ID (<b>DELETE request</b>):
+    To delete a restaurant by its ID (<b><i>DELETE</i> request</b>):
 
     hostname:port/restaurants/restaurant/{restaurantId}
 </p>
@@ -91,19 +91,19 @@ only Json. </p>
 
 <h3>Menu</h3>
 <p>
-    To receive all menus for a restaurant (<b>GET request</b>):
+    To receive all menus for a restaurant (<b><i>GET</i> request</b>):
     
     hostname:port/restaurants/restaurant/{restaurantId}/menus
 </p>
 
 <p>
-    To receive today's menu for a restaurant (<b>GET request</b>):
+    To receive today's menu for a restaurant (<b><i>GET</i> request</b>):
 
     hostname:port/restaurants/restaurant/{restaurantId}/menus/menu
 </p>
 
 <p>
-    To receive a menu for a restaurant by creating date (<b>GET request</b>):
+    To receive a menu for a restaurant by creating date (<b><i>GET</i> request</b>):
 
     hostname:port/restaurants/restaurant/{restaurantId}/menus/menu + parameter date
 
@@ -112,7 +112,7 @@ only Json. </p>
 </p>
 
 <p>
-    To store a menu for a restaurant (<b>POST request</b>):
+    To store a menu for a restaurant (<b><i>POST</i> request</b>):
 
     hostname:port/restaurants/restaurant/{restaurantId}/menus/menu + menu body
     
@@ -131,7 +131,7 @@ only Json. </p>
 </p>
 
 <p>
-    To update a menu for a restaurant (<b>PUT request</b>):
+    To update a menu for a restaurant (<b><i>PUT</i> request</b>):
 
     hostname:port/restaurants/restaurant/{restaurantId}/menus/menu/{menuId} + a new menu body
     
@@ -150,7 +150,7 @@ only Json. </p>
 </p>
 
 <p>
-    To delete a menu for a restaurant (<b>DELETE request</b>):
+    To delete a menu for a restaurant (<b><i>DELETE</i> request</b>):
 
     hostname:port/restaurants/restaurant/{restaurantId}/menus/menu/{menuId}
 </p>
@@ -159,7 +159,7 @@ only Json. </p>
 <h3>Rating</h3>
 
 <p>
-    To vote for a menu (<b>PUT request</b>):
+    To vote for a menu (<b><i>PUT</i> request</b>):
     
     hostname:port/restaurants/restaurant/{restaurantId}/menus/menu/rate + vote body
     
