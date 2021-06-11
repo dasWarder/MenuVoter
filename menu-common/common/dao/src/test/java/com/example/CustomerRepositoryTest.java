@@ -16,7 +16,7 @@ import static com.example.TestData.TEST_CUSTOMER_3;
 import static com.example.TestData.VOTED_CUSTOMERS;
 
 @Slf4j
-@SpringBootTest(classes = { RepoConfig.class })
+//@SpringBootTest(classes = { RepoConfig.class })
 class CustomerRepositoryTest {
 
     private final CustomerRepository customerRepository = Mockito.mock(CustomerRepository.class);
