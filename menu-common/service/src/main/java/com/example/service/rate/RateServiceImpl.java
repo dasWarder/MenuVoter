@@ -1,18 +1,18 @@
 package com.example.service.rate;
 
 
+import com.example.MenuRepository;
+import com.example.customer.Customer;
+import com.example.dto.MenuRatedDto;
 import com.example.dto.VoteDto;
 import com.example.menu.Menu;
-import com.example.MenuRepository;
-import com.example.dto.MenuRatedDto;
-import com.example.exception.MenuNotFoundException;
+import com.example.service.customer.CustomerService;
 import com.example.service.mapping.MappingService;
 import com.example.service.rate.util.VoteCounter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
@@ -29,13 +29,17 @@ public class RateServiceImpl implements RateService {
 
     private final MappingService mappingService;
 
+    private final CustomerService customerService;
+
     private final ConcurrentHashMap<String, Double> rateMap = new ConcurrentHashMap<>();
 
     @Autowired
-    public RateServiceImpl(VoteCounter voteCounter, MenuRepository menuRepository, MappingService mappingService) {
+    public RateServiceImpl(VoteCounter voteCounter, MenuRepository menuRepository,
+                           MappingService mappingService, CustomerService customerService) {
         this.voteCounter = voteCounter;
         this.menuRepository = menuRepository;
         this.mappingService = mappingService;
+        this.customerService = customerService;
     }
 
     @Override
@@ -63,6 +67,28 @@ public class RateServiceImpl implements RateService {
         MenuRatedDto menuRatedDto = mappingService.fromMenuToRatedDto(storedMenu);
 
         return menuRatedDto;
+    }
+
+    @Override
+    public MenuRatedDto vote(VoteDto voteDto, Long restaurantId) {
+        String email = voteDto.getEmail();
+        Customer customer = customerService.getByEmail(email);
+
+        if(customer == null) {
+            customer = customerService.save(new Customer(email));
+        }
+
+        if(!customer.isVoted()) {
+            customerService.update(
+                    new Customer(customer.getEmail(), true), customer.getId());
+
+            log.info("Voting for menu of a restaurant with ID = {}", restaurantId);
+            MenuRatedDto menuRatedDto = updateRate(voteDto, restaurantId);
+
+            return menuRatedDto;
+        }
+
+        return null;
     }
 
     private Double getAverageRate(Menu menu, Double userRate) {

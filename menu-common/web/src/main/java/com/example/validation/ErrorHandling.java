@@ -24,8 +24,7 @@ public class ErrorHandling {
 
     @ExceptionHandler(value = { MenuNotFoundException.class,
             RestaurantNotFoundException.class,
-            CustomerNotFoundException.class,
-            IllegalArgumentException.class })
+            CustomerNotFoundException.class })
     public ResponseEntity onNotFoundException(Exception e) {
         ExceptionAnswer exceptionAnswer = new ExceptionAnswer();
 

@@ -9,4 +9,6 @@ public interface RateService {
     Double calculateRate(Menu menu, Double userRate);
 
     MenuRatedDto updateRate(VoteDto voteDto, Long restaurantId);
+
+    MenuRatedDto vote(VoteDto voteDto, Long restaurantId);
 }

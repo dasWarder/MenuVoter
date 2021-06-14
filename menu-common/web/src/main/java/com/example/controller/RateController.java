@@ -26,12 +26,9 @@ public class RateController {
 
     private final RateService rateService;
 
-    private final CustomerService customerService;
-
     @Autowired
-    public RateController(RateService rateService, CustomerService customerService) {
+    public RateController(RateService rateService) {
         this.rateService = rateService;
-        this.customerService = customerService;
     }
 
     @PutMapping(value = "/rate")
@@ -40,24 +37,12 @@ public class RateController {
                                             @Min(value = 1, message = "The Id must be greater that 0")
                                             @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId) {
 
-        String email = voteDto.getEmail();
-        Customer customer = customerService.getByEmail(email);
+        MenuRatedDto vote = rateService.vote(voteDto, restaurantId);
 
-        if(customer == null) {
-            customer = customerService.save(new Customer(email));
-        }
-
-        if(!customer.isVoted()) {
-            customerService.update(
-                    new Customer(customer.getEmail(), true),
-                    customer.getId());
-
-            log.info("Voting for menu of a restaurant with ID = {}", restaurantId);
-            MenuRatedDto menuRatedDto = rateService.updateRate(voteDto, restaurantId);
-
-            return new ResponseEntity(menuRatedDto, HttpStatus.OK);
-        }
-
-        return new ResponseEntity(VOTED_MESSAGE, HttpStatus.OK);
+        return vote == null?
+                new ResponseEntity(VOTED_MESSAGE, HttpStatus.OK) :
+                                new ResponseEntity(vote, HttpStatus.OK);
     }
+
+
 }
