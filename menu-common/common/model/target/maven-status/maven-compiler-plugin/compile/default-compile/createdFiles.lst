@@ -1,7 +1,0 @@
-com\example\menu\Menu.class
-com\example\customer\Customer.class
-com\example\restaurant\Restaurant$RestaurantBuilder.class
-com\example\menu\Menu$MenuBuilder.class
-com\example\restaurant\Restaurant.class
-com\example\menu\Dish$DishBuilder.class
-com\example\menu\Dish.class

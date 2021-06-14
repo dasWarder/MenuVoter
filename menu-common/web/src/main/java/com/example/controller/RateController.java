@@ -1,11 +1,9 @@
 package com.example.controller;
 
 
-import com.example.customer.Customer;
 import com.example.dto.MenuRatedDto;
 import com.example.dto.VoteDto;
-import com.example.service.customer.CustomerService;
-import com.example.service.rate.RateService;
+import com.example.service.vote.VoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +22,11 @@ public class RateController {
 
     private static final String VOTED_MESSAGE = "You already voted today, please back tomorrow!";
 
-    private final RateService rateService;
+    private final VoteService voteService;
 
     @Autowired
-    public RateController(RateService rateService) {
-        this.rateService = rateService;
+    public RateController(VoteService voteService) {
+        this.voteService = voteService;
     }
 
     @PutMapping(value = "/rate")
@@ -37,7 +35,7 @@ public class RateController {
                                             @Min(value = 1, message = "The Id must be greater that 0")
                                             @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId) {
 
-        MenuRatedDto vote = rateService.vote(voteDto, restaurantId);
+        MenuRatedDto vote = voteService.vote(voteDto, restaurantId);
 
         return vote == null?
                 new ResponseEntity(VOTED_MESSAGE, HttpStatus.OK) :

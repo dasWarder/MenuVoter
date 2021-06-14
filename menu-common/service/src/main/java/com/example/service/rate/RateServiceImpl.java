@@ -31,21 +31,14 @@ public class RateServiceImpl implements RateService {
 
     private final MappingService mappingService;
 
-    private final CustomerService customerService;
-
-    private final MailService mailService;
-
     private final ConcurrentHashMap<String, Double> rateMap = new ConcurrentHashMap<>();
 
     @Autowired
     public RateServiceImpl(VoteCounter voteCounter, MenuRepository menuRepository,
-                           MappingService mappingService, CustomerService customerService,
-                           MailService mailService) {
+                           MappingService mappingService) {
         this.voteCounter = voteCounter;
         this.menuRepository = menuRepository;
         this.mappingService = mappingService;
-        this.customerService = customerService;
-        this.mailService = mailService;
     }
 
     @Override
@@ -75,35 +68,6 @@ public class RateServiceImpl implements RateService {
         MenuRatedDto menuRatedDto = mappingService.fromMenuToRatedDto(storedMenu);
 
         return menuRatedDto;
-    }
-
-    @Override
-    @Transactional
-    public MenuRatedDto vote(VoteDto voteDto, Long restaurantId) {
-        notNull(voteDto, "The vote DTO must be not NULL");
-        notNull(restaurantId, "The restaurant ID must be not NULL");
-
-        String email = voteDto.getEmail();
-        Customer customer = customerService.getByEmail(email);
-
-        if(customer == null) {
-            customer = customerService.save(new Customer(email));
-        }
-
-        if(!customer.isVoted()) {
-            customerService.update(
-                    new Customer(customer.getEmail(), true), customer.getId());
-
-            log.info("Voting for menu of a restaurant with ID = {}", restaurantId);
-            MenuRatedDto menuRatedDto = updateRate(voteDto, restaurantId);
-
-            log.info("Send a thankful message to a customer with email = {}", customer.getEmail());
-            mailService.sendMail(customer);
-
-            return menuRatedDto;
-        }
-
-        return null;
     }
 
     private Double getAverageRate(Menu menu, Double userRate) {
