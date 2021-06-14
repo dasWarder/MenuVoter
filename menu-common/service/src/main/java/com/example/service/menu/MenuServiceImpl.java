@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional
     public MenuRatedDto save(MenuDto menuDto, long restaurantId) {
         notNull(restaurantId, "The ID of a restaurant must be NOT null");
 
@@ -83,6 +85,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional
     public void deleteById(String menuId, long restaurantId) {
         notNull(menuId, "The ID for the menu must be NOT null");
         notNull(restaurantId, "The ID for the restaurant must be NOT null");
@@ -127,6 +130,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional
     public MenuRatedDto update(long restaurantId, String menuId, MenuDto menuDto) {
         notNull(restaurantId, "The ID of the restaurant must be NOT null");
         notNull(menuId, "The ID for the menu must be NOT null");

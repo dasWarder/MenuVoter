@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import static org.springframework.util.Assert.notNull;
 public class MappingServiceImpl implements MappingService {
 
     @Override
+    @Transactional
     public Menu fromDtoToMenu(MenuDto dto, Long restaurantId) {
         notNull(dto, "The DTO object must be not NULL");
         notNull(restaurantId, "The restaurantId must be not NULL");
@@ -41,6 +43,7 @@ public class MappingServiceImpl implements MappingService {
     }
 
     @Override
+    @Transactional
     public MenuRatedDto fromMenuToRatedDto(Menu menu) {
         notNull(menu, "The menu object must be not NULL");
 
@@ -58,6 +61,7 @@ public class MappingServiceImpl implements MappingService {
     }
 
     @Override
+    @Transactional
     public List<Menu> fromMenuDtoListToMenuList(List<MenuDto> listOfDto, Long restaurantId) {
         notNull(listOfDto, "The list of DTO must be not NULL");
         notNull(restaurantId, "The ID of a restaurant must be not NULL");
@@ -80,6 +84,7 @@ public class MappingServiceImpl implements MappingService {
     }
 
     @Override
+    @Transactional
     public List<MenuRatedDto> fromMenuListToMenuRatedDtoList(List<Menu> menuList) {
        notNull(menuList, "The list of menus must be not NULL");
        List<MenuRatedDto> menuRatedDtoList = new ArrayList<>(menuList.size());
@@ -100,6 +105,7 @@ public class MappingServiceImpl implements MappingService {
     }
 
     @Override
+    @Transactional
     public MenuRatedDto fromDtoToRatedDTO(MenuDto dto, Long restaurantId) {
         Menu menu = fromDtoToMenu(dto, restaurantId);
         MenuRatedDto menuRatedDto = fromMenuToRatedDto(menu);

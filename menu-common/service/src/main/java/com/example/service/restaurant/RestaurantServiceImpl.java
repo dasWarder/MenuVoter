@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public Restaurant save(Restaurant restaurant) {
         notNull(restaurant, "The restaurant for storing must be NOT null");
 
@@ -38,6 +40,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public void delete(Long restaurantId) {
         notNull(restaurantId, "The ID of the restaurant must be NOT null");
 
@@ -78,6 +81,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public Restaurant update(Long restaurantId, Restaurant restaurant) {
         notNull(restaurant, "The restaurant must be not null");
         notNull(restaurantId, "The ID must be not null");

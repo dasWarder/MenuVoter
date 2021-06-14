@@ -7,12 +7,14 @@ import com.example.dto.MenuRatedDto;
 import com.example.dto.VoteDto;
 import com.example.menu.Menu;
 import com.example.service.customer.CustomerService;
+import com.example.service.mail.MailService;
 import com.example.service.mapping.MappingService;
 import com.example.service.rate.util.VoteCounter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
@@ -31,18 +33,23 @@ public class RateServiceImpl implements RateService {
 
     private final CustomerService customerService;
 
+    private final MailService mailService;
+
     private final ConcurrentHashMap<String, Double> rateMap = new ConcurrentHashMap<>();
 
     @Autowired
     public RateServiceImpl(VoteCounter voteCounter, MenuRepository menuRepository,
-                           MappingService mappingService, CustomerService customerService) {
+                           MappingService mappingService, CustomerService customerService,
+                           MailService mailService) {
         this.voteCounter = voteCounter;
         this.menuRepository = menuRepository;
         this.mappingService = mappingService;
         this.customerService = customerService;
+        this.mailService = mailService;
     }
 
     @Override
+    @Transactional
     public Double calculateRate(Menu menu, Double userRate) {
         notNull(menu, "The menu must be not NULL");
         notNull(userRate, "The user rate must be not NULL");
@@ -54,6 +61,7 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
+    @Transactional
     public MenuRatedDto updateRate(VoteDto voteDto, Long restaurantId) {
         notNull(voteDto, "The vote DTO must be not NULL");
         notNull(voteDto, "The restaurant ID must be not NULL");
@@ -70,7 +78,11 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
+    @Transactional
     public MenuRatedDto vote(VoteDto voteDto, Long restaurantId) {
+        notNull(voteDto, "The vote DTO must be not NULL");
+        notNull(restaurantId, "The restaurant ID must be not NULL");
+
         String email = voteDto.getEmail();
         Customer customer = customerService.getByEmail(email);
 
@@ -84,6 +96,9 @@ public class RateServiceImpl implements RateService {
 
             log.info("Voting for menu of a restaurant with ID = {}", restaurantId);
             MenuRatedDto menuRatedDto = updateRate(voteDto, restaurantId);
+
+            log.info("Send a thankful message to a customer with email = {}", customer.getEmail());
+            mailService.sendMail(customer);
 
             return menuRatedDto;
         }

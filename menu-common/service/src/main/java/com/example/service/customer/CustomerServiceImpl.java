@@ -7,6 +7,8 @@ import com.example.restaurant.Restaurant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public Customer save(Customer customer) {
         notNull(customer, "The customer must be not NULL");
         log.info("Storing a customer with email = {}", customer.getEmail());
@@ -49,6 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void delete(Long customerId) {
         notNull(customerId, "The customer ID must be not NULL");
         log.info("Removing a customer with ID = {}", customerId);
@@ -86,6 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public Customer update(Customer customer, Long customerId) {
         notNull(customer, "The customer must be not NULL");
         notNull(customerId, "The customer ID must be not NULL");
