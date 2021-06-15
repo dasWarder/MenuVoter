@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface MenuRepository extends MongoRepository<Menu, String> {
 
-    List<Menu> getAllByRestaurantId(long restaurantId);
+    List<Menu> getMenusByRestaurantId(long restaurantId);
 
     Optional<Menu> getMenuByIdAndRestaurantId(String menuId, long restaurantId);
 

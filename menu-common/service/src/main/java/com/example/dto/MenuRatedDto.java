@@ -37,7 +37,7 @@ public class MenuRatedDto {
 
     @NotNull(message = "The votes must be not null")
     @Min(value = 0, message = "The rate can't be less that 0")
-    private Long votes;
+    private Long votesCount;
 
     @JsonFormat(pattern = "yyyy-MM-dd",
             shape = JsonFormat.Shape.STRING)

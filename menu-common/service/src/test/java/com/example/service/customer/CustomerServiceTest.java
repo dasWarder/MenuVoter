@@ -26,7 +26,7 @@ class CustomerServiceTest {
         log.info("Test correctness of storing a customer");
         Mockito.when(customerRepository.save(TEST_CUSTOMER_NO_ID)).thenReturn(TEST_CUSTOMER_WITH_ID);
 
-        Customer storedCustomer = customerService.save(TEST_CUSTOMER_NO_ID);
+        Customer storedCustomer = customerService.saveCustomer(TEST_CUSTOMER_NO_ID);
 
         Assertions.assertEquals(TEST_CUSTOMER_WITH_ID, storedCustomer);
     }
@@ -37,7 +37,7 @@ class CustomerServiceTest {
         Customer customer = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> customerService.save(customer));
+                () -> customerService.saveCustomer(customer));
     }
 
     @Test
@@ -45,7 +45,7 @@ class CustomerServiceTest {
         log.info("Test correctness of receiving a customer by ID");
         Mockito.when(customerRepository.findById(TEST_CUSTOMER_2.getId())).thenReturn(Optional.of(TEST_CUSTOMER_2));
 
-        Customer customer = customerService.getById(TEST_CUSTOMER_2.getId());
+        Customer customer = customerService.getCustomerById(TEST_CUSTOMER_2.getId());
 
         Assertions.assertEquals(TEST_CUSTOMER_2, customer);
     }
@@ -56,7 +56,7 @@ class CustomerServiceTest {
         Long customerId = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> customerService.getById(customerId));
+                () -> customerService.getCustomerById(customerId));
     }
 
     @Test
@@ -65,7 +65,7 @@ class CustomerServiceTest {
         Mockito.when(customerRepository.findById(WRONG_ID)).thenReturn(Optional.ofNullable(null));
 
         Assertions.assertThrows(CustomerNotFoundException.class,
-                () -> customerService.getById(WRONG_ID));
+                () -> customerService.getCustomerById(WRONG_ID));
     }
 
     @Test
@@ -74,7 +74,7 @@ class CustomerServiceTest {
         Long customerId = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> customerService.delete(customerId));
+                () -> customerService.deleteCustomerById(customerId));
     }
 
     @Test
@@ -83,7 +83,7 @@ class CustomerServiceTest {
         String email = TEST_CUSTOMER_WITH_ID.getEmail();
         Mockito.when(customerRepository.getCustomerByEmail(email)).thenReturn(Optional.of(TEST_CUSTOMER_WITH_ID));
 
-        Customer customerByEmail = customerService.getByEmail(email);
+        Customer customerByEmail = customerService.getCustomerByEmail(email);
 
         Assertions.assertEquals(TEST_CUSTOMER_WITH_ID, customerByEmail);
     }
@@ -94,7 +94,7 @@ class CustomerServiceTest {
         String email = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> customerService.getByEmail(email));
+                () -> customerService.getCustomerByEmail(email));
     }
 
     @Test
@@ -103,7 +103,7 @@ class CustomerServiceTest {
         String email = WRONG_EMAIL;
         Mockito.when(customerRepository.getCustomerByEmail(email)).thenReturn(Optional.ofNullable(null));
 
-        Customer customerByWrongEmail = customerService.getByEmail(email);
+        Customer customerByWrongEmail = customerService.getCustomerByEmail(email);
 
         Assertions.assertNull(customerByWrongEmail);
     }
@@ -113,7 +113,7 @@ class CustomerServiceTest {
         log.info("Test correctness of receiving a list of all customers");
         Mockito.when(customerRepository.findAll()).thenReturn(ALL_CUSTOMERS);
 
-        List<Customer> customers = customerService.getAll();
+        List<Customer> customers = customerService.getAllCustomers();
 
         Assertions.assertEquals(ALL_CUSTOMERS, customers);
     }
@@ -121,9 +121,9 @@ class CustomerServiceTest {
     @Test
     public void shouldReturnAllVotedCustomersProperly() {
         log.info("Test correctness of receiving a list of voted customers");
-        Mockito.when(customerRepository.getAllByVotedTrue()).thenReturn(VOTED_CUSTOMERS);
+        Mockito.when(customerRepository.getCustomersByVotedTrue()).thenReturn(VOTED_CUSTOMERS);
 
-        List<Customer> votedCustomers = customerService.getAllVoted();
+        List<Customer> votedCustomers = customerService.getAllVotedCustomers();
 
         Assertions.assertEquals(VOTED_CUSTOMERS, votedCustomers);
     }
@@ -136,7 +136,7 @@ class CustomerServiceTest {
         Customer updatingCustomer = TEST_UPDATING_CUSTOMER;
         updatingCustomer.setId(customerId);
 
-        customerService.update(updatingCustomer, customerId);
+        customerService.updateCustomer(updatingCustomer, customerId);
 
         Assertions.assertEquals(UPDATED_CUSTOMER, updatingCustomer);
     }
@@ -148,7 +148,7 @@ class CustomerServiceTest {
         Long customerId = UPDATED_CUSTOMER.getId();
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> customerService.update(customer, customerId));
+                () -> customerService.updateCustomer(customer, customerId));
     }
 
     @Test
@@ -158,7 +158,7 @@ class CustomerServiceTest {
         Long customerId = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> customerService.update(customer, customerId));
+                () -> customerService.updateCustomer(customer, customerId));
     }
 
 }

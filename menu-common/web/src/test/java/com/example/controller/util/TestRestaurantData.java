@@ -1,7 +1,7 @@
 package com.example.controller.util;
 
 import com.example.restaurant.Restaurant;
-import com.example.validation.exception.ExceptionAnswer;
+import com.example.validation.exception.ExceptionResponse;
 import com.example.validation.violation.Violation;
 
 import static com.example.controller.util.TestData.WRONG_ID;
@@ -29,7 +29,7 @@ public class TestRestaurantData {
     public static final String DELETE_MESSAGE = "The restaurant with ID = " + UPDATED_RESTAURANT.getId() + " was successfully removed";
 
    //Validation test data for exceptions (service layer)
-    public static final ExceptionAnswer RESTAURANT_NOT_FOUND = new ExceptionAnswer("class com.example.exception.RestaurantNotFoundException",
+    public static final ExceptionResponse RESTAURANT_NOT_FOUND = new ExceptionResponse("class com.example.exception.RestaurantNotFoundException",
             String.format("The restaurant with ID = %d not founded", WRONG_ID));
 
    //Validation test data for violation (controller)

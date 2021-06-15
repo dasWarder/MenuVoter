@@ -1,9 +1,6 @@
 package com.example.customer;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,14 +22,14 @@ public class Customer {
     private String email;
 
     @Column(name = "voted")
-    private boolean voted;
+    private boolean isVoted;
 
     public Customer(String email) {
         this.email = email;
     }
 
-    public Customer(String email, boolean voted) {
+    public Customer(String email, boolean isVoted) {
         this.email = email;
-        this.voted = voted;
+        this.isVoted = isVoted;
     }
 }

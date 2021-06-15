@@ -9,7 +9,15 @@ import java.util.Optional;
 
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
+    Customer saveCustomer(Customer customer);
+
+    List<Customer> getCustomers();
+
+    void deleteCustomerById(Long customerId);
+
+    Optional<Customer> getCustomerById(Long customerId);
+
     Optional<Customer> getCustomerByEmail(String email);
 
-    List<Customer> getAllByVotedTrue();
+    List<Customer> getCustomersByVotedTrue();
 }

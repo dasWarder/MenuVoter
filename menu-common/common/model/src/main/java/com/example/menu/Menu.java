@@ -1,6 +1,7 @@
 package com.example.menu;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -39,9 +40,10 @@ public class Menu {
     private Double rate;
 
     @Field(value = "votes")
+    @JsonProperty(value = "votes")
     @NotNull(message = "The votes field must be not null")
     @Min(value = 0, message = "The votes can't be less than 0")
-    private Long votes;
+    private Long votesCount;
 
     @Field(value = "creating_date")
     @JsonFormat(pattern = "yyyy-MM-dd",
@@ -54,10 +56,10 @@ public class Menu {
     @NotNull(message = "The dishes list must be not null")
     private List<Dish> dishes;
 
-    public Menu(Long restaurantId, Double rate, Long votes, LocalDate creatingDate, List<Dish> dishes) {
+    public Menu(Long restaurantId, Double rate, Long votesCount, LocalDate creatingDate, List<Dish> dishes) {
         this.restaurantId = restaurantId;
         this.rate = rate;
-        this.votes = votes;
+        this.votesCount = votesCount;
         this.creatingDate = creatingDate;
         this.dishes = dishes;
     }

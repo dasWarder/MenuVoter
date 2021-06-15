@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface CustomerService {
 
-    Customer save(Customer customer);
+    Customer saveCustomer(Customer customerForSave);
 
-    Customer getById(Long customerId);
+    Customer getCustomerById(Long customerId);
 
-    void delete(Long customerId);
+    void deleteCustomerById(Long customerId);
 
-    Customer getByEmail(String email);
+    Customer getCustomerByEmail(String email);
 
-    List<Customer> getAll();
+    List<Customer> getAllCustomers();
 
-    List<Customer> getAllVoted();
+    List<Customer> getAllVotedCustomers();
 
-    Customer update(Customer customer, Long customerId);
+    Customer updateCustomer(Customer updatingCustomer, Long customerId);
 }

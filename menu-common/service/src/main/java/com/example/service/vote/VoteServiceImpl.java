@@ -18,7 +18,6 @@ import static org.springframework.util.Assert.notNull;
 @Service
 public class VoteServiceImpl implements VoteService {
 
-
     private final RateService rateService;
 
     private final CustomerService customerService;
@@ -39,14 +38,14 @@ public class VoteServiceImpl implements VoteService {
         notNull(restaurantId, "The restaurant ID must be not NULL");
 
         String email = voteDto.getEmail();
-        Customer customer = customerService.getByEmail(email);
+        Customer customer = customerService.getCustomerByEmail(email);
 
         if(customer == null) {
-            customer = customerService.save(new Customer(email));
+            customer = customerService.saveCustomer(new Customer(email));
         }
 
         if(!customer.isVoted()) {
-            customerService.update(
+            customerService.updateCustomer(
                     new Customer(customer.getEmail(), true), customer.getId());
 
             log.info("Voting for menu of a restaurant with ID = {}", restaurantId);

@@ -24,21 +24,21 @@ public class CustomerScheduling {
     @Scheduled(cron = "0 0 1 * * *")
     public void availableVotingNewDay() {
         log.info("Updating already voted yesterday customers");
-        List<Customer> votedCustomers = customerService.getAllVoted();
+        List<Customer> alreadyVotedCustomers = customerService.getAllVotedCustomers();
 
-        votedCustomers.forEach(customer -> {
-            customerService.update(
-                    new Customer(customer.getEmail(), false), customer.getId());
+        alreadyVotedCustomers.forEach(votedCustomer -> {
+            customerService.updateCustomer(
+                    new Customer(votedCustomer.getEmail(), false), votedCustomer.getId());
         });
     }
 
     @Scheduled(cron = "0 0 1 * * SUN")
     public void removingCustomers() {
         log.info("Removing customers on Sunday");
-        List<Customer> customers = customerService.getAll();
+        List<Customer> customers = customerService.getAllCustomers();
 
         customers.forEach(customer -> {
-            customerService.delete(customer.getId());
+            customerService.deleteCustomerById(customer.getId());
         });
     }
 }

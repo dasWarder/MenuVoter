@@ -3,7 +3,6 @@ package com.example.service.customer;
 import com.example.CustomerRepository;
 import com.example.customer.Customer;
 import com.example.exception.CustomerNotFoundException;
-import com.example.restaurant.Restaurant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,23 +26,23 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Customer save(Customer customer) {
-        notNull(customer, "The customer must be not NULL");
-        log.info("Storing a customer with email = {}", customer.getEmail());
-        customer.setVoted(false);
+    public Customer saveCustomer(Customer customerForSave) {
+        notNull(customerForSave, "The customer must be not NULL");
+        log.info("Storing a customer with email = {}", customerForSave.getEmail());
+        customerForSave.setVoted(false);
 
-        return customerRepository.save(customer);
+        return customerRepository.saveCustomer(customerForSave);
     }
 
     @Override
-    public Customer getById(Long customerId) {
+    public Customer getCustomerById(Long customerId) {
         notNull(customerId, "The customer ID must be not NULL");
 
-        Optional<Customer> possibleCustomer = customerRepository.findById(customerId);
+        Optional<Customer> possibleCustomerById = customerRepository.getCustomerById(customerId);
 
-        if(possibleCustomer.isPresent()) {
+        if(possibleCustomerById.isPresent()) {
             log.info("Receiving a customer with ID = {}", customerId);
-            return possibleCustomer.get();
+            return possibleCustomerById.get();
         }
 
         log.info("The exception for a customer with ID = {} has been occurred", customerId);
@@ -53,51 +52,51 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void delete(Long customerId) {
+    public void deleteCustomerById(Long customerId) {
         notNull(customerId, "The customer ID must be not NULL");
         log.info("Removing a customer with ID = {}", customerId);
 
-        customerRepository.deleteById(customerId);
+        customerRepository.deleteCustomerById(customerId);
     }
 
     @Override
-    public Customer getByEmail(String email) {
+    public Customer getCustomerByEmail(String email) {
         notNull(email, "The customer email must be not NULL");
         log.info("Receiving a customer with email = {}" ,email);
 
-        Optional<Customer> possibleCustomer = customerRepository.getCustomerByEmail(email);
+        Optional<Customer> possibleCustomerByEmail = customerRepository.getCustomerByEmail(email);
 
-        if(possibleCustomer.isPresent()) {
+        if(possibleCustomerByEmail.isPresent()) {
             log.info("Receiving a customer with email = {}", email);
-            return possibleCustomer.get();
+            return possibleCustomerByEmail.get();
         }
 
         return null;
     }
 
     @Override
-    public List<Customer> getAll() {
+    public List<Customer> getAllCustomers() {
         log.info("Receiving a list of all customers");
 
-        return (List) customerRepository.findAll();
+        return customerRepository.getCustomers();
     }
 
     @Override
-    public List<Customer> getAllVoted() {
+    public List<Customer> getAllVotedCustomers() {
         log.info("Receiving a list of all already voted customers");
 
-        return customerRepository.getAllByVotedTrue();
+        return customerRepository.getCustomersByVotedTrue();
     }
 
     @Override
     @Transactional
-    public Customer update(Customer customer, Long customerId) {
-        notNull(customer, "The customer must be not NULL");
+    public Customer updateCustomer(Customer updatingCustomer, Long customerId) {
+        notNull(updatingCustomer, "The customer must be not NULL");
         notNull(customerId, "The customer ID must be not NULL");
 
         log.info("Update the customer with ID = {}", customerId);
-        customer.setId(customerId);
-        Customer updatedCustomer = customerRepository.save(customer);
+        updatingCustomer.setId(customerId);
+        Customer updatedCustomer = customerRepository.saveCustomer(updatingCustomer);
 
         return updatedCustomer;
     }

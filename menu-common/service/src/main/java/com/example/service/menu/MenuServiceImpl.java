@@ -36,7 +36,7 @@ public class MenuServiceImpl implements MenuService {
         notNull(restaurantId, "The ID of the restaurant must be NOT null");
 
         log.info("Receiving a collection of menus for the restaurant with ID = {}", restaurantId);
-        List<Menu> menus = menuRepository.getAllByRestaurantId(restaurantId);
+        List<Menu> menus = menuRepository.getMenusByRestaurantId(restaurantId);
 
         log.info("Mapping from the list of Menu to List of Menu Rated Dto for the restaurant with ID = {}", restaurantId);
         List<MenuRatedDto> menuRatedDtoList = mappingService.fromMenuListToMenuRatedDtoList(menus);

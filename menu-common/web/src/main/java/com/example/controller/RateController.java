@@ -17,10 +17,10 @@ import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/restaurants/restaurant/{restId}/menus/menu")
+@RequestMapping( "/restaurants/restaurant/{restId}/menus/menu")
 public class RateController {
 
-    private static final String VOTED_MESSAGE = "You already voted today, please back tomorrow!";
+    private static final String VOTED_MESSAGE = "You've already voted today, please back tomorrow!";
 
     private final VoteService voteService;
 
@@ -29,18 +29,23 @@ public class RateController {
         this.voteService = voteService;
     }
 
-    @PutMapping(value = "/rate")
-    public ResponseEntity vote(@RequestBody @Valid VoteDto voteDto,
-                                        @PathVariable("restId")
-                                            @Min(value = 1, message = "The Id must be greater that 0")
-                                            @NotNull(message = "The Id of a restaurant must be not null") Long restaurantId) {
+
+    @PutMapping( "/rate")
+    public ResponseEntity voteRestaurant(@RequestBody
+                                         @Valid
+                                         VoteDto voteDto,
+                                         @PathVariable("restId")
+                                         @Min(value = 1, message =
+                                                 "The Id must be greater that 0")
+                                         @NotNull(message =
+                                                 "The Id of a restaurant must be not null")
+                                         Long restaurantId) {
 
         MenuRatedDto vote = voteService.vote(voteDto, restaurantId);
 
-        return vote == null?
-                new ResponseEntity(VOTED_MESSAGE, HttpStatus.OK) :
-                                new ResponseEntity(vote, HttpStatus.OK);
+        return new ResponseEntity(vote == null?
+                                                VOTED_MESSAGE : vote,
+                                                                    HttpStatus.OK);
     }
-
 
 }
