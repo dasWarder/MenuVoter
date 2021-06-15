@@ -26,15 +26,15 @@ public class ErrorHandling {
                                 MenuNotFoundException.class,
                                 RestaurantNotFoundException.class,
                                 CustomerNotFoundException.class })
-    public ResponseEntity onNotFoundException(Exception e) {
+    public ResponseEntity onNotFoundException(Exception exception) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
 
-        exceptionResponse.setType(e
-                                   .getClass()
-                                   .toString());
-        exceptionResponse.setMessage(e
-                                      .getMessage());
+        exceptionResponse.setType(exception
+                                           .getClass()
+                                           .toString());
+        exceptionResponse.setMessage(exception
+                                             .getMessage());
 
         return new ResponseEntity(exceptionResponse,
                                    HttpStatus.NOT_FOUND);

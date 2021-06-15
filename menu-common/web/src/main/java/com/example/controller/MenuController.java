@@ -124,16 +124,16 @@ public class MenuController {
 
     @PutMapping( "/menu/{menuId}")
     public ResponseEntity<MenuRatedDto> updateMenu(@RequestBody
-                                               @Valid
-                                               MenuDto menuDto,
-                                               @PathVariable("menuId")
-                                               @NotBlank String menuId,
-                                               @PathVariable("restId")
-                                               @Min(value = 1, message =
-                                                       "The Id must be greater that 0")
-                                               @NotNull(message =
-                                                       "The Id of a restaurant must be not null")
-                                               Long restaurantId) {
+                                                   @Valid
+                                                   MenuDto menuDto,
+                                                   @PathVariable("menuId")
+                                                   @NotBlank String menuId,
+                                                   @PathVariable("restId")
+                                                   @Min(value = 1, message =
+                                                           "The Id must be greater that 0")
+                                                   @NotNull(message =
+                                                           "The Id of a restaurant must be not null")
+                                                   Long restaurantId) {
 
         log.info("Updating the menu with ID = {} and a restaurant ID = {}",
                                                                            menuId,
@@ -148,15 +148,15 @@ public class MenuController {
 
     @GetMapping("/menu")
     public ResponseEntity<MenuRatedDto> getMenuByDateOrDefaultTodayMenu(@RequestParam(value = "date", required = false)
-                                                      @DateTimeFormat(iso =
-                                                              DateTimeFormat.ISO.DATE)
-                                                      LocalDate menuDate,
-                                                      @PathVariable("restId")
-                                                      @Min(value = 1, message =
-                                                              "The Id must be greater that 0")
-                                                      @NotNull(message =
-                                                              "The Id of a restaurant must be not null")
-                                                      Long restaurantId) {
+                                                                        @DateTimeFormat(iso =
+                                                                                DateTimeFormat.ISO.DATE)
+                                                                        LocalDate menuDate,
+                                                                        @PathVariable("restId")
+                                                                        @Min(value = 1, message =
+                                                                                "The Id must be greater that 0")
+                                                                        @NotNull(message =
+                                                                                "The Id of a restaurant must be not null")
+                                                                        Long restaurantId) {
 
         log.info("Get the menu by the date of creating menu for the restaurant with ID = {}",
                                                                                              restaurantId);
