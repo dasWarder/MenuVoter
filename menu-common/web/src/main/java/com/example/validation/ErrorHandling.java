@@ -29,7 +29,6 @@ public class ErrorHandling {
     public ResponseEntity onNotFoundException(Exception exception) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();
-
         exceptionResponse.setType(exception
                                            .getClass()
                                            .toString());
@@ -45,20 +44,16 @@ public class ErrorHandling {
     public ResponseEntity onConstraintValidationException(ConstraintViolationException constraintViolationException) {
 
         ValidationResponse error = new ValidationResponse();
-
         Set<ConstraintViolation<?>> constraintViolations = constraintViolationException
                                                                                        .getConstraintViolations();
-
         constraintViolations.forEach(violation -> {
 
                 Violation responseViolation = new Violation();
-
                 responseViolation.setFieldName(violation
                                                         .getPropertyPath()
                                                         .toString());
                 responseViolation.setMessage(violation
                                                       .getMessage());
-
                 error
                      .getViolations()
                      .add(responseViolation);
@@ -74,20 +69,16 @@ public class ErrorHandling {
     public ResponseEntity onMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
 
         ValidationResponse error = new ValidationResponse();
-
         List<FieldError> fieldErrors = methodArgumentNotValidException
                                                                        .getBindingResult()
                                                                        .getFieldErrors();
-
         fieldErrors.forEach(fieldError -> {
 
                 Violation responseViolation = new Violation();
-
                 responseViolation.setFieldName(fieldError
                                                         .getField());
                 responseViolation.setMessage(fieldError
                                                        .getDefaultMessage());
-
                 error
                      .getViolations()
                      .add(responseViolation);

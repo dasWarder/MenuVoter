@@ -1,13 +1,11 @@
 package com.example;
 
-import com.example.config.RepoConfig;
 import com.example.customer.Customer;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +14,7 @@ import static com.example.TestData.TEST_CUSTOMER_3;
 import static com.example.TestData.VOTED_CUSTOMERS;
 
 @Slf4j
-//@SpringBootTest(classes = { RepoConfig.class })
+//@SpringBootTest(classes = { DaoConfig.class })
 class CustomerRepositoryTest {
 
     private final CustomerRepository customerRepository = Mockito.mock(CustomerRepository.class);
@@ -26,7 +24,7 @@ class CustomerRepositoryTest {
         Mockito.when(customerRepository.getCustomerByEmail("david@gmail.com"))
                 .thenReturn(Optional.of(TEST_CUSTOMER_3));
 
-        Mockito.when(customerRepository.getAllByVotedTrue()).thenReturn(VOTED_CUSTOMERS);
+        Mockito.when(customerRepository.getCustomersByVotedTrue()).thenReturn(VOTED_CUSTOMERS);
     }
 
     @Test
@@ -42,7 +40,7 @@ class CustomerRepositoryTest {
     @Test
     public void shouldReturnAllVotedCustomersProperly() {
         log.info("Test correctness of receiving a list of already voted customers");
-        List<Customer> votedCustomers = customerRepository.getAllByVotedTrue();
+        List<Customer> votedCustomers = customerRepository.getCustomersByVotedTrue();
 
         Assertions.assertEquals(VOTED_CUSTOMERS, votedCustomers);
     }

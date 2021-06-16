@@ -22,7 +22,7 @@ public class VoteCounter {
         votes.computeIfAbsent(menu.getId(), k -> {
 
             log.info("Create a new counter for the menu with ID = {}", menu.getId());
-            return new AtomicLong(menu.getVotes());
+            return new AtomicLong(menu.getVotesCount());
 
         });
 
@@ -36,7 +36,7 @@ public class VoteCounter {
         votes.computeIfAbsent(menu.getId(), k -> {
 
             log.info("Create a new counter for the menu with ID = {}", menu.getId());
-            return new AtomicLong(menu.getVotes());
+            return new AtomicLong(menu.getVotesCount());
 
         });
 

@@ -43,7 +43,6 @@ public class MenuController {
 
         log.info("Receiving a collection of menus for a restaurant with ID = {}",
                                                                                 restaurantId);
-
         List<MenuRatedDto> menus = menuService.getAllByRestaurantId(restaurantId);
 
         return new ResponseEntity(menus,
@@ -65,7 +64,6 @@ public class MenuController {
         log.info("Storing the menu from = {} for a restaurant with ID = {}",
                                                                             menuDto.getCreatingDate(),
                                                                             restaurantId);
-
         MenuRatedDto stored = menuService.save(menuDto, restaurantId);
 
         return new ResponseEntity<>(stored,
@@ -87,7 +85,6 @@ public class MenuController {
         log.info("Receiving the menu with ID = {} and a restaurant ID = {}",
                                                                             menuId,
                                                                             restaurantId);
-
         MenuRatedDto receivedMenu = menuService.getById(menuId, restaurantId);
 
         return new ResponseEntity(receivedMenu,
@@ -109,14 +106,11 @@ public class MenuController {
         log.info("Removing a menu for ID = {} and the restaurant ID = {}",
                                                                           menuId,
                                                                           restaurantId);
-
         menuService.deleteById(menuId, restaurantId);
-
         String response = String.format(
                             "The menu with ID = %s and a restaurant ID = %d was successfully removed",
                                                                                                       menuId,
                                                                                                       restaurantId);
-
         return new ResponseEntity(response,
                                   HttpStatus.OK);
     }
@@ -138,7 +132,6 @@ public class MenuController {
         log.info("Updating the menu with ID = {} and a restaurant ID = {}",
                                                                            menuId,
                                                                            restaurantId);
-
         MenuRatedDto updatedMenu = menuService.update(restaurantId, menuId, menuDto);
 
         return new ResponseEntity(updatedMenu,
@@ -160,7 +153,6 @@ public class MenuController {
 
         log.info("Get the menu by the date of creating menu for the restaurant with ID = {}",
                                                                                              restaurantId);
-
         MenuRatedDto menu = menuService.getByCreatingDate(menuDate, restaurantId);
 
         return new ResponseEntity<>(menu,

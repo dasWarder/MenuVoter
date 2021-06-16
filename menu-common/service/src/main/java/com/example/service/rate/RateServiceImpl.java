@@ -64,7 +64,7 @@ public class RateServiceImpl implements RateService {
 
         Menu storedMenu = getAndUpdateMenu(menuId, restaurantId, userRate);
 
-        log.info("Mapping a menu with ID = {} to RatedDTO object for upgrading the current menu");
+        log.info("Mapping a menu with ID = {} to RatedDTO object for upgrading the current menu", menuId);
         MenuRatedDto menuRatedDto = mappingService.fromMenuToRatedDto(storedMenu);
 
         return menuRatedDto;
@@ -87,14 +87,14 @@ public class RateServiceImpl implements RateService {
     private BiFunction<String, Double, Double> getCountingFunction(Menu menu, Double userRate) {
         BiFunction<String, Double, Double> countingFunction;
         //for the first vote the formula must be different, when the counter < 1 (only one vote)
-        if(menu.getVotes() < 1) {
+        if(menu.getVotesCount() < 1) {
             //i.e. if userRate = 6.0 for the first vote the formula will be calculate like 6.0 + 0.0
-            log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}", menu.getId());
+            log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}", menu.getId(), menu.getRate());
             countingFunction = (k,v) -> (v + userRate);
         } else {
             //i.e. userRate = 7.0 and the average rate for the menu is 5.5 then
             // 5.5 + 7.0 = 12.5 and 12.5/2 = 6.25
-            log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}", menu.getId());
+            log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}", menu.getId(), menu.getRate());
             countingFunction = (k,v) -> (v + userRate) / 2;
         }
 
@@ -108,7 +108,7 @@ public class RateServiceImpl implements RateService {
         Double averageMenuRate = calculateRate(menu, userRate);
 
         menu.setRate(averageMenuRate);
-        menu.setVotes(voteCounter.getCurrentCount(menu));
+        menu.setVotesCount(voteCounter.getCurrentCount(menu));
         Menu storedMenu = menuRepository.save(menu);
 
         return storedMenu;

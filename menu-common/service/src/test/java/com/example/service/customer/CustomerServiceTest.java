@@ -43,7 +43,7 @@ class CustomerServiceTest {
     @Test
     public void shouldReturnCustomerByIdProperly() {
         log.info("Test correctness of receiving a customer by ID");
-        Mockito.when(customerRepository.findById(TEST_CUSTOMER_2.getId())).thenReturn(Optional.of(TEST_CUSTOMER_2));
+        Mockito.when(customerRepository.getCustomerById(TEST_CUSTOMER_2.getId())).thenReturn(Optional.of(TEST_CUSTOMER_2));
 
         Customer customer = customerService.getCustomerById(TEST_CUSTOMER_2.getId());
 

@@ -50,7 +50,6 @@ public class RestaurantController {
 
         log.info("Storing a new restaurant with the name = {}",
                                                                restaurant.getName());
-
         Restaurant storedRestaurant = restaurantService.save(restaurant);
 
         return new ResponseEntity(storedRestaurant,
@@ -68,7 +67,6 @@ public class RestaurantController {
 
         log.info("Receiving a restaurant with ID = {}",
                                                     restaurantId);
-
         Restaurant receivedRestaurant = restaurantService.getById(restaurantId);
 
         return new ResponseEntity(receivedRestaurant,
@@ -89,7 +87,6 @@ public class RestaurantController {
 
         log.info("Updating a restaurant with ID = {}",
                                                     restaurantId);
-
         Restaurant storedRestaurant = restaurantService.update(restaurantId, restaurant);
 
         return new ResponseEntity(storedRestaurant,
@@ -107,9 +104,7 @@ public class RestaurantController {
 
         log.info("Removing a restaurant with ID = {}",
                                                     restaurantId);
-
         restaurantService.delete(restaurantId);
-
         String response = String.format(
                                         "The restaurant with ID = %d was successfully removed",
                                                                                               restaurantId);
@@ -129,7 +124,6 @@ public class RestaurantController {
 
         log.info("Receiving a restaurant by its name = {}",
                                                            name);
-
         Restaurant restaurantByName = restaurantService.getByName(name);
 
         return new ResponseEntity<>(restaurantByName,

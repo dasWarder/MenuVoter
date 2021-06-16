@@ -32,7 +32,7 @@ public class MappingServiceImpl implements MappingService {
                 .creatingDate(dto.getCreatingDate())
                 .dishes(dto.getDishes())
                 .rate(0.0)
-                .votes(0L).build();
+                .votesCount(0L).build();
 
         if(dto.getId() != null) {
             log.info("Mapping DTO with ID = {}", dto.getId());
@@ -53,7 +53,7 @@ public class MappingServiceImpl implements MappingService {
                 .id(menu.getId())
                 .creatingDate(menu.getCreatingDate())
                 .rate(rate.doubleValue())
-                .votes(menu.getVotes())
+                .votesCount(menu.getVotesCount())
                 .dishes(menu.getDishes())
                 .build();
 
@@ -77,7 +77,7 @@ public class MappingServiceImpl implements MappingService {
                             .restaurantId(restaurantId)
                             .dishes(dto.getDishes())
                             .rate(0.0)
-                            .votes(0L).build());
+                            .votesCount(0L).build());
         });
 
         return menus;
@@ -98,7 +98,7 @@ public class MappingServiceImpl implements MappingService {
                            .creatingDate(menu.getCreatingDate())
                            .dishes(menu.getDishes())
                            .rate(rate.doubleValue())
-                           .votes(menu.getVotes()).build());
+                           .votesCount(menu.getVotesCount()).build());
        });
 
        return menuRatedDtoList;

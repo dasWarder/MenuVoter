@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("Storing a customer with email = {}", customerForSave.getEmail());
         customerForSave.setVoted(false);
 
-        return customerRepository.saveCustomer(customerForSave);
+        return customerRepository.save(customerForSave);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> getAllCustomers() {
         log.info("Receiving a list of all customers");
 
-        return customerRepository.getCustomers();
+        return (List) customerRepository.findAll();
     }
 
     @Override
@@ -96,7 +96,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         log.info("Update the customer with ID = {}", customerId);
         updatingCustomer.setId(customerId);
-        Customer updatedCustomer = customerRepository.saveCustomer(updatingCustomer);
+        Customer updatedCustomer = customerRepository.save(updatingCustomer);
 
         return updatedCustomer;
     }

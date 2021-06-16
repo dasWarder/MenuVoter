@@ -22,14 +22,14 @@ public class Customer {
     private String email;
 
     @Column(name = "voted")
-    private boolean isVoted;
+    private boolean voted;
 
     public Customer(String email) {
         this.email = email;
     }
 
-    public Customer(String email, boolean isVoted) {
+    public Customer(String email, boolean voted) {
         this.email = email;
-        this.isVoted = isVoted;
+        this.voted = voted;
     }
 }

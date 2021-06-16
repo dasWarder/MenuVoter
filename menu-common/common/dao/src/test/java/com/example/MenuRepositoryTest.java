@@ -1,7 +1,7 @@
 package com.example;
 
 
-import com.example.config.RepoConfig;
+import com.example.config.DaoConfig;
 import com.example.menu.Menu;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -17,7 +17,7 @@ import java.util.Optional;
 import static com.example.TestData.*;
 
 @Slf4j
-@SpringBootTest(classes = { RepoConfig.class })
+@SpringBootTest(classes = { DaoConfig.class })
 class MenuRepositoryTest {
 
     private final MenuRepository menuRepository = Mockito.mock(MenuRepository.class);
@@ -30,7 +30,7 @@ class MenuRepositoryTest {
         Mockito.when(menuRepository.getMenuByCreatingDateAndRestaurantId(LocalDate.now(), 2L))
                 .thenReturn(Optional.of(TEST_MENU_2));
 
-        Mockito.when(menuRepository.getAllByRestaurantId(1L))
+        Mockito.when(menuRepository.getMenusByRestaurantId(1L))
                 .thenReturn(FIRST_RESTAURANT_MENUS);
     }
 
@@ -56,7 +56,7 @@ class MenuRepositoryTest {
     @Test
     public void shouldReturnMenusByRestaurantIdProperly() {
         log.info("Test correctness of receiving a list of menus by a restaurant ID");
-        List<Menu> menus = menuRepository.getAllByRestaurantId(1L);
+        List<Menu> menus = menuRepository.getMenusByRestaurantId(1L);
 
         Assertions.assertEquals(FIRST_RESTAURANT_MENUS, menus);
     }
