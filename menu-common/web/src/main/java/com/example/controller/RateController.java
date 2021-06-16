@@ -41,7 +41,7 @@ public class RateController {
                                                  "The Id of a restaurant must be not null")
                                          Long restaurantId) {
 
-        MenuRatedDto vote = voteService.vote(voteDto, restaurantId);
+        MenuRatedDto vote = voteService.voteForMenu(voteDto, restaurantId);
 
         return new ResponseEntity(vote == null?
                                                 VOTED_MESSAGE : vote,

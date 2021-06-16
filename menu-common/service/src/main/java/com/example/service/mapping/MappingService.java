@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface MappingService {
 
-    Menu fromDtoToMenu(MenuDto dto, Long restaurantId);
+    Menu mappingFromDtoToMenu(MenuDto dto, Long restaurantId);
 
-    MenuRatedDto fromMenuToRatedDto(Menu menu);
+    MenuRatedDto mappingFromMenuToRatedDto(Menu menu);
 
-    List<Menu> fromMenuDtoListToMenuList(List<MenuDto> listOfDto, Long restaurantId);
+    List<Menu> mappingFromMenuDtoListToMenuList(List<MenuDto> listOfDto, Long restaurantId);
 
-    List<MenuRatedDto> fromMenuListToMenuRatedDtoList(List<Menu> menuList);
+    List<MenuRatedDto> mappingFromMenuListToMenuRatedDtoList(List<Menu> menuList);
 
-    MenuRatedDto fromDtoToRatedDTO(MenuDto dto, Long restaurantId);
+    MenuRatedDto mappingFromMenuDtoToRatedMenuDTO(MenuDto dto, Long restaurantId);
 }

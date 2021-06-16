@@ -8,15 +8,15 @@ import java.util.List;
 
 public interface MenuService {
 
-    List<MenuRatedDto> getAllByRestaurantId(long restaurantId);
+    List<MenuRatedDto> getAllMenusByRestaurantId(long restaurantId);
 
-    MenuRatedDto save(MenuDto menuDto, long restaurantId);
+    MenuRatedDto saveMenu(MenuDto menuDtoToSave, long restaurantId);
 
-    MenuRatedDto getById(String menuId, long restaurantId);
+    MenuRatedDto getMenuById(String menuId, long restaurantId);
 
-    void deleteById(String menuId, long restaurantId);
+    void deleteMenuById(String menuId, long restaurantId);
 
-    MenuRatedDto getByCreatingDate(LocalDate creatingDate, Long restaurantId);
+    MenuRatedDto getMenuByCreatingDate(LocalDate creatingDate, Long restaurantId);
 
-    MenuRatedDto update(long restaurantId, String menuId, MenuDto menuDto);
+    MenuRatedDto updateMenu(long restaurantId, String menuId, MenuDto menuDtoForUpdating);
 }

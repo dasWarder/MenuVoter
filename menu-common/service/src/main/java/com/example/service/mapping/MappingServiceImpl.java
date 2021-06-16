@@ -1,11 +1,9 @@
 package com.example.service.mapping;
 
-import com.example.menu.Menu;
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
-import com.example.service.rate.util.VoteCounter;
+import com.example.menu.Menu;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,94 +19,117 @@ public class MappingServiceImpl implements MappingService {
 
     @Override
     @Transactional
-    public Menu fromDtoToMenu(MenuDto dto, Long restaurantId) {
-        notNull(dto, "The DTO object must be not NULL");
-        notNull(restaurantId, "The restaurantId must be not NULL");
+    public Menu mappingFromDtoToMenu(MenuDto dto, Long restaurantId) {
 
-        log.info("Mapping a new menu from menuDTO for the restaurant with ID = {}", restaurantId);
+        notNull(dto,
+                    "The DTO object must be not NULL");
+        notNull(restaurantId,
+                            "The restaurantId must be not NULL");
+        log.info("Mapping a new menu from menuDTO for the restaurant with ID = {}",
+                                                                                   restaurantId);
         Menu newMenu = Menu.builder()
-                .id(dto.getId())
-                .restaurantId(restaurantId)
-                .creatingDate(dto.getCreatingDate())
-                .dishes(dto.getDishes())
-                .rate(0.0)
-                .votesCount(0L).build();
+                                    .id(dto.getId())
+                                    .restaurantId(restaurantId)
+                                    .creatingDate(dto.getCreatingDate())
+                                    .dishes(dto.getDishes())
+                                    .rate(0.0)
+                                    .votesCount(0L)
+                                    .build();
 
-        if(dto.getId() != null) {
-            log.info("Mapping DTO with ID = {}", dto.getId());
+        if (dto.getId() != null) {
+
+            log.info("Mapping DTO with ID = {}",
+                                               dto.getId());
             newMenu.setId(dto.getId());
         }
 
         return newMenu;
     }
 
+
     @Override
     @Transactional
-    public MenuRatedDto fromMenuToRatedDto(Menu menu) {
-        notNull(menu, "The menu object must be not NULL");
+    public MenuRatedDto mappingFromMenuToRatedDto(Menu menu) {
 
-        log.info("Mapping from menu to menuDTO an object with ID = {}", menu.getId());
+        notNull(menu,
+                    "The menu object must be not NULL");
+        log.info("Mapping from menu to menuDTO an object with ID = {}",
+                                                                       menu.getId());
         Long rate = Math.round(menu.getRate());
-        MenuRatedDto dto = MenuRatedDto.builder()
-                .id(menu.getId())
-                .creatingDate(menu.getCreatingDate())
-                .rate(rate.doubleValue())
-                .votesCount(menu.getVotesCount())
-                .dishes(menu.getDishes())
-                .build();
 
+        MenuRatedDto dto = MenuRatedDto.builder()
+                                                .id(menu.getId())
+                                                .creatingDate(menu.getCreatingDate())
+                                                .rate(rate.doubleValue())
+                                                .votesCount(menu.getVotesCount())
+                                                .dishes(menu.getDishes())
+                                                .build();
         return dto;
     }
 
+
     @Override
     @Transactional
-    public List<Menu> fromMenuDtoListToMenuList(List<MenuDto> listOfDto, Long restaurantId) {
-        notNull(listOfDto, "The list of DTO must be not NULL");
-        notNull(restaurantId, "The ID of a restaurant must be not NULL");
+    public List<Menu> mappingFromMenuDtoListToMenuList(List<MenuDto> listOfDto, Long restaurantId) {
 
+        notNull(listOfDto,
+                    "The list of DTO must be not NULL");
+        notNull(restaurantId,
+                     "The ID of a restaurant must be not NULL");
+        log.info("Mapping from MenuDTO List to Menu List for the restaurant with ID = {}",
+                                                                                          restaurantId);
         List<Menu> menus = new ArrayList<>(listOfDto.size());
-
-        log.info("Mapping from MenuDTO List to Menu List for the restaurant with ID = {}", restaurantId);
         listOfDto.forEach(dto -> {
-            menus.add(
-                    Menu.builder()
-                            .id(dto.getId())
-                            .creatingDate(dto.getCreatingDate())
-                            .restaurantId(restaurantId)
-                            .dishes(dto.getDishes())
-                            .rate(0.0)
-                            .votesCount(0L).build());
+
+                menus.add(
+                          Menu.builder()
+                                      .id(dto.getId())
+                                      .creatingDate(dto.getCreatingDate())
+                                      .restaurantId(restaurantId)
+                                      .dishes(dto.getDishes())
+                                      .rate(0.0)
+                                      .votesCount(0L)
+                                      .build());
         });
 
         return menus;
     }
 
+
     @Override
     @Transactional
-    public List<MenuRatedDto> fromMenuListToMenuRatedDtoList(List<Menu> menuList) {
-       notNull(menuList, "The list of menus must be not NULL");
-       List<MenuRatedDto> menuRatedDtoList = new ArrayList<>(menuList.size());
+    public List<MenuRatedDto> mappingFromMenuListToMenuRatedDtoList(List<Menu> menuList) {
 
+       notNull(menuList,
+                "The list of menus must be not NULL");
        log.info("Mapping from Menu List to Menu Rated DTO List");
+
+       List<MenuRatedDto> menuRatedDtoList = new ArrayList<>(menuList.size());
        menuList.forEach(menu -> {
-            Long rate = Math.round(menu.getRate());
-           menuRatedDtoList.add(
-                   MenuRatedDto.builder()
-                           .id(menu.getId())
-                           .creatingDate(menu.getCreatingDate())
-                           .dishes(menu.getDishes())
-                           .rate(rate.doubleValue())
-                           .votesCount(menu.getVotesCount()).build());
+
+               Long rate = Math.round(menu.getRate());
+               menuRatedDtoList.add(
+                                    MenuRatedDto.builder()
+                                                         .id(menu.getId())
+                                                         .creatingDate(menu.getCreatingDate())
+                                                         .dishes(menu.getDishes())
+                                                         .rate(rate.doubleValue())
+                                                         .votesCount(menu.getVotesCount())
+                                                         .build());
        });
 
        return menuRatedDtoList;
     }
 
+
     @Override
     @Transactional
-    public MenuRatedDto fromDtoToRatedDTO(MenuDto dto, Long restaurantId) {
-        Menu menu = fromDtoToMenu(dto, restaurantId);
-        MenuRatedDto menuRatedDto = fromMenuToRatedDto(menu);
+    public MenuRatedDto mappingFromMenuDtoToRatedMenuDTO(MenuDto dto, Long restaurantId) {
+
+        log.info("Mapping from MenuDto to RatedMenuDto");
+        Menu menu = mappingFromDtoToMenu(dto,
+                                             restaurantId);
+        MenuRatedDto menuRatedDto = mappingFromMenuToRatedDto(menu);
 
         return menuRatedDto;
     }

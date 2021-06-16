@@ -36,7 +36,7 @@ public class RestaurantController {
 
         log.info("Receiving a collection of restaurants into the restaurant controller");
 
-        List<Restaurant> restaurants = restaurantService.getAll();
+        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
 
         return new ResponseEntity(restaurants,
                                   HttpStatus.OK);
@@ -50,7 +50,7 @@ public class RestaurantController {
 
         log.info("Storing a new restaurant with the name = {}",
                                                                restaurant.getName());
-        Restaurant storedRestaurant = restaurantService.save(restaurant);
+        Restaurant storedRestaurant = restaurantService.saveRestaurant(restaurant);
 
         return new ResponseEntity(storedRestaurant,
                                    HttpStatus.CREATED);
@@ -67,7 +67,7 @@ public class RestaurantController {
 
         log.info("Receiving a restaurant with ID = {}",
                                                     restaurantId);
-        Restaurant receivedRestaurant = restaurantService.getById(restaurantId);
+        Restaurant receivedRestaurant = restaurantService.getRestaurantById(restaurantId);
 
         return new ResponseEntity(receivedRestaurant,
                                         HttpStatus.OK);
@@ -87,7 +87,7 @@ public class RestaurantController {
 
         log.info("Updating a restaurant with ID = {}",
                                                     restaurantId);
-        Restaurant storedRestaurant = restaurantService.update(restaurantId, restaurant);
+        Restaurant storedRestaurant = restaurantService.updateRestaurant(restaurantId, restaurant);
 
         return new ResponseEntity(storedRestaurant,
                                         HttpStatus.OK);
@@ -104,7 +104,7 @@ public class RestaurantController {
 
         log.info("Removing a restaurant with ID = {}",
                                                     restaurantId);
-        restaurantService.delete(restaurantId);
+        restaurantService.deleteRestaurantById(restaurantId);
         String response = String.format(
                                         "The restaurant with ID = %d was successfully removed",
                                                                                               restaurantId);
@@ -124,7 +124,7 @@ public class RestaurantController {
 
         log.info("Receiving a restaurant by its name = {}",
                                                            name);
-        Restaurant restaurantByName = restaurantService.getByName(name);
+        Restaurant restaurantByName = restaurantService.getRestaurantByName(name);
 
         return new ResponseEntity<>(restaurantByName,
                                           HttpStatus.OK);

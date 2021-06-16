@@ -21,7 +21,7 @@ class MappingServiceTest {
     public void shouldMapFromDtoToMenuProperly() {
         log.info("Test correctness of mapping from MenuDTO to Menu");
 
-        Menu menu = mappingService.fromDtoToMenu(TEST_MENU_DTO, TEST_RESTAURANT.getId());
+        Menu menu = mappingService.mappingFromDtoToMenu(TEST_MENU_DTO, TEST_RESTAURANT.getId());
 
         Assertions.assertNotNull(menu);
         Assertions.assertEquals(TEST_MENU, menu);
@@ -34,7 +34,7 @@ class MappingServiceTest {
         Long restaurantId = TEST_RESTAURANT.getId();
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> mappingService.fromDtoToMenu(menuDto, restaurantId));
+                () -> mappingService.mappingFromDtoToMenu(menuDto, restaurantId));
     }
 
     @Test
@@ -44,7 +44,7 @@ class MappingServiceTest {
         MenuDto menuDto = TEST_MENU_DTO;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> mappingService.fromDtoToMenu(menuDto, restaurantId));
+                () -> mappingService.mappingFromDtoToMenu(menuDto, restaurantId));
     }
 
     @Test
@@ -52,7 +52,7 @@ class MappingServiceTest {
         log.info("Test correctness of mapping from MenuDTO to Menu");
         Long restaurantId = TEST_RESTAURANT.getId();
 
-        Menu menu = mappingService.fromDtoToMenu(TEST_MENU_DTO_WITH_NULL_ID, restaurantId);
+        Menu menu = mappingService.mappingFromDtoToMenu(TEST_MENU_DTO_WITH_NULL_ID, restaurantId);
 
         Assertions.assertNotNull(menu);
         Assertions.assertEquals(TEST_MENU_WITH_NULL_ID, menu);
@@ -62,7 +62,7 @@ class MappingServiceTest {
     public void shouldMapFromMenuToRatedDtoProperly() {
         log.info("Test correctness of mapping from Menu to RatedMenuDto");
 
-        MenuRatedDto menuRatedDto = mappingService.fromMenuToRatedDto(TEST_MENU_WITH_RATE);
+        MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(TEST_MENU_WITH_RATE);
 
         Assertions.assertNotNull(menuRatedDto);
         Assertions.assertEquals(TEST_RATED_DTO, menuRatedDto);
@@ -74,7 +74,7 @@ class MappingServiceTest {
         Menu menu = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> mappingService.fromMenuToRatedDto(menu));
+                () -> mappingService.mappingFromMenuToRatedDto(menu));
     }
 
     @Test
@@ -84,7 +84,7 @@ class MappingServiceTest {
         Long restaurantId = TEST_RESTAURANT.getId();
         List<Menu> expectedMenu = List.of(TEST_MENU, TEST_MENU_WITH_NULL_ID);
 
-        List<Menu> actualMenus = mappingService.fromMenuDtoListToMenuList(menuDtoList, restaurantId);
+        List<Menu> actualMenus = mappingService.mappingFromMenuDtoListToMenuList(menuDtoList, restaurantId);
 
         Assertions.assertNotNull(actualMenus);
         Assertions.assertEquals(expectedMenu, actualMenus);
@@ -96,7 +96,7 @@ class MappingServiceTest {
         List<MenuDto> emptyList = new ArrayList<>();
         Long restaurantId = TEST_RESTAURANT.getId();
 
-        List<Menu> menus = mappingService.fromMenuDtoListToMenuList(emptyList, restaurantId);
+        List<Menu> menus = mappingService.mappingFromMenuDtoListToMenuList(emptyList, restaurantId);
 
         Assertions.assertNotNull(menus);
         Assertions.assertTrue(menus.isEmpty());
@@ -109,7 +109,7 @@ class MappingServiceTest {
         Long restaurantId = TEST_RESTAURANT.getId();
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> mappingService.fromMenuDtoListToMenuList(nullableMenuDto, restaurantId));
+                () -> mappingService.mappingFromMenuDtoListToMenuList(nullableMenuDto, restaurantId));
     }
 
     @Test
@@ -119,7 +119,7 @@ class MappingServiceTest {
         Long restaurantId = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> mappingService.fromMenuDtoListToMenuList(menuDtoList, restaurantId));
+                () -> mappingService.mappingFromMenuDtoListToMenuList(menuDtoList, restaurantId));
     }
 
     @Test
@@ -128,7 +128,7 @@ class MappingServiceTest {
         List<Menu> menus = List.of(TEST_MENU_WITH_RATE, TEST_MENU);
         List<MenuRatedDto> expectedList = List.of(TEST_RATED_DTO, TEST_RATED_DTO_2);
 
-        List<MenuRatedDto> actualList = mappingService.fromMenuListToMenuRatedDtoList(menus);
+        List<MenuRatedDto> actualList = mappingService.mappingFromMenuListToMenuRatedDtoList(menus);
 
         Assertions.assertNotNull(actualList);
         Assertions.assertEquals(expectedList.size(), actualList.size());
@@ -140,7 +140,7 @@ class MappingServiceTest {
         log.info("Test correctness of mapping an empty list of menus");
         List<Menu> menus = new ArrayList<>();
 
-        List<MenuRatedDto> menuRatedDtoList = mappingService.fromMenuListToMenuRatedDtoList(menus);
+        List<MenuRatedDto> menuRatedDtoList = mappingService.mappingFromMenuListToMenuRatedDtoList(menus);
 
         Assertions.assertNotNull(menuRatedDtoList);
         Assertions.assertTrue(menuRatedDtoList.isEmpty());
@@ -152,6 +152,6 @@ class MappingServiceTest {
         List<Menu> menus = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> mappingService.fromMenuListToMenuRatedDtoList(menus));
+                () -> mappingService.mappingFromMenuListToMenuRatedDtoList(menus));
     }
 }
