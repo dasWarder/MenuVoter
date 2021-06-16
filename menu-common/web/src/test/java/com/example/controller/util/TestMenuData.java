@@ -2,7 +2,7 @@ package com.example.controller.util;
 
 import com.example.dto.MenuDto;
 import com.example.menu.Menu;
-import com.example.validation.exception.ExceptionAnswer;
+import com.example.validation.exception.ExceptionResponse;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -37,7 +37,7 @@ public class TestMenuData {
     public static final String REMOVE_MESSAGE = "The menu with ID = %s and a restaurant ID = %d was successfully removed";
 
     //Test validation from the service layer
-    public static final ExceptionAnswer MENU_NOT_FOUND = new ExceptionAnswer(
+    public static final ExceptionResponse MENU_NOT_FOUND = new ExceptionResponse(
             "class com.example.exception.MenuNotFoundException",
             String.format("The menu with ID = %s not founded", WRONG_ID_STRING));
 

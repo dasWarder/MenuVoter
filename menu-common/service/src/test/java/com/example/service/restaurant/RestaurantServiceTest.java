@@ -29,7 +29,7 @@ class RestaurantServiceTest {
         log.info("Test correctness of receiving a list of all restaurants");
         Mockito.when(restaurantRepository.findAll()).thenReturn(RESTAURANTS);
 
-        List<Restaurant> serviceRestaurants = restaurantService.getAll();
+        List<Restaurant> serviceRestaurants = restaurantService.getAllRestaurants();
 
         Assertions.assertEquals(RESTAURANTS, serviceRestaurants);
     }
@@ -40,7 +40,7 @@ class RestaurantServiceTest {
         Restaurant restaurant = new Restaurant("BuritoBar", "The Burito Bar");
         Mockito.when(restaurantRepository.save(restaurant)).thenReturn(TEST_RESTAURANT_3);
 
-        Restaurant storedRestaurant = restaurantService.save(restaurant);
+        Restaurant storedRestaurant = restaurantService.saveRestaurant(restaurant);
 
         Assertions.assertEquals(TEST_RESTAURANT_3, storedRestaurant);
     }
@@ -51,7 +51,7 @@ class RestaurantServiceTest {
         Restaurant restaurant = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.save(restaurant));
+                () -> restaurantService.saveRestaurant(restaurant));
     }
 
 
@@ -61,7 +61,7 @@ class RestaurantServiceTest {
         Long restaurantId = 1L;
         Mockito.when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.of(TEST_RESTAURANT));
 
-        Restaurant possibleRestaurant = restaurantService.getById(restaurantId);
+        Restaurant possibleRestaurant = restaurantService.getRestaurantById(restaurantId);
 
         Assertions.assertEquals(TEST_RESTAURANT, possibleRestaurant);
     }
@@ -72,7 +72,7 @@ class RestaurantServiceTest {
         Long restaurantId = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.getById(restaurantId));
+                () -> restaurantService.getRestaurantById(restaurantId));
     }
 
     @Test
@@ -83,7 +83,7 @@ class RestaurantServiceTest {
         Mockito.when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.ofNullable(restaurant));
 
         Assertions.assertThrows(RestaurantNotFoundException.class,
-                () -> restaurantService.getById(restaurantId));
+                () -> restaurantService.getRestaurantById(restaurantId));
     }
 
 
@@ -93,7 +93,7 @@ class RestaurantServiceTest {
         String name = TEST_RESTAURANT_2.getName();
         Mockito.when(restaurantRepository.getRestaurantByName(name)).thenReturn(Optional.of(TEST_RESTAURANT_2));
 
-        Restaurant restaurant = restaurantService.getByName(name);
+        Restaurant restaurant = restaurantService.getRestaurantByName(name);
 
         Assertions.assertEquals(TEST_RESTAURANT_2, restaurant);
     }
@@ -104,7 +104,7 @@ class RestaurantServiceTest {
         String name = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.getByName(name));
+                () -> restaurantService.getRestaurantByName(name));
     }
 
     @Test
@@ -114,7 +114,7 @@ class RestaurantServiceTest {
         Mockito.when(restaurantRepository.getRestaurantByName(name)).thenReturn(Optional.ofNullable(null));
 
         Assertions.assertThrows(RestaurantNotFoundException.class,
-                () -> restaurantService.getByName(name));
+                () -> restaurantService.getRestaurantByName(name));
     }
 
     @Test
@@ -125,7 +125,7 @@ class RestaurantServiceTest {
         Restaurant updating = TEST_UPDATING_RESTAURANT;
         updating.setId(restaurantId);
 
-        Restaurant updatedRestaurant = restaurantService.update(restaurantId, updating);
+        Restaurant updatedRestaurant = restaurantService.updateRestaurant(restaurantId, updating);
 
         Assertions.assertEquals(UPDATED_RESTAURANT, updatedRestaurant);
     }
@@ -139,7 +139,7 @@ class RestaurantServiceTest {
         updating.setId(restaurantId);
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.update(restaurantId, updating));
+                () -> restaurantService.updateRestaurant(restaurantId, updating));
     }
 
     @Test
@@ -149,7 +149,7 @@ class RestaurantServiceTest {
         Restaurant updating = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.update(restaurantId, updating));
+                () -> restaurantService.updateRestaurant(restaurantId, updating));
     }
 
     @Test
@@ -158,7 +158,7 @@ class RestaurantServiceTest {
         Long restaurantId = null;
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> restaurantService.delete(restaurantId));
+                () -> restaurantService.deleteRestaurantById(restaurantId));
     }
 
 

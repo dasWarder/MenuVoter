@@ -1,7 +1,7 @@
 package com.example.controller.util;
 
 import com.example.restaurant.Restaurant;
-import com.example.validation.exception.ExceptionAnswer;
+import com.example.validation.exception.ExceptionResponse;
 import com.example.validation.violation.Violation;
 
 import static com.example.controller.util.TestData.WRONG_ID;
@@ -29,13 +29,13 @@ public class TestRestaurantData {
     public static final String DELETE_MESSAGE = "The restaurant with ID = " + UPDATED_RESTAURANT.getId() + " was successfully removed";
 
    //Validation test data for exceptions (service layer)
-    public static final ExceptionAnswer RESTAURANT_NOT_FOUND = new ExceptionAnswer("class com.example.exception.RestaurantNotFoundException",
+    public static final ExceptionResponse RESTAURANT_NOT_FOUND = new ExceptionResponse("class com.example.exception.RestaurantNotFoundException",
             String.format("The restaurant with ID = %d not founded", WRONG_ID));
 
    //Validation test data for violation (controller)
     public static final Violation WRONG_RESTAURANT_DESCRIPTION = new Violation("description", "The description size must be  between 10 and 255");
     public static final Violation EMPTY_RESTAURANT_TITLE = new Violation("name", "The size of title must be between 1 and 60");
     public static final Violation MANDATORY_RESTAURANT_TITLE = new Violation("name", "The title is mandatory");
-    public static final Violation GET_EMPTY_TITLE_RESTAURANT = new Violation("getByName.name", "The name must be not empty");
-    public static final Violation GET_EMPTY_TITLE_RESTAURANT_VALIDATION = new Violation("getByName.name", "The name must be between 1 and 60");
+    public static final Violation GET_EMPTY_TITLE_RESTAURANT = new Violation("getRestaurantByName.name", "The name must be not empty");
+    public static final Violation GET_EMPTY_TITLE_RESTAURANT_VALIDATION = new Violation("getRestaurantByName.name", "The name must be between 1 and 60");
 }

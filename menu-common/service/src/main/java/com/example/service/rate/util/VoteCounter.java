@@ -18,29 +18,35 @@ public class VoteCounter {
 
     private ConcurrentHashMap<String, AtomicLong> votes = new ConcurrentHashMap<>();
 
-    public Long incrementCounter(Menu menu) {
-        votes.computeIfAbsent(menu.getId(), k -> {
+    public Long incrementVoteCounterForMenu(Menu menu) {
 
-            log.info("Create a new counter for the menu with ID = {}", menu.getId());
-            return new AtomicLong(menu.getVotes());
+        votes.computeIfAbsent(menu.getId(), key -> {
 
+                log.info("Create a new counter for the menu with ID = {}",
+                                                                          menu.getId());
+                return new AtomicLong(menu.getVotesCount());
         });
 
-        log.info("Add one vote to votes for menu with ID = {}, current count = {}", menu.getId(), votes.get(menu));
-        long vote = votes.get(menu.getId()).incrementAndGet();
+        log.info("Add one vote to votes for menu with ID = {}, current count = {}",
+                                                                                    menu.getId(),
+                                                                                     votes.get(menu));
+        AtomicLong votesCount = votes.get(menu.getId());
+        long vote = votesCount.incrementAndGet();
 
         return vote;
     }
 
-    public Long getCurrentCount(Menu menu) {
+    public Long getCurrentCountOfVotesForMenu(Menu menu) {
+
         votes.computeIfAbsent(menu.getId(), k -> {
 
-            log.info("Create a new counter for the menu with ID = {}", menu.getId());
-            return new AtomicLong(menu.getVotes());
-
+                log.info("Create a new counter for the menu with ID = {}",
+                                                                         menu.getId());
+                return new AtomicLong(menu.getVotesCount());
         });
 
-        log.info("Receiving a counter without incrementation for menu with ID = {}", menu.getId());
+        log.info("Receiving a counter without incrementation for menu with ID = {}",
+                                                                                   menu.getId());
         long counter = votes.get(menu.getId()).get();
 
         return counter;

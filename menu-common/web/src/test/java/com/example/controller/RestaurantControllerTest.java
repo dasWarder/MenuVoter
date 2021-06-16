@@ -2,7 +2,7 @@ package com.example.controller;
 
 
 import com.example.util.JsonMapper;
-import com.example.validation.violation.ValidationErrorResponse;
+import com.example.validation.violation.ValidationResponse;
 import com.example.validation.violation.Violation;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.MethodOrderer;
@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 
-import static com.example.controller.util.TestData.*;
+import static com.example.controller.util.TestData.WRONG_ID;
 import static com.example.controller.util.TestRestaurantData.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -115,7 +115,7 @@ class RestaurantControllerTest {
     public void shouldThrowExceptionWhenCreateRestaurant() throws Exception {
         log.info("Test throwing a violation when try to create a restaurant with a short description");
 
-        ValidationErrorResponse customResponse = getCustomResponse(WRONG_RESTAURANT_DESCRIPTION);
+        ValidationResponse customResponse = getCustomResponse(WRONG_RESTAURANT_DESCRIPTION);
 
         mockMvc.perform(post("/restaurants/restaurant")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -131,7 +131,7 @@ class RestaurantControllerTest {
     public void shouldThrowExceptionWhenCreateEmptyTitleRestaurant() throws Exception {
         log.info("Test throwing a violation when try to create a restaurant with an empty title");
 
-        ValidationErrorResponse customResponse = getCustomResponse(EMPTY_RESTAURANT_TITLE, MANDATORY_RESTAURANT_TITLE);
+        ValidationResponse customResponse = getCustomResponse(EMPTY_RESTAURANT_TITLE, MANDATORY_RESTAURANT_TITLE);
 
         mockMvc.perform(post("/restaurants/restaurant")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -147,7 +147,7 @@ class RestaurantControllerTest {
     public void shouldThrowExceptionWhenGetRestaurantWithNullNameParam() throws Exception {
         log.info("Test throwing an exception when try to get a restaurant with null name param");
 
-        ValidationErrorResponse customResponse = getCustomResponse(GET_EMPTY_TITLE_RESTAURANT,
+        ValidationResponse customResponse = getCustomResponse(GET_EMPTY_TITLE_RESTAURANT,
                                                         GET_EMPTY_TITLE_RESTAURANT_VALIDATION);
         String value = "";
 
@@ -188,8 +188,8 @@ class RestaurantControllerTest {
                 .andReturn();
     }
 
-    private ValidationErrorResponse getCustomResponse(Violation ... violations) {
-        ValidationErrorResponse response = new ValidationErrorResponse();
+    private ValidationResponse getCustomResponse(Violation ... violations) {
+        ValidationResponse response = new ValidationResponse();
 
         Arrays.stream(violations)
                 .forEach(v -> response.getViolations().add(v));

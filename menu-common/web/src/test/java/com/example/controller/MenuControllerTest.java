@@ -66,7 +66,7 @@ class MenuControllerTest {
     @Test
     public void shouldBeStatusOkAndReturnAllMenusForRestaurantWithIdProperly() throws Exception {
         log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus to get all menus for a restaurant");
-        List<MenuRatedDto> menuRatedDtoList = mappingService.fromMenuListToMenuRatedDtoList(
+        List<MenuRatedDto> menuRatedDtoList = mappingService.mappingFromMenuListToMenuRatedDtoList(
                 List.of(FIRST_RESTAURANT_FIRST_MENU, FIRST_RESTAURANT_SECOND_MENU));
 
         mockMvc.perform(get("/restaurants/restaurant/"+ FIRST_RESTAURANT.getId() +"/menus")
@@ -81,7 +81,7 @@ class MenuControllerTest {
     @Test
     public void shouldBeStatusOkAndReturnMenuByMenuIdProperly() throws Exception {
         log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/menu/{menuId}");
-        MenuRatedDto menuRatedDto = mappingService.fromMenuToRatedDto(FIRST_RESTAURANT_FIRST_MENU);
+        MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(FIRST_RESTAURANT_FIRST_MENU);
 
         mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId()
                 + "/menus/menu/" + FIRST_RESTAURANT_FIRST_MENU.getId())
@@ -110,7 +110,7 @@ class MenuControllerTest {
     public void shouldBeStatusOkAndReturnMenuByDefaultDateParamProperly() throws Exception {
         log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/menu " +
                 "without a param to get today's menu");
-        MenuRatedDto menuRatedDto = mappingService.fromMenuToRatedDto(FIRST_RESTAURANT_SECOND_MENU);
+        MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(FIRST_RESTAURANT_SECOND_MENU);
 
         mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId()
                 + "/menus/menu")
@@ -126,7 +126,7 @@ class MenuControllerTest {
     public void shouldBeStatusOkAndReturnMenuByCreatingDateParamProperly() throws Exception {
         log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/menu " +
                 "with a param to get a menu by date");
-        MenuRatedDto menuRatedDto = mappingService.fromMenuToRatedDto(FIRST_RESTAURANT_FIRST_MENU);
+        MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(FIRST_RESTAURANT_FIRST_MENU);
 
         mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId() +
                 "/menus/menu")
@@ -143,7 +143,7 @@ class MenuControllerTest {
     public void shouldBeStatusCreateAndCreateMenuProperly() throws Exception {
         log.info("Test correctness of POST method on the path /restaurants/restaurant/{restId}/menus/menu " +
                 "to store a new menu");
-        MenuRatedDto menuRatedDto = mappingService.fromDtoToRatedDTO(SECOND_RESTAURANT_CREATE_DTO, SECOND_RESTAURANT.getId());
+        MenuRatedDto menuRatedDto = mappingService.mappingFromMenuDtoToRatedMenuDTO(SECOND_RESTAURANT_CREATE_DTO, SECOND_RESTAURANT.getId());
 
         mockMvc.perform(post("/restaurants/restaurant/" + SECOND_RESTAURANT.getId() +
                 "/menus/menu")
@@ -161,7 +161,7 @@ class MenuControllerTest {
         log.info("Test correctness of PUT method on the path /restaurants/restaurant/{restId}/menus/menu/{menuId}" +
                 "to update a menu by its ID and restaurant ID");
 
-        MenuRatedDto menuRatedDto = mappingService.fromDtoToRatedDTO(FIRST_RESTAURANT_UPDATE_DTO,
+        MenuRatedDto menuRatedDto = mappingService.mappingFromMenuDtoToRatedMenuDTO(FIRST_RESTAURANT_UPDATE_DTO,
                 FIRST_RESTAURANT.getId());
 
         mockMvc.perform(put("/restaurants/restaurant/" + FIRST_RESTAURANT.getId() +

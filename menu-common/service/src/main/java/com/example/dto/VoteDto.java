@@ -17,15 +17,23 @@ import javax.validation.constraints.*;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class VoteDto {
 
-    @NotNull(message = "The menu ID must be not null")
+    @NotNull(message =
+            "The menu ID must be not null")
     private String menuId;
 
-    @Email(message = "The email must be valid")
-    @NotBlank(message = "The email is mandatory")
+
+    @Email(message =
+            "The email must be valid")
+    @NotBlank(message =
+            "The email is mandatory")
     private String email;
 
-    @NotNull(message = "The rate must be not null")
-    @Min(value = 1, message = "The rate can't be less that 1")
-    @Max(value = 10, message = "The rate can't be greater that 10")
+
+    @NotNull(message =
+            "The rate must be not null")
+    @Min(value = 1, message =
+            "The rate can't be less that 1")
+    @Max(value = 10, message =
+            "The rate can't be greater that 10")
     private Double rate;
 }

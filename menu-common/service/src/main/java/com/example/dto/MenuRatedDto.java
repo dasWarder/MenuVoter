@@ -27,24 +27,36 @@ import java.util.List;
 public class MenuRatedDto {
 
     @JsonProperty(index = 1)
-    @NotNull(message = "The id must be not null")
+    @NotNull(message =
+            "The id must be not null")
     private String id;
 
-    @NotNull(message = "The rate must be not null")
-    @Min(value = 1, message = "The rate can't be less that 1")
-    @Max(value = 10, message = "The rate can't be greater than 10")
+
+    @NotNull(message =
+            "The rate must be not null")
+    @Min(value = 1, message =
+            "The rate can't be less that 1")
+    @Max(value = 10, message =
+            "The rate can't be greater than 10")
     private Double rate;
 
-    @NotNull(message = "The votes must be not null")
-    @Min(value = 0, message = "The rate can't be less that 0")
-    private Long votes;
+
+    @NotNull(message =
+            "The votes must be not null")
+    @Min(value = 0, message =
+            "The rate can't be less that 0")
+    private Long votesCount;
+
 
     @JsonFormat(pattern = "yyyy-MM-dd",
-            shape = JsonFormat.Shape.STRING)
-    @NotNull(message = "The creating date must be not null")
+                shape = JsonFormat.Shape.STRING)
+    @NotNull(message =
+            "The creating date must be not null")
     private LocalDate creatingDate;
 
+
     @Valid
-    @NotNull(message = "The dishes list must be not null")
+    @NotNull(message =
+            "The dishes list must be not null")
     private List<Dish> dishes;
 }

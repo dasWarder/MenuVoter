@@ -25,68 +25,87 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    public List<Restaurant> getAll() {
+    public List<Restaurant> getAllRestaurants() {
+
         log.info("Receiving the collection of restaurants");
+
         return (List<Restaurant>) restaurantRepository.findAll();
     }
 
     @Override
     @Transactional
-    public Restaurant save(Restaurant restaurant) {
-        notNull(restaurant, "The restaurant for storing must be NOT null");
+    public Restaurant saveRestaurant(Restaurant restaurantToSave) {
 
-        log.info("Storing the restaurant with the name = {}", restaurant.getName());
-        return restaurantRepository.save(restaurant);
+        notNull(restaurantToSave,
+                         "The restaurant for storing must be NOT null");
+        log.info("Storing the restaurant with the name = {}",
+                                                             restaurantToSave.getName());
+        return restaurantRepository.save(restaurantToSave);
     }
 
     @Override
     @Transactional
-    public void delete(Long restaurantId) {
-        notNull(restaurantId, "The ID of the restaurant must be NOT null");
+    public void deleteRestaurantById(Long restaurantId) {
 
-        log.info("Removing the restaurant with ID = {}", restaurantId);
+        notNull(restaurantId,
+                     "The ID of the restaurant must be NOT null");
+
+        log.info("Removing the restaurant with ID = {}",
+                                                        restaurantId);
         restaurantRepository.deleteById(restaurantId);
     }
 
     @Override
-    public Restaurant getById(Long restaurantId) {
-        notNull(restaurantId, "The ID of the restaurant must be NOT null");
-
+    public Restaurant getRestaurantById(Long restaurantId) {
+        notNull(restaurantId,
+                     "The ID of the restaurant must be NOT null");
         Optional<Restaurant> possibleRestaurant = restaurantRepository.findById(restaurantId);
 
         if(possibleRestaurant.isPresent()) {
-            log.info("Receiving the restaurant by ID = {}", restaurantId);
+
+            log.info("Receiving the restaurant by ID = {}",
+                                                           restaurantId);
             return possibleRestaurant.get();
         }
 
-        log.info("The exception for the restaurant with ID = {} has been occurred", restaurantId);
-        throw new RestaurantNotFoundException(String
-                .format("The restaurant with ID = %d not founded", restaurantId));
+        log.info("The exception for the restaurant with ID = {} has been occurred",
+                                                                                  restaurantId);
+        throw new RestaurantNotFoundException(String.format(
+                                                            "The restaurant with ID = %d not founded",
+                                                                                                      restaurantId));
     }
 
     @Override
-    public Restaurant getByName(String name) {
-        notNull(name, "The name of the restaurant must be NOT null");
+    public Restaurant getRestaurantByName(String name) {
 
+        notNull(name,
+                "The name of the restaurant must be NOT null");
         Optional<Restaurant> possibleRestaurant = restaurantRepository.getRestaurantByName(name);
 
         if(possibleRestaurant.isPresent()) {
-            log.info("Receiving the restaurant with the name = {}", name);
+
+            log.info("Receiving the restaurant with the name = {}",
+                                                                   name);
             return possibleRestaurant.get();
         }
 
-        log.info("The exception for the restaurant with the name = {} has been occurred", name);
-        throw new RestaurantNotFoundException(String
-                .format("The restaurant with the name = %s not founded", name));
+        log.info("The exception for the restaurant with the name = {} has been occurred",
+                                                                                         name);
+        throw new RestaurantNotFoundException(String.format(
+                                                            "The restaurant with the name = %s not founded",
+                                                                                                            name));
     }
 
     @Override
     @Transactional
-    public Restaurant update(Long restaurantId, Restaurant restaurant) {
-        notNull(restaurant, "The restaurant must be not null");
-        notNull(restaurantId, "The ID must be not null");
+    public Restaurant updateRestaurant(Long restaurantId, Restaurant restaurant) {
 
-        log.info("Update the restaurant with ID = {}", restaurantId);
+        notNull(restaurant,
+                    "The restaurant must be not null");
+        notNull(restaurantId,
+                     "The ID must be not null");
+        log.info("Update the restaurant with ID = {}",
+                                                     restaurantId);
         restaurant.setId(restaurantId);
         Restaurant updatedRestaurant = restaurantRepository.save(restaurant);
 

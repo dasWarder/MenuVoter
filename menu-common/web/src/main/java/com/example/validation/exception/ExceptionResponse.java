@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExceptionAnswer {
+public class ExceptionResponse {
 
     private String type;
 
