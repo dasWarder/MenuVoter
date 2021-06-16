@@ -98,14 +98,12 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void shouldReturnNullWhenWrongEmail() {
+    public void shouldThrowExceptionWhenWrongEmail() {
         log.info("Test throwing CustomerNotFoundException");
         String email = WRONG_EMAIL;
-        Mockito.when(customerRepository.getCustomerByEmail(email)).thenReturn(Optional.ofNullable(null));
 
-        Customer customerByWrongEmail = customerService.getCustomerByEmail(email);
-
-        Assertions.assertNull(customerByWrongEmail);
+        Assertions.assertThrows(CustomerNotFoundException.class, () ->
+                                                            customerService.getCustomerByEmail(email));
     }
 
     @Test
