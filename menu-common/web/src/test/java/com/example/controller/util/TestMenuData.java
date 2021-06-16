@@ -39,6 +39,6 @@ public class TestMenuData {
     //Test validation from the service layer
     public static final ExceptionResponse MENU_NOT_FOUND = new ExceptionResponse(
             "class com.example.exception.MenuNotFoundException",
-            String.format("The menu with ID = %s not founded", WRONG_ID_STRING));
+            "The menu hasn't been found");
 
 }

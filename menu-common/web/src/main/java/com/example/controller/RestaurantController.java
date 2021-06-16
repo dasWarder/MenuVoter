@@ -1,6 +1,8 @@
 package com.example.controller;
 
 
+import com.example.exception.EntityNotFoundException;
+import com.example.exception.RestaurantNotFoundException;
 import com.example.restaurant.Restaurant;
 import com.example.service.restaurant.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +65,7 @@ public class RestaurantController {
                                                                 "The Id must be greater that 0")
                                                         @NotNull(message =
                                                                 "The Id of a restaurant must be not null")
-                                                        Long restaurantId) {
+                                                        Long restaurantId) throws EntityNotFoundException {
 
         log.info("Receiving a restaurant with ID = {}",
                                                     restaurantId);
@@ -120,7 +122,7 @@ public class RestaurantController {
                                                                   "The name must be between 1 and 60")
                                                           @NotBlank(message =
                                                                   "The name must be not empty")
-                                                          String name) {
+                                                          String name) throws EntityNotFoundException {
 
         log.info("Receiving a restaurant by its name = {}",
                                                            name);

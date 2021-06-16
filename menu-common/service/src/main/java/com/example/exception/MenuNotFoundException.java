@@ -1,6 +1,6 @@
 package com.example.exception;
 
-public class MenuNotFoundException extends RuntimeException {
+public class MenuNotFoundException extends EntityNotFoundException {
 
     public MenuNotFoundException(String message) {
         super(message);

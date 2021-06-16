@@ -3,6 +3,7 @@ package com.example.service.restaurant;
 
 
 import com.example.RestaurantRepository;
+import com.example.exception.EntityNotFoundException;
 import com.example.exception.RestaurantNotFoundException;
 import com.example.restaurant.Restaurant;
 import lombok.extern.slf4j.Slf4j;
@@ -50,13 +51,13 @@ class RestaurantServiceTest {
         log.info("Test throwing IllegalArgumentException when saving NULL");
         Restaurant restaurant = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> restaurantService.saveRestaurant(restaurant));
     }
 
 
     @Test
-    public void shouldGetRestaurantByIdProperly() {
+    public void shouldGetRestaurantByIdProperly() throws EntityNotFoundException {
         log.info("Test correctness of receiving a restaurant by ID");
         Long restaurantId = 1L;
         Mockito.when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.of(TEST_RESTAURANT));
@@ -71,7 +72,7 @@ class RestaurantServiceTest {
         log.info("Test throwing IllegalArgumentException when getById = NULL");
         Long restaurantId = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> restaurantService.getRestaurantById(restaurantId));
     }
 
@@ -88,7 +89,7 @@ class RestaurantServiceTest {
 
 
     @Test
-    public void shouldGetRestaurantByNameProperly() {
+    public void shouldGetRestaurantByNameProperly() throws EntityNotFoundException {
         log.info("Test correctness of receiving a restaurant by name");
         String name = TEST_RESTAURANT_2.getName();
         Mockito.when(restaurantRepository.getRestaurantByName(name)).thenReturn(Optional.of(TEST_RESTAURANT_2));
@@ -103,7 +104,7 @@ class RestaurantServiceTest {
         log.info("Test throwing IllegalArgumentException when a name = NULL");
         String name = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> restaurantService.getRestaurantByName(name));
     }
 
@@ -138,7 +139,7 @@ class RestaurantServiceTest {
         Restaurant updating = TEST_UPDATING_RESTAURANT;
         updating.setId(restaurantId);
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> restaurantService.updateRestaurant(restaurantId, updating));
     }
 
@@ -148,7 +149,7 @@ class RestaurantServiceTest {
         Long restaurantId = TEST_RESTAURANT.getId();
         Restaurant updating = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> restaurantService.updateRestaurant(restaurantId, updating));
     }
 
@@ -157,7 +158,7 @@ class RestaurantServiceTest {
         log.info("Test throwing IllegalArgumentException when a restaurant ID is NULL");
         Long restaurantId = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> restaurantService.deleteRestaurantById(restaurantId));
     }
 

@@ -3,7 +3,7 @@ package com.example.service.menu;
 import com.example.MenuRepository;
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
-import com.example.exception.MenuNotFoundException;
+import com.example.exception.EntityNotFoundException;
 import com.example.menu.Menu;
 import com.example.service.mapping.MappingService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.util.Assert.notNull;
+import static com.example.util.OptionalValidation.checkOptionalAndReturnOrThrowException;
+import static com.example.util.ParamValidationUtil.validateParametersNotNull;
 
 
 @Slf4j
@@ -37,8 +38,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MenuRatedDto> getAllMenusByRestaurantId(long restaurantId) {
 
-        notNull(restaurantId,
-                     "The ID of the restaurant must be NOT null");
+        validateParametersNotNull(restaurantId);
         log.info("Receiving a collection of menus for the restaurant with ID = {}",
                                                                                    restaurantId);
         List<Menu> menus = menuRepository.getMenusByRestaurantId(restaurantId);
@@ -52,44 +52,30 @@ public class MenuServiceImpl implements MenuService {
     @Transactional
     public MenuRatedDto saveMenu(MenuDto menuDtoToSave, long restaurantId) {
 
-        notNull(restaurantId,
-                     "The ID of a restaurant must be NOT null");
+        validateParametersNotNull(menuDtoToSave, restaurantId);
         Menu menu = mappingService.mappingFromDtoToMenu(menuDtoToSave, restaurantId);
 
         log.info("Storing the menu from date = {} for a restaurant with ID = {}",
                                                                                  menuDtoToSave.getCreatingDate(),
                                                                                  restaurantId);
         Menu storedMenu = menuRepository.save(menu);
-        MenuRatedDto menuRatedDtoWithId = mappingService.mappingFromMenuToRatedDto(storedMenu);
 
-        return menuRatedDtoWithId;
+        return mapFromMenuToMenuRatedDto(storedMenu);
     }
 
 
     @Override
-    public MenuRatedDto getMenuById(String menuId, long restaurantId) {
+    public MenuRatedDto getMenuById(String menuId, long restaurantId) throws EntityNotFoundException {
 
-        notNull(restaurantId,
-                     "The ID of a restaurant must be NOT null");
-        notNull(menuId,
-                "The ID of a menu must be NOT null");
+        validateParametersNotNull(menuId, restaurantId);
+
+        log.info("Receiving a menu with ID = {} for a restaurant with ID = {}",
+                                                                                menuId,
+                                                                                restaurantId);
         Optional<Menu> possibleMenu = menuRepository.getMenuByIdAndRestaurantId(menuId, restaurantId);
+        Menu menuFromDB = checkOptionalAndReturnOrThrowException(possibleMenu, Menu.class);
 
-        if(possibleMenu.isPresent()) {
-
-                    log.info("Receiving the menu by its ID = {}",
-                                                                 menuId);
-                    Menu menu = possibleMenu.get();
-                    MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(menu);
-
-                    return menuRatedDto;
-        }
-
-        log.info("The exception for menu with ID = {} has been occurred",
-                                                                         menuId);
-        throw new MenuNotFoundException(String.format(
-                                                        "The menu with ID = %s not founded",
-                                                                                            menuId));
+        return mapFromMenuToMenuRatedDto(menuFromDB);
     }
 
 
@@ -97,10 +83,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional
     public void deleteMenuById(String menuId, long restaurantId) {
 
-        notNull(menuId,
-                "The ID for the menu must be NOT null");
-        notNull(restaurantId,
-                "The ID for the restaurant must be NOT null");
+        validateParametersNotNull(menuId,restaurantId);
         log.info("Removing the menu with ID = {}",
                                                   menuId);
         menuRepository.deleteMenuByIdAndRestaurantId(menuId, restaurantId);
@@ -108,75 +91,67 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
-    public MenuRatedDto getMenuByCreatingDate(LocalDate creatingDate, Long restaurantId) {
+    public MenuRatedDto getMenuByCreatingDate(LocalDate creatingDate, Long restaurantId) throws EntityNotFoundException {
 
-        Optional<Menu> possibleMenu;
+        validateParametersNotNull(restaurantId);
+        creatingDate = validateCreatingDate(creatingDate);
+        log.info("Receiving a menu by creating date = {} for a restaurant with ID = {}",
+                                                                                        creatingDate,
+                                                                                        restaurantId);
+        Optional<Menu> possibleMenu = menuRepository.getMenuByCreatingDateAndRestaurantId(creatingDate, restaurantId);
+        Menu menuFromDB = checkOptionalAndReturnOrThrowException(possibleMenu, Menu.class);
 
-        if(creatingDate == null) {
-
-            creatingDate = LocalDate.now();
-            log.info("Receiving a menu for today {} and restaurant with ID = {}",
-                                                                                creatingDate,
-                                                                                restaurantId);
-        } else {
-
-            log.info("Receiving a menu for a creating date = {} and restaurant with ID = {}",
-                                                                                            creatingDate,
-                                                                                            restaurantId);
-        }
-
-        possibleMenu = menuRepository.getMenuByCreatingDateAndRestaurantId(creatingDate, restaurantId);
-
-        if(possibleMenu.isPresent()) {
-
-            Menu menu = possibleMenu.get();
-            log.info("Mapping from the Menu to Rated DTO for a menu with ID = {}",
-                                                                                  menu.getId());
-            MenuRatedDto RatedDto = mappingService.mappingFromMenuToRatedDto(menu);
-
-            return RatedDto;
-        }
-
-        log.info("The exception for creating date = {} has been occurred",
-                                                                          creatingDate);
-        throw new MenuNotFoundException(String.format(
-                                                      "The menu with creating date = %s not founded",
-                                                                                                    creatingDate));
+        return mapFromMenuToMenuRatedDto(menuFromDB);
     }
 
 
     @Override
     @Transactional
-    public MenuRatedDto updateMenu(long restaurantId, String menuId, MenuDto menuDtoForUpdating) {
+    public MenuRatedDto updateMenu(long restaurantId, String menuId, MenuDto menuDtoForUpdating) throws EntityNotFoundException {
 
-        notNull(restaurantId,
-                     "The ID of the restaurant must be NOT null");
-        notNull(menuId,
-                "The ID for the menu must be NOT null");
+        validateParametersNotNull(restaurantId, menuId, menuDtoForUpdating);
         Menu menu = mappingService.mappingFromDtoToMenu(menuDtoForUpdating, restaurantId);
+        log.info("Updating menu with ID = {} for a restaurant with ID = {}",
+                                                                            menuId,
+                                                                            restaurantId);
         Optional<Menu> possibleMenu = menuRepository.getMenuByIdAndRestaurantId(menuId, restaurantId);
+        Menu menuFromDB = checkOptionalAndReturnOrThrowException(possibleMenu, Menu.class);
+        Menu storedAndUpdateMenu = updateMenuIntoDBAndReturn(menuFromDB, menu, restaurantId);
 
-        if(possibleMenu.isPresent()) {
+        return mapFromMenuToMenuRatedDto(storedAndUpdateMenu);
+    }
 
-            log.info("Updating the menu with ID = {} and a restaurant ID = {}",
-                                                                                menuId,
-                                                                                restaurantId);
-            String IdOfMenuFromDb = possibleMenu.get().getId();
-            menu.setId(
-                       IdOfMenuFromDb);
-            menu.setRestaurantId(
-                                 restaurantId);
-            Menu storedUpdatedMenu = menuRepository.save(menu);
-            MenuRatedDto menuRatedDtoUpdated = mappingService.mappingFromMenuToRatedDto(storedUpdatedMenu);
 
-            return menuRatedDtoUpdated;
+
+
+
+
+    private MenuRatedDto mapFromMenuToMenuRatedDto(Menu menuToValidate) {
+
+        MenuRatedDto menuRatedDtoUpdated = mappingService.mappingFromMenuToRatedDto(menuToValidate);
+
+        return menuRatedDtoUpdated;
+    }
+
+
+    private LocalDate validateCreatingDate(LocalDate creatingDate) {
+
+        if(creatingDate == null) {
+            creatingDate = LocalDate.now();
         }
 
-        log.info("The exception for updating the menu with ID = {} has been occurred",
-                                                                                      menuId);
-        throw new MenuNotFoundException(String.format(
-                                                      "The menu with ID = %s and the restaurant ID =  %d not founded",
-                                                                                                                menuId,
-                                                                                                                restaurantId));
+        return creatingDate;
+    }
+
+
+    private Menu updateMenuIntoDBAndReturn(Menu menuFromDB, Menu menuForUpdating, Long restaurantId) {
+        String IdOfMenuFromDb = menuFromDB.getId();
+        menuForUpdating.setId(
+                             IdOfMenuFromDb);
+        menuForUpdating.setRestaurantId(
+                                        restaurantId);
+        Menu storedUpdatedMenu = menuRepository.save(menuForUpdating);
+
+        return storedUpdatedMenu;
     }
 }

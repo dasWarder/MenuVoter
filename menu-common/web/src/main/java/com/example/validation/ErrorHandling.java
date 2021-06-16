@@ -2,6 +2,7 @@ package com.example.validation;
 
 
 import com.example.exception.CustomerNotFoundException;
+import com.example.exception.EntityNotFoundException;
 import com.example.exception.MenuNotFoundException;
 import com.example.exception.RestaurantNotFoundException;
 import com.example.validation.exception.ExceptionResponse;
@@ -23,9 +24,7 @@ import java.util.Set;
 public class ErrorHandling {
 
     @ExceptionHandler(value = {
-                                MenuNotFoundException.class,
-                                RestaurantNotFoundException.class,
-                                CustomerNotFoundException.class })
+                                EntityNotFoundException.class})
     public ResponseEntity onNotFoundException(Exception exception) {
 
         ExceptionResponse exceptionResponse = new ExceptionResponse();

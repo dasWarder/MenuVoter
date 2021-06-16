@@ -2,8 +2,8 @@ package com.example.service.restaurant;
 
 
 import com.example.RestaurantRepository;
+import com.example.exception.EntityNotFoundException;
 import com.example.restaurant.Restaurant;
-import com.example.exception.RestaurantNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.util.Assert.notNull;
+import static com.example.util.OptionalValidation.checkOptionalAndReturnOrThrowException;
+import static com.example.util.ParamValidationUtil.validateParametersNotNull;
 
 @Slf4j
 @Service
@@ -36,8 +37,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Transactional
     public Restaurant saveRestaurant(Restaurant restaurantToSave) {
 
-        notNull(restaurantToSave,
-                         "The restaurant for storing must be NOT null");
+        validateParametersNotNull(restaurantToSave);
         log.info("Storing the restaurant with the name = {}",
                                                              restaurantToSave.getName());
         return restaurantRepository.save(restaurantToSave);
@@ -47,63 +47,39 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Transactional
     public void deleteRestaurantById(Long restaurantId) {
 
-        notNull(restaurantId,
-                     "The ID of the restaurant must be NOT null");
-
+        validateParametersNotNull(restaurantId);
         log.info("Removing the restaurant with ID = {}",
                                                         restaurantId);
         restaurantRepository.deleteById(restaurantId);
     }
 
     @Override
-    public Restaurant getRestaurantById(Long restaurantId) {
-        notNull(restaurantId,
-                     "The ID of the restaurant must be NOT null");
+    public Restaurant getRestaurantById(Long restaurantId) throws EntityNotFoundException {
+
+        validateParametersNotNull(restaurantId);
+
         Optional<Restaurant> possibleRestaurant = restaurantRepository.findById(restaurantId);
+        Restaurant restaurantFromDB = checkOptionalAndReturnOrThrowException(possibleRestaurant, Restaurant.class);
 
-        if(possibleRestaurant.isPresent()) {
-
-            log.info("Receiving the restaurant by ID = {}",
-                                                           restaurantId);
-            return possibleRestaurant.get();
-        }
-
-        log.info("The exception for the restaurant with ID = {} has been occurred",
-                                                                                  restaurantId);
-        throw new RestaurantNotFoundException(String.format(
-                                                            "The restaurant with ID = %d not founded",
-                                                                                                      restaurantId));
+        return restaurantFromDB;
     }
 
     @Override
-    public Restaurant getRestaurantByName(String name) {
+    public Restaurant getRestaurantByName(String name) throws EntityNotFoundException {
 
-        notNull(name,
-                "The name of the restaurant must be NOT null");
+        validateParametersNotNull(name);
+
         Optional<Restaurant> possibleRestaurant = restaurantRepository.getRestaurantByName(name);
+        Restaurant restaurantFromDB = checkOptionalAndReturnOrThrowException(possibleRestaurant, Restaurant.class);
 
-        if(possibleRestaurant.isPresent()) {
-
-            log.info("Receiving the restaurant with the name = {}",
-                                                                   name);
-            return possibleRestaurant.get();
-        }
-
-        log.info("The exception for the restaurant with the name = {} has been occurred",
-                                                                                         name);
-        throw new RestaurantNotFoundException(String.format(
-                                                            "The restaurant with the name = %s not founded",
-                                                                                                            name));
+        return restaurantFromDB;
     }
 
     @Override
     @Transactional
     public Restaurant updateRestaurant(Long restaurantId, Restaurant restaurant) {
 
-        notNull(restaurant,
-                    "The restaurant must be not null");
-        notNull(restaurantId,
-                     "The ID must be not null");
+        validateParametersNotNull(restaurantId, restaurant);
         log.info("Update the restaurant with ID = {}",
                                                      restaurantId);
         restaurant.setId(restaurantId);

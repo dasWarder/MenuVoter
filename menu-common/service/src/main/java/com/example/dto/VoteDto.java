@@ -1,6 +1,7 @@
 package com.example.dto;
 
 
+import com.example.menu.Dish;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;

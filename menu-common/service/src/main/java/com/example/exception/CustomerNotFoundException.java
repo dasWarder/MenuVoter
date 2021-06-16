@@ -1,6 +1,6 @@
 package com.example.exception;
 
-public class CustomerNotFoundException extends RuntimeException {
+public class CustomerNotFoundException extends EntityNotFoundException {
 
     public CustomerNotFoundException(String message) {
         super(message);

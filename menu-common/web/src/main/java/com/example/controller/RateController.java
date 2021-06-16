@@ -3,6 +3,7 @@ package com.example.controller;
 
 import com.example.dto.MenuRatedDto;
 import com.example.dto.VoteDto;
+import com.example.exception.EntityNotFoundException;
 import com.example.service.vote.VoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class RateController {
                                                  "The Id must be greater that 0")
                                          @NotNull(message =
                                                  "The Id of a restaurant must be not null")
-                                         Long restaurantId) {
+                                         Long restaurantId) throws EntityNotFoundException {
 
         MenuRatedDto vote = voteService.voteForMenu(voteDto, restaurantId);
 

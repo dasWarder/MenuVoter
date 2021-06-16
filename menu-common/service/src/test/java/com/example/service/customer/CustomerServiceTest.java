@@ -3,6 +3,7 @@ package com.example.service.customer;
 import com.example.CustomerRepository;
 import com.example.customer.Customer;
 import com.example.exception.CustomerNotFoundException;
+import com.example.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -36,12 +37,12 @@ class CustomerServiceTest {
         log.info("Test throwing IllegalArgumentException when try to store NULL customer");
         Customer customer = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> customerService.saveCustomer(customer));
     }
 
     @Test
-    public void shouldReturnCustomerByIdProperly() {
+    public void shouldReturnCustomerByIdProperly() throws EntityNotFoundException {
         log.info("Test correctness of receiving a customer by ID");
         Mockito.when(customerRepository.getCustomerById(TEST_CUSTOMER_2.getId())).thenReturn(Optional.of(TEST_CUSTOMER_2));
 
@@ -55,7 +56,7 @@ class CustomerServiceTest {
         log.info("Test throwing IllegalArgumentException when try to get a customer by ID");
         Long customerId = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> customerService.getCustomerById(customerId));
     }
 
@@ -73,12 +74,12 @@ class CustomerServiceTest {
         log.info("Test throwing IllegalArgumentException when delete a customer with NULL ID");
         Long customerId = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> customerService.deleteCustomerById(customerId));
     }
 
     @Test
-    public void shouldReturnCustomerByEmailProperly() {
+    public void shouldReturnCustomerByEmailProperly() throws EntityNotFoundException {
         log.info("Test correctness of receiving a customer by email");
         String email = TEST_CUSTOMER_WITH_ID.getEmail();
         Mockito.when(customerRepository.getCustomerByEmail(email)).thenReturn(Optional.of(TEST_CUSTOMER_WITH_ID));
@@ -93,7 +94,7 @@ class CustomerServiceTest {
         log.info("Test throwing IllegalArgumentException when try to get a customer with NULL email");
         String email = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> customerService.getCustomerByEmail(email));
     }
 
@@ -102,8 +103,8 @@ class CustomerServiceTest {
         log.info("Test throwing CustomerNotFoundException");
         String email = WRONG_EMAIL;
 
-        Assertions.assertThrows(CustomerNotFoundException.class, () ->
-                                                            customerService.getCustomerByEmail(email));
+        Assertions.assertThrows(CustomerNotFoundException.class,
+                () -> customerService.getCustomerByEmail(email));
     }
 
     @Test
@@ -145,7 +146,7 @@ class CustomerServiceTest {
         Customer customer = null;
         Long customerId = UPDATED_CUSTOMER.getId();
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> customerService.updateCustomer(customer, customerId));
     }
 
@@ -155,7 +156,7 @@ class CustomerServiceTest {
         Customer customer = TEST_UPDATING_CUSTOMER;
         Long customerId = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> customerService.updateCustomer(customer, customerId));
     }
 

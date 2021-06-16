@@ -18,37 +18,48 @@ public class VoteCounter {
 
     private ConcurrentHashMap<String, AtomicLong> votes = new ConcurrentHashMap<>();
 
-    public Long incrementVoteCounterForMenu(Menu menu) {
-
-        votes.computeIfAbsent(menu.getId(), key -> {
-
-                log.info("Create a new counter for the menu with ID = {}",
-                                                                          menu.getId());
-                return new AtomicLong(menu.getVotesCount());
-        });
+    public Long incrementCurrentCountOfVotesForMenu(Menu menu) {
 
         log.info("Add one vote to votes for menu with ID = {}, current count = {}",
                                                                                     menu.getId(),
-                                                                                     votes.get(menu));
-        AtomicLong votesCount = votes.get(menu.getId());
-        long vote = votesCount.incrementAndGet();
+                                                                                    votes.get(menu));
+        AtomicLong votesCounter = receiveCounterForMenu(menu);
+        long vote = votesCounter.incrementAndGet();
 
         return vote;
     }
 
+
     public Long getCurrentCountOfVotesForMenu(Menu menu) {
 
-        votes.computeIfAbsent(menu.getId(), k -> {
+        log.info("Receiving a counter without incrementation for menu with ID = {}",
+                                                                                   menu.getId());
+        AtomicLong votesCounter = receiveCounterForMenu(menu);
+        long counter = votesCounter.get();
+
+        return counter;
+    }
+
+
+
+
+
+
+    private AtomicLong receiveCounterForMenu(Menu menu) {
+
+        computeIfVotesForMenuAreAbsent(menu);
+        AtomicLong votesCount = votes.get(menu.getId());
+
+        return votesCount;
+    }
+
+
+    private void computeIfVotesForMenuAreAbsent(Menu menu) {
+        votes.computeIfAbsent(menu.getId(), key -> {
 
                 log.info("Create a new counter for the menu with ID = {}",
                                                                          menu.getId());
                 return new AtomicLong(menu.getVotesCount());
         });
-
-        log.info("Receiving a counter without incrementation for menu with ID = {}",
-                                                                                   menu.getId());
-        long counter = votes.get(menu.getId()).get();
-
-        return counter;
     }
 }
