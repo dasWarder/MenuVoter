@@ -22,7 +22,7 @@ public class CustomerScheduling {
 
 
     @Scheduled(cron = "0 0 1 * * *")
-    public void availableVotingNewDay() {
+    public void makeAvailableAlreadyVotedCustomersVotingNewDay() {
 
         log.info("Updating already voted yesterday customers");
         List<Customer> alreadyVotedCustomers = customerService.getAllVotedCustomers();
@@ -36,7 +36,7 @@ public class CustomerScheduling {
     }
 
     @Scheduled(cron = "0 0 1 * * SUN")
-    public void removingCustomers() {
+    public void removeCustomersInTheEndOfWeek() {
 
         log.info("Removing customers on Sunday");
         List<Customer> customers = customerService.getAllCustomers();

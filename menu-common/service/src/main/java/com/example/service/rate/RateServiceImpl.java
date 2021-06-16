@@ -4,6 +4,7 @@ package com.example.service.rate;
 import com.example.MenuRepository;
 import com.example.dto.MenuRatedDto;
 import com.example.dto.VoteDto;
+import com.example.exception.EntityNotFoundException;
 import com.example.menu.Menu;
 import com.example.service.mapping.MappingService;
 import com.example.service.rate.util.VoteCounter;
@@ -12,11 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
-import static com.example.service.rate.util.NonNullableMenu.checkMenuNotNullAndGet;
-import static org.springframework.util.Assert.notNull;
+import static com.example.util.OptionalValidation.checkOptionalAndReturnOrThrowException;
+import static com.example.util.ParamValidationUtil.validateParametersNotNull;
 
 @Slf4j
 @Service
@@ -38,97 +40,123 @@ public class RateServiceImpl implements RateService {
         this.mappingService = mappingService;
     }
 
+
     @Override
     @Transactional
     public Double calculateRateForMenu(Menu menu, Double userRate) {
-        notNull(menu,
-                "The menu must be not NULL");
-        notNull(userRate,
-                "The user rate must be not NULL");
-        voteCounter.incrementVoteCounterForMenu(menu);
+
+        validateParametersNotNull(menu, userRate);
+
+        voteCounter.incrementCurrentCountOfVotesForMenu(menu);
         Double averageRate = getAverageRateForMenu(menu, userRate);
 
         return averageRate;
     }
 
+
     @Override
     @Transactional
-    public MenuRatedDto updateMenuRateForRestaurant(VoteDto voteDto, Long restaurantId) {
+    public MenuRatedDto updateMenuRateForRestaurant(VoteDto voteDto, Long restaurantId) throws EntityNotFoundException {
 
-        notNull(voteDto,
-                "The vote DTO must be not NULL");
-        notNull(voteDto,
-                "The restaurant ID must be not NULL");
-        String menuId = voteDto
-                               .getMenuId();
-        Double userRate = voteDto
-                                 .getRate();
-        Menu storedMenu = getAndUpdateMenu(menuId, restaurantId, userRate);
+        validateParametersNotNull(voteDto, restaurantId);
+
+        Menu storedMenu = getMenuAndUpdateRateOrThrowException(voteDto, restaurantId);
         MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(storedMenu);
 
         return menuRatedDto;
     }
 
+
+
+
+
+
     private Double getAverageRateForMenu(Menu menu, Double userRate) {
 
         String menuId = menu.getId();
-
         //in case when there is no rate for the menu need to add a new 0.0 value
-        rateMap.computeIfAbsent(menuId, k -> {
-
-                log.info("Creating a new rate for a menu with ID = {}",
-                                                                       menuId);
-                return menu.getRate();
-        });
-
+        computeIfMenuRateIsAbsent(menu, menuId);
         log.info("Calculating average menu rate for menu with ID = {}",
-                                                                     menuId);
-        rateMap.computeIfPresent(menuId, getCountingFunction(menu, userRate));
+                                                                      menu.getId());
+        rateMap.computeIfPresent(menuId,
+                                 getCountingFunction(menu, userRate));
 
         return rateMap.get(menuId);
     }
 
+
+    private void computeIfMenuRateIsAbsent(Menu menu, String menuId) {
+
+        rateMap.computeIfAbsent(menuId, k -> {
+
+            log.info("Creating a new rate for a menu with ID = {}",
+                                                                  menuId);
+            return menu.getRate();
+        });
+    }
+
+
     private BiFunction<String, Double, Double> getCountingFunction(Menu menu, Double userRate) {
+
+        //for the first vote the formula must be different, when the counter < 1 (only one vote)
+        Long votesCount = menu.getVotesCount();
+        BiFunction<String, Double, Double> countingFunction = calculateCountingFunction(votesCount, userRate);
+
+        return countingFunction;
+    }
+
+
+    private BiFunction<String, Double, Double> calculateCountingFunction(Long votesCount, Double userRate) {
 
         BiFunction<String, Double, Double> countingFunction;
 
-        //for the first vote the formula must be different, when the counter < 1 (only one vote)
-        if(menu.getVotesCount() < 1) {
-
-                //i.e. if userRate = 6.0 for the first vote the formula will be calculate like 6.0 + 0.0
-                log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}",
-                                                                                                            menu.getId(),
-                                                                                                            menu.getRate());
-                countingFunction = (menuId,rate) ->
-                                            (rate + userRate);
+        if(votesCount < 1) {
+            //i.e. if userRate = 6.0 for the first vote the formula will be calculate like 6.0 + 0.0
+            countingFunction = (menuId,rate) ->
+                                               (rate + userRate);
 
         } else {
-
-                //i.e. userRate = 7.0 and the average rate for the menu is 5.5 then
-                // 5.5 + 7.0 = 12.5 and 12.5/2 = 6.25
-                log.info("Creating counting function for the first rate for menu with ID = {} and rate = {}",
-                                                                                                            menu.getId(),
-                                                                                                            menu.getRate());
-                countingFunction = (menuId,rate) ->
-                                            (rate + userRate) / 2;
+            //i.e. userRate = 7.0 and the average rate for the menu is 5.5
+            countingFunction = (menuId,rate) ->
+                                               (rate + userRate) / 2;
         }
 
         return countingFunction;
     }
 
-    private Menu getAndUpdateMenu(String menuId, long restaurantId, Double userRate) {
 
+    private Menu getMenuAndUpdateRateOrThrowException(VoteDto voteDto, Long restaurantId) throws EntityNotFoundException {
+
+        Double userRate = voteDto.getRate();
+
+        Menu currentMenuFromDB = getMenuOrException(voteDto, restaurantId);
+        Double updatedAverageMenuRate = calculateRateForMenu(currentMenuFromDB, userRate);
+        Menu storedMenuWithUpdatedRate = updateMenuFromDB(currentMenuFromDB, updatedAverageMenuRate);
+
+        return storedMenuWithUpdatedRate;
+    }
+
+
+    private Menu getMenuOrException(VoteDto voteDto, Long restaurantId) throws EntityNotFoundException {
+
+        String menuId = voteDto.getMenuId();
         log.info("Get menu with ID = {} to update it for voting",
                                                                  menuId);
-        Menu menu = checkMenuNotNullAndGet(menuRepository, menuId, restaurantId);
-        Double averageMenuRate = calculateRateForMenu(menu, userRate);
+        Optional<Menu> possibleMenu = menuRepository.getMenuByIdAndRestaurantId(menuId, restaurantId);
+        Menu menu = checkOptionalAndReturnOrThrowException(possibleMenu, Menu.class);
 
-        menu.setRate(
-                     averageMenuRate);
-        menu.setVotesCount(
-                           voteCounter.getCurrentCountOfVotesForMenu(menu));
-        Menu storedMenu = menuRepository.save(menu);
+        return menu;
+    }
+
+
+    private Menu updateMenuFromDB(Menu menuFromDB, Double averageMenuRate) {
+
+        menuFromDB.setRate(averageMenuRate);
+        menuFromDB.setVotesCount(voteCounter
+                                            .getCurrentCountOfVotesForMenu(menuFromDB));
+        Menu storedMenu = menuRepository.save(menuFromDB);
 
         return storedMenu;
     }
+
 }

@@ -1,5 +1,7 @@
 package com.example.service.restaurant;
 
+import com.example.exception.EntityNotFoundException;
+import com.example.exception.RestaurantNotFoundException;
 import com.example.restaurant.Restaurant;
 
 import java.util.List;
@@ -12,9 +14,9 @@ public interface RestaurantService {
 
     void deleteRestaurantById(Long restaurantId);
 
-    Restaurant getRestaurantById(Long restaurantId);
+    Restaurant getRestaurantById(Long restaurantId) throws EntityNotFoundException;
 
-    Restaurant getRestaurantByName(String name);
+    Restaurant getRestaurantByName(String name) throws EntityNotFoundException;
 
     Restaurant updateRestaurant(Long restaurantId, Restaurant restaurantForUpdating);
 }

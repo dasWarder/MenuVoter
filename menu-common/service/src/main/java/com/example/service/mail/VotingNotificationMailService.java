@@ -19,8 +19,7 @@ public class VotingNotificationMailService implements MailService {
     private final TemplateEngine templateEngine;
 
     @Autowired
-    public VotingNotificationMailService(JavaMailSender mailSender,
-                                         TemplateEngine templateEngine) {
+    public VotingNotificationMailService(JavaMailSender mailSender, TemplateEngine templateEngine) {
         this.mailSender = mailSender;
         this.templateEngine = templateEngine;
     }

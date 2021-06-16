@@ -1,6 +1,6 @@
 package com.example.exception;
 
-public class RestaurantNotFoundException extends RuntimeException {
+public class RestaurantNotFoundException extends EntityNotFoundException {
 
     public RestaurantNotFoundException(String message) {
         super(message);

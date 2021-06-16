@@ -3,6 +3,7 @@ package com.example.service.customer;
 import com.example.CustomerRepository;
 import com.example.customer.Customer;
 import com.example.exception.CustomerNotFoundException;
+import com.example.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.util.Assert.notNull;
+import static com.example.util.OptionalValidation.checkOptionalAndReturnOrThrowException;
+import static com.example.util.ParamValidationUtil.validateParametersNotNull;
 
 @Slf4j
 @Service
@@ -29,8 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public Customer saveCustomer(Customer customerForSave) {
 
-        notNull(customerForSave,
-                        "The customer must be not NULL");
+        validateParametersNotNull(customerForSave);
         log.info("Storing a customer with email = {}",
                                                       customerForSave.getEmail());
         customerForSave.setVoted(false);
@@ -40,24 +41,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public Customer getCustomerById(Long customerId) {
+    public Customer getCustomerById(Long customerId) throws EntityNotFoundException {
 
-        notNull(customerId,
-                   "The customer ID must be not NULL");
+        validateParametersNotNull(customerId);
+        log.info("Receiving a customer with ID = {}",
+                                                     customerId);
         Optional<Customer> possibleCustomerById = customerRepository.getCustomerById(customerId);
+        Customer customerFromDB = checkOptionalAndReturnOrThrowException(possibleCustomerById, Customer.class);
 
-        if(possibleCustomerById.isPresent()) {
-
-            log.info("Receiving a customer with ID = {}",
-                                                         customerId);
-            return possibleCustomerById.get();
-        }
-
-        log.info("The exception for a customer with ID = {} has been occurred",
-                                                                               customerId);
-        throw new CustomerNotFoundException(String.format(
-                                                           "The customer with ID = %d not found",
-                                                                                                 customerId));
+        return customerFromDB;
     }
 
 
@@ -65,8 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public void deleteCustomerById(Long customerId) {
 
-        notNull(customerId,
-                   "The customer ID must be not NULL");
+        validateParametersNotNull(customerId);
         log.info("Removing a customer with ID = {}",
                                                     customerId);
         customerRepository.deleteCustomerById(customerId);
@@ -74,26 +65,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public Customer getCustomerByEmail(String email) {
+    public Customer getCustomerByEmail(String email) throws EntityNotFoundException {
 
-        notNull(email,
-                "The customer email must be not NULL");
+        validateParametersNotNull(email);
         log.info("Receiving a customer with email = {}" ,
                                                          email);
         Optional<Customer> possibleCustomerByEmail = customerRepository.getCustomerByEmail(email);
+        Customer customerFromDB = checkOptionalAndReturnOrThrowException(possibleCustomerByEmail, Customer.class);
 
-        if(possibleCustomerByEmail.isPresent()) {
-
-            log.info("Receiving a customer with email = {}",
-                                                            email);
-            return possibleCustomerByEmail.get();
-        }
-
-        log.info("The exception for a customer with email = {} has been occurred",
-                                                                                  email);
-        throw new CustomerNotFoundException(String.format(
-                                                           "The customer with email = %s not found",
-                                                                                                 email));
+        return customerFromDB;
     }
 
 
@@ -119,10 +99,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     public Customer updateCustomer(Customer updatingCustomer, Long customerId) {
 
-        notNull(updatingCustomer,
-                         "The customer must be not NULL");
-        notNull(customerId,
-                   "The customer ID must be not NULL");
+        validateParametersNotNull(updatingCustomer, customerId);
         log.info("Update the customer with ID = {}",
                                                    customerId);
         updatingCustomer.setId(customerId);

@@ -3,6 +3,7 @@ package com.example.controller;
 
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
+import com.example.exception.EntityNotFoundException;
 import com.example.service.menu.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class MenuController {
                                                             "The Id must be greater that 0")
                                                     @NotNull(message =
                                                             "The Id of a restaurant must be not null")
-                                                    Long restaurantId) {
+                                                    Long restaurantId) throws EntityNotFoundException {
 
         log.info("Receiving the menu with ID = {} and a restaurant ID = {}",
                                                                             menuId,
@@ -127,7 +128,7 @@ public class MenuController {
                                                            "The Id must be greater that 0")
                                                    @NotNull(message =
                                                            "The Id of a restaurant must be not null")
-                                                   Long restaurantId) {
+                                                   Long restaurantId) throws EntityNotFoundException {
 
         log.info("Updating the menu with ID = {} and a restaurant ID = {}",
                                                                            menuId,
@@ -149,7 +150,7 @@ public class MenuController {
                                                                                 "The Id must be greater that 0")
                                                                         @NotNull(message =
                                                                                 "The Id of a restaurant must be not null")
-                                                                        Long restaurantId) {
+                                                                        Long restaurantId) throws EntityNotFoundException {
 
         log.info("Get the menu by the date of creating menu for the restaurant with ID = {}",
                                                                                              restaurantId);

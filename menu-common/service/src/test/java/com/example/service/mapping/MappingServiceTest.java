@@ -33,7 +33,7 @@ class MappingServiceTest {
         MenuDto menuDto = null;
         Long restaurantId = TEST_RESTAURANT.getId();
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> mappingService.mappingFromDtoToMenu(menuDto, restaurantId));
     }
 
@@ -43,7 +43,7 @@ class MappingServiceTest {
         Long restaurantId = null;
         MenuDto menuDto = TEST_MENU_DTO;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> mappingService.mappingFromDtoToMenu(menuDto, restaurantId));
     }
 
@@ -73,7 +73,7 @@ class MappingServiceTest {
         log.info("Test throwing IllegalArgumentException when try to receive a RatedDTO with NULL menu");
         Menu menu = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> mappingService.mappingFromMenuToRatedDto(menu));
     }
 
@@ -108,7 +108,7 @@ class MappingServiceTest {
         List<MenuDto> nullableMenuDto = null;
         Long restaurantId = TEST_RESTAURANT.getId();
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> mappingService.mappingFromMenuDtoListToMenuList(nullableMenuDto, restaurantId));
     }
 
@@ -118,7 +118,7 @@ class MappingServiceTest {
         List<MenuDto> menuDtoList = List.of(TEST_MENU_DTO, TEST_MENU_DTO_WITH_NULL_ID);
         Long restaurantId = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> mappingService.mappingFromMenuDtoListToMenuList(menuDtoList, restaurantId));
     }
 
@@ -151,7 +151,7 @@ class MappingServiceTest {
         log.info("Test throwing IllegalArgumentException when a Menu list is NULL");
         List<Menu> menus = null;
 
-        Assertions.assertThrows(IllegalArgumentException.class,
+        Assertions.assertThrows(NullPointerException.class,
                 () -> mappingService.mappingFromMenuListToMenuRatedDtoList(menus));
     }
 }

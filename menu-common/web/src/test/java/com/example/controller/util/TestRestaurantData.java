@@ -30,7 +30,7 @@ public class TestRestaurantData {
 
    //Validation test data for exceptions (service layer)
     public static final ExceptionResponse RESTAURANT_NOT_FOUND = new ExceptionResponse("class com.example.exception.RestaurantNotFoundException",
-            String.format("The restaurant with ID = %d not founded", WRONG_ID));
+            "The restaurant hasn't been found");
 
    //Validation test data for violation (controller)
     public static final Violation WRONG_RESTAURANT_DESCRIPTION = new Violation("description", "The description size must be  between 10 and 255");
