@@ -7,7 +7,9 @@ com\example\service\rate\util\VoteCounter.class
 com\example\service\mail\MailService.class
 com\example\service\restaurant\RestaurantService.class
 com\example\dto\VoteDto.class
+com\example\util\ValidateObject.class
 com\example\service\vote\VoteServiceImpl.class
+com\example\util\ParamValidationUtil.class
 com\example\service\rate\RateService.class
 com\example\exception\RestaurantNotFoundException.class
 com\example\service\customer\CustomerService.class
@@ -19,10 +21,10 @@ com\example\service\menu\MenuService.class
 com\example\service\rate\RateServiceImpl.class
 com\example\dto\MenuDto.class
 com\example\config\ServiceConfig.class
+com\example\exception\EntityNotFoundException.class
 com\example\service\vote\VoteService.class
-com\example\dto\MenuDto$MenuDtoBuilder.class
 com\example\exception\CustomerNotFoundException.class
 com\example\scheduler\CustomerScheduling.class
-com\example\service\rate\util\NonNullableMenu.class
 com\example\exception\MenuNotFoundException.class
 com\example\service\mapping\MappingService.class
+com\example\util\OptionalValidation.class

@@ -30,22 +30,15 @@ public class VotingNotificationMailService implements MailService {
 
         log.info("Preparing a message to send by email = {}",
                                                              customer.getEmail());
-        String process = buildContextWithTemplate(customer);
-
-        MimeMessagePreparator preparator = mimeMessage -> {
-
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setSubject(customer
-                                     .getEmail());
-            helper.setText(process,
-                                   true);
-            helper.setTo(customer
-                                 .getEmail());
-
-        };
-
-        mailSender.send(preparator);
+        String templateInContext = buildContextWithTemplate(customer);
+        MimeMessagePreparator constructedMimeMessagePreparator = buildMimeMessagePreparatorWithMessageForCustomer(customer,
+                                                                                                            templateInContext);
+        mailSender.send(constructedMimeMessagePreparator);
     }
+
+
+
+
 
     private String buildContextWithTemplate(Customer customer) {
 
@@ -56,4 +49,21 @@ public class VotingNotificationMailService implements MailService {
                                                                  context);
         return process;
     }
+
+    private MimeMessagePreparator buildMimeMessagePreparatorWithMessageForCustomer(Customer customer, String template) {
+
+        MimeMessagePreparator preparator = mimeMessage -> {
+
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+            helper.setSubject(customer
+                    .getEmail());
+            helper.setText(template,
+                    true);
+            helper.setTo(customer
+                    .getEmail());
+        };
+
+        return preparator;
+    }
+
 }

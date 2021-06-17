@@ -116,7 +116,7 @@ public class MenuServiceImpl implements MenuService {
                                                                             restaurantId);
         Optional<Menu> possibleMenu = menuRepository.getMenuByIdAndRestaurantId(menuId, restaurantId);
         Menu menuFromDB = checkOptionalAndReturnOrThrowException(possibleMenu, Menu.class);
-        Menu storedAndUpdateMenu = updateMenuIntoDBAndReturn(menuFromDB, menu, restaurantId);
+        Menu storedAndUpdateMenu = updateMenuIntoDbAndReturn(menuFromDB, menu, restaurantId);
 
         return mapFromMenuToMenuRatedDto(storedAndUpdateMenu);
     }
@@ -144,7 +144,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
-    private Menu updateMenuIntoDBAndReturn(Menu menuFromDB, Menu menuForUpdating, Long restaurantId) {
+    private Menu updateMenuIntoDbAndReturn(Menu menuFromDB, Menu menuForUpdating, Long restaurantId) {
+
         String IdOfMenuFromDb = menuFromDB.getId();
         menuForUpdating.setId(
                              IdOfMenuFromDb);

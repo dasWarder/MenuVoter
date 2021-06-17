@@ -34,14 +34,6 @@ public class MappingServiceImpl implements MappingService {
                                     .rate(0.0)
                                     .votesCount(0L)
                                     .build();
-
-        if (dto.getId() != null) {
-
-            log.info("Mapping DTO with ID = {}",
-                                               dto.getId());
-            newMenu.setId(dto.getId());
-        }
-
         return newMenu;
     }
 
