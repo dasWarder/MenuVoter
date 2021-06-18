@@ -2,7 +2,6 @@ package com.example.service.customer;
 
 import com.example.CustomerRepository;
 import com.example.customer.Customer;
-import com.example.exception.CustomerNotFoundException;
 import com.example.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

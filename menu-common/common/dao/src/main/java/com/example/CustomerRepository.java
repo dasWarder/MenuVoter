@@ -1,7 +1,6 @@
 package com.example;
 
 import com.example.customer.Customer;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

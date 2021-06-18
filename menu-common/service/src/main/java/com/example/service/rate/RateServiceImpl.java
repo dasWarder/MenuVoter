@@ -60,7 +60,7 @@ public class RateServiceImpl implements RateService {
 
         validateParametersNotNull(voteDto, restaurantId);
 
-        Menu storedMenu = getMenuAndUpdateRateOrThrowException(voteDto, restaurantId);
+        Menu storedMenu = calculateNewRateForMenuAndUpdateOrThrowException(voteDto, restaurantId);
         MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(storedMenu);
 
         return menuRatedDto;
@@ -125,8 +125,8 @@ public class RateServiceImpl implements RateService {
     }
 
 
-    private Menu getMenuAndUpdateRateOrThrowException(VoteDto voteDto, Long restaurantId) throws EntityNotFoundException {
-
+    private Menu calculateNewRateForMenuAndUpdateOrThrowException(VoteDto voteDto, Long restaurantId)
+                                                                                   throws EntityNotFoundException {
         Double userRate = voteDto.getRate();
 
         Menu currentMenuFromDB = getMenuOrException(voteDto, restaurantId);
@@ -137,8 +137,8 @@ public class RateServiceImpl implements RateService {
     }
 
 
-    private Menu getMenuOrException(VoteDto voteDto, Long restaurantId) throws EntityNotFoundException {
-
+    private Menu getMenuOrException(VoteDto voteDto, Long restaurantId)
+                                                     throws EntityNotFoundException {
         String menuId = voteDto.getMenuId();
         log.info("Get menu with ID = {} to update it for voting",
                                                                  menuId);

@@ -1,6 +1,6 @@
-package com.example;
+package com.example.customer;
 
-import com.example.customer.Customer;
+import com.example.CustomerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,6 @@ import static com.example.TestData.TEST_CUSTOMER_3;
 import static com.example.TestData.VOTED_CUSTOMERS;
 
 @Slf4j
-//@SpringBootTest(classes = { DaoConfig.class })
 class CustomerRepositoryTest {
 
     private final CustomerRepository customerRepository = Mockito.mock(CustomerRepository.class);
