@@ -1,8 +1,8 @@
-package com.example;
+package com.example.menu;
 
 
+import com.example.MenuRepository;
 import com.example.config.DaoConfig;
-import com.example.menu.Menu;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,6 @@ import java.util.Optional;
 import static com.example.TestData.*;
 
 @Slf4j
-@SpringBootTest(classes = { DaoConfig.class })
 class MenuRepositoryTest {
 
     private final MenuRepository menuRepository = Mockito.mock(MenuRepository.class);

@@ -1,4 +1,4 @@
-com\example\CustomerRepositoryTest.class
 com\example\TestData.class
-com\example\MenuRepositoryTest.class
-com\example\RestaurantRepositoryTest.class
+com\example\menu\MenuRepositoryTest.class
+com\example\restaurant\RestaurantRepositoryTest.class
+com\example\customer\CustomerRepositoryTest.class
