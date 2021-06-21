@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,4 +36,10 @@ public class MenuDto {
     @NotEmpty(message =
             "The dishes list must be not empty")
     private List<Dish> dishes;
+
+
+    public MenuDto(LocalDate creatingDate, List<Dish> dishes) {
+        this.creatingDate = creatingDate;
+        this.dishes = dishes;
+    }
 }

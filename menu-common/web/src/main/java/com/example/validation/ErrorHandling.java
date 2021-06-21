@@ -1,10 +1,7 @@
 package com.example.validation;
 
 
-import com.example.exception.CustomerNotFoundException;
 import com.example.exception.EntityNotFoundException;
-import com.example.exception.MenuNotFoundException;
-import com.example.exception.RestaurantNotFoundException;
 import com.example.validation.exception.ExceptionResponse;
 import com.example.validation.violation.ValidationResponse;
 import com.example.validation.violation.Violation;
@@ -12,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -23,7 +22,7 @@ import java.util.Set;
 @ControllerAdvice
 public class ErrorHandling {
 
-    @ExceptionHandler(value = {
+    @ExceptionHandler(value = { NullPointerException.class,
                                 EntityNotFoundException.class})
     public ResponseEntity onNotFoundException(Exception exception) {
 

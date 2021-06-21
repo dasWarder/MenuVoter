@@ -1,7 +1,6 @@
 package com.example.dto;
 
 import com.example.menu.Dish;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -10,21 +9,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class MenuRatedDto {
+public class MenuRatedDto extends MenuDto {
 
     @JsonProperty(index = 1)
     @NotNull(message =
@@ -47,15 +43,13 @@ public class MenuRatedDto {
             "The rate can't be less that 0")
     private Long votesCount;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",
-                shape = JsonFormat.Shape.STRING)
-    @NotNull(message =
-            "The creating date must be not null")
-    private LocalDate creatingDate;
 
-
-    @Valid
-    @NotNull(message =
-            "The dishes list must be not null")
-    private List<Dish> dishes;
+    @Builder
+    public MenuRatedDto(LocalDate creatingDate, List<Dish> dishes, String id,
+                        Double rate, Long votesCount) {
+        super(creatingDate, dishes);
+        this.id = id;
+        this.rate = rate;
+        this.votesCount = votesCount;
+    }
 }

@@ -50,9 +50,12 @@ public class TestData {
 
 
     public static final MenuRatedDto TEST_RATED_DTO = new MenuRatedDto(
-            TEST_MENU_WITH_RATE.getId(), (double) Math.round(TEST_MENU_WITH_RATE.getRate()), TEST_MENU_WITH_RATE.getVotesCount(),
-            TEST_MENU_WITH_RATE.getCreatingDate(), TEST_MENU_WITH_RATE.getDishes());
+                                                TEST_MENU_WITH_RATE.getCreatingDate(), TEST_MENU_WITH_RATE.getDishes(),
+                                                TEST_MENU_WITH_RATE.getId(), (double) Math.round(TEST_MENU_WITH_RATE.getRate()),
+                                                TEST_MENU_WITH_RATE.getVotesCount());
+
     public static final MenuRatedDto TEST_RATED_DTO_2 = new MenuRatedDto(
-            TEST_MENU.getId(), (double) Math.round(TEST_MENU.getRate()), TEST_MENU.getVotesCount(), TEST_MENU.getCreatingDate(),
-            TEST_MENU.getDishes());
+                                                            TEST_MENU.getCreatingDate(), TEST_MENU.getDishes(),
+                                                            TEST_MENU.getId(), (double) Math.round(TEST_MENU.getRate()),
+                                                            TEST_MENU.getVotesCount());
 }
