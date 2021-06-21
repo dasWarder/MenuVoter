@@ -1,4 +1,4 @@
-package com.example.controller.util;
+package com.example.util;
 
 import com.example.dto.MenuDto;
 import com.example.menu.Menu;
@@ -7,7 +7,7 @@ import com.example.validation.exception.ExceptionResponse;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.example.controller.util.TestData.*;
+import static com.example.util.TestDishData.*;
 
 public class TestMenuData {
 

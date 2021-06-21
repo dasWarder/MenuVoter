@@ -17,10 +17,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static com.example.controller.util.TestData.*;
-import static com.example.controller.util.TestMenuData.*;
-import static com.example.controller.util.TestRestaurantData.FIRST_RESTAURANT;
-import static com.example.controller.util.TestRestaurantData.SECOND_RESTAURANT;
+import static com.example.util.TestDishData.*;
+import static com.example.util.TestMenuData.*;
+import static com.example.util.TestRestaurantData.FIRST_RESTAURANT;
+import static com.example.util.TestRestaurantData.SECOND_RESTAURANT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -80,7 +80,7 @@ class MenuControllerTest {
 
     @Test
     public void shouldBeStatusOkAndReturnMenuByMenuIdProperly() throws Exception {
-        log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/menu/{menuId}");
+        log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/init_customer.sql/{menuId}");
         MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(FIRST_RESTAURANT_FIRST_MENU);
 
         mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId()
@@ -95,7 +95,7 @@ class MenuControllerTest {
 
     @Test
     public void shouldThrowExceptionWhenWrongMenuId() throws Exception {
-        log.info("Test throwing MenuNotFoundException when try to receive a menu with a wrong ID");
+        log.info("Test throwing MenuNotFoundException when try to receive a init_customer.sql with a wrong ID");
 
         mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId() +
                 "/menus/menu/" + WRONG_ID_STRING))
@@ -108,8 +108,8 @@ class MenuControllerTest {
 
     @Test
     public void shouldBeStatusOkAndReturnMenuByDefaultDateParamProperly() throws Exception {
-        log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/menu " +
-                "without a param to get today's menu");
+        log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/init_customer.sql " +
+                "without a param to get today's init_customer.sql");
         MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(FIRST_RESTAURANT_SECOND_MENU);
 
         mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId()
@@ -124,8 +124,8 @@ class MenuControllerTest {
 
     @Test
     public void shouldBeStatusOkAndReturnMenuByCreatingDateParamProperly() throws Exception {
-        log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/menu " +
-                "with a param to get a menu by date");
+        log.info("Test correctness of GET method on the path /restaurants/restaurant/{restId}/menus/init_customer.sql " +
+                "with a param to get a init_customer.sql by date");
         MenuRatedDto menuRatedDto = mappingService.mappingFromMenuToRatedDto(FIRST_RESTAURANT_FIRST_MENU);
 
         mockMvc.perform(get("/restaurants/restaurant/" + FIRST_RESTAURANT.getId() +
@@ -141,8 +141,8 @@ class MenuControllerTest {
 
     @Test
     public void shouldBeStatusCreateAndCreateMenuProperly() throws Exception {
-        log.info("Test correctness of POST method on the path /restaurants/restaurant/{restId}/menus/menu " +
-                "to store a new menu");
+        log.info("Test correctness of POST method on the path /restaurants/restaurant/{restId}/menus/init_customer.sql " +
+                "to store a new init_customer.sql");
         MenuRatedDto menuRatedDto = mappingService.mappingFromMenuDtoToRatedMenuDTO(SECOND_RESTAURANT_CREATE_DTO, SECOND_RESTAURANT.getId());
 
         mockMvc.perform(post("/restaurants/restaurant/" + SECOND_RESTAURANT.getId() +
@@ -158,8 +158,8 @@ class MenuControllerTest {
 
     @Test
     public void shouldBeStatusOkAndUpdateMenuProperly() throws Exception {
-        log.info("Test correctness of PUT method on the path /restaurants/restaurant/{restId}/menus/menu/{menuId}" +
-                "to update a menu by its ID and restaurant ID");
+        log.info("Test correctness of PUT method on the path /restaurants/restaurant/{restId}/menus/init_customer.sql/{menuId}" +
+                "to update a init_customer.sql by its ID and restaurant ID");
 
         MenuRatedDto menuRatedDto = mappingService.mappingFromMenuDtoToRatedMenuDTO(FIRST_RESTAURANT_UPDATE_DTO,
                 FIRST_RESTAURANT.getId());
@@ -178,7 +178,7 @@ class MenuControllerTest {
     @Test
     public void shouldBeStatusOkAndDeleteMenuProperly() throws Exception {
         log.info("Test correctness of DELETE method on the path /restaurants/restaurant/{restId}" +
-                "/menus/menu/{menuId}");
+                "/menus/init_customer.sql/{menuId}");
         String answer = String.format(REMOVE_MESSAGE,
                 FIRST_RESTAURANT_SECOND_MENU.getId(), FIRST_RESTAURANT.getId());
 
