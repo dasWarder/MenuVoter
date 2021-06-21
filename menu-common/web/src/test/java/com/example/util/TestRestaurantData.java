@@ -1,10 +1,8 @@
-package com.example.controller.util;
+package com.example.util;
 
 import com.example.restaurant.Restaurant;
 import com.example.validation.exception.ExceptionResponse;
 import com.example.validation.violation.Violation;
-
-import static com.example.controller.util.TestData.WRONG_ID;
 
 public class TestRestaurantData {
 

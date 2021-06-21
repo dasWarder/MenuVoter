@@ -1,14 +1,14 @@
-package com.example.controller.util;
+package com.example.util;
 
 import com.example.menu.Dish;
 
-public class TestData {
+public class TestDishData {
 
-    //wrong IDs to test RESTAURANTS and MENUS
+    //wrong IDs
     public static final Long WRONG_ID = 12345L;
     public static final String WRONG_ID_STRING = "213q4retyguj";
 
-    //Dishes for testing menu
+    //Dishes for testing init_customer.sql
     public static final Dish TEST_DISH = new Dish("Risotto", "Classic Italian risotto");
     public static final Dish TEST_DISH_2 = new Dish("Pizza margarete", "Classic Italian pizza");
     public static final Dish TEST_DISH_3 = new Dish("Pasta with seafood", "The best past in this town");
