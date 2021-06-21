@@ -1,3 +1,8 @@
 C:\Users\user\IdeaProjects\MenuVoter\menu-common\web\src\main\java\com\example\WebApplication.java
 C:\Users\user\IdeaProjects\MenuVoter\menu-common\web\src\main\java\com\example\controller\MenuController.java
 C:\Users\user\IdeaProjects\MenuVoter\menu-common\web\src\main\java\com\example\controller\RestaurantController.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\web\src\main\java\com\example\validation\ErrorHandling.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\web\src\main\java\com\example\validation\violation\ValidationResponse.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\web\src\main\java\com\example\controller\RateController.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\web\src\main\java\com\example\validation\violation\Violation.java
+C:\Users\user\IdeaProjects\MenuVoter\menu-common\web\src\main\java\com\example\validation\exception\ExceptionResponse.java
