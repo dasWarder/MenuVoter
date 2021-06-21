@@ -114,6 +114,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     private void validateCustomerForUpdate(Long customerId) throws EntityNotFoundException {
-        this.getCustomerById(customerId);
+        Optional<Customer> possibleCustomerById = customerRepository.getCustomerById(customerId);
+        Customer customer = checkOptionalAndReturnOrThrowException(possibleCustomerById, Customer.class);
     }
 }
