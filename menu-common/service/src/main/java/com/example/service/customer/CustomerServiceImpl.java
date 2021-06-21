@@ -96,14 +96,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public Customer updateCustomer(Customer updatingCustomer, Long customerId) {
+    public Customer updateCustomer(Customer updatingCustomer, Long customerId) throws EntityNotFoundException {
 
         validateParametersNotNull(updatingCustomer, customerId);
         log.info("Update the customer with ID = {}",
                                                    customerId);
+
+        validateCustomerForUpdate(customerId);
         updatingCustomer.setId(customerId);
         Customer updatedCustomer = customerRepository.save(updatingCustomer);
 
         return updatedCustomer;
+    }
+
+
+
+
+
+    private void validateCustomerForUpdate(Long customerId) throws EntityNotFoundException {
+        this.getCustomerById(customerId);
     }
 }

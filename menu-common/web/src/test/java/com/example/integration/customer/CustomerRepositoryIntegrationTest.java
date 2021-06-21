@@ -1,4 +1,4 @@
-package com.example.integration;
+package com.example.integration.customer;
 
 
 import com.example.CustomerRepository;

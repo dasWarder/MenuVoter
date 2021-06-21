@@ -1,6 +1,7 @@
 package com.example.scheduler;
 
 import com.example.customer.Customer;
+import com.example.exception.EntityNotFoundException;
 import com.example.service.customer.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class CustomerScheduling {
         alreadyVotedCustomers.forEach(votedCustomer -> {
 
             Customer updatedCustomer = new Customer(votedCustomer.getEmail(), false);
-            customerService.updateCustomer(updatedCustomer,
-                                           votedCustomer.getId());
+            updateVotedCustomers(updatedCustomer, votedCustomer.getId());
+
         });
     }
 
@@ -45,5 +46,23 @@ public class CustomerScheduling {
 
             customerService.deleteCustomerById(customer.getId());
         });
+    }
+
+
+
+
+
+    private void updateVotedCustomers(Customer updatedCustomer, Long customerId) {
+
+        try {
+
+            customerService.updateCustomer(updatedCustomer,
+                                                          customerId);
+
+        } catch (EntityNotFoundException e) {
+
+            e.printStackTrace();
+
+        }
     }
 }

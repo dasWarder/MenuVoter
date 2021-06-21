@@ -4,7 +4,7 @@ import com.example.menu.Dish;
 
 public class TestDishData {
 
-    //wrong IDs to test RESTAURANTS and MENUS
+    //wrong IDs
     public static final Long WRONG_ID = 12345L;
     public static final String WRONG_ID_STRING = "213q4retyguj";
 

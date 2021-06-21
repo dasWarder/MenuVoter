@@ -128,7 +128,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void shouldReturnUpdatedCustomerProperly() {
+    public void shouldReturnUpdatedCustomerProperly() throws EntityNotFoundException {
         log.info("Test correctness of updating a customer");
         Mockito.when(customerRepository.save(UPDATED_CUSTOMER)).thenReturn(UPDATED_CUSTOMER);
         Long customerId = UPDATED_CUSTOMER.getId();
