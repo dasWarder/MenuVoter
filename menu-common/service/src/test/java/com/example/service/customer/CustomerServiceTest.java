@@ -5,9 +5,9 @@ import com.example.customer.Customer;
 import com.example.exception.CustomerNotFoundException;
 import com.example.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
 import java.util.Optional;
@@ -128,16 +128,19 @@ class CustomerServiceTest {
     }
 
     @Test
-    public void shouldReturnUpdatedCustomerProperly() {
+    public void shouldReturnUpdatedCustomerProperly() throws EntityNotFoundException {
+
         log.info("Test correctness of updating a customer");
         Mockito.when(customerRepository.save(UPDATED_CUSTOMER)).thenReturn(UPDATED_CUSTOMER);
+        Mockito.when(customerRepository.getCustomerById(TEST_CUSTOMER_2.getId())).thenReturn(Optional.of(TEST_CUSTOMER_2));
+
         Long customerId = UPDATED_CUSTOMER.getId();
         Customer updatingCustomer = TEST_UPDATING_CUSTOMER;
         updatingCustomer.setId(customerId);
 
-        customerService.updateCustomer(updatingCustomer, customerId);
+        Customer updatedCustomer = customerService.updateCustomer(updatingCustomer, customerId);
 
-        Assertions.assertEquals(UPDATED_CUSTOMER, updatingCustomer);
+        Assertions.assertEquals(UPDATED_CUSTOMER, updatedCustomer);
     }
 
     @Test

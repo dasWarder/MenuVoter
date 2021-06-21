@@ -20,8 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 
-import static com.example.controller.util.TestData.WRONG_ID;
-import static com.example.controller.util.TestRestaurantData.*;
+import static com.example.util.TestDishData.WRONG_ID;
+import static com.example.util.TestRestaurantData.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Sql(scripts = { "classpath:db/init.sql", "classpath:db/populate.sql" })
+@Sql(scripts = { "classpath:db/restaurant/init.sql", "classpath:db/restaurant/populate.sql" })
 class RestaurantControllerTest {
 
     @Autowired

@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/menu-common/web/src/main/resources/db/changelog/postgre/changes/changeset_1.0.1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/menu-common/web/src/main/resources/db/changelog/postgre/changes/changeset_1.0.2.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/menu-common/web/src/main/resources/db/changelog/postgre/changes/changeset_1.0.3.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/menu-common/web/src/test/resources/db/init.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/menu-common/web/src/test/resources/db/customer/init_customer.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/menu-common/web/src/test/resources/db/customer/populate_customer.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/menu-common/web/src/test/resources/db/restaurant/init.sql" dialect="H2" />
   </component>
 </project>

@@ -1,3 +1,8 @@
+com\example\validation\violation\ValidationResponse.class
+com\example\validation\exception\ExceptionResponse.class
+com\example\controller\RateController.class
 com\example\controller\MenuController.class
 com\example\WebApplication.class
 com\example\controller\RestaurantController.class
+com\example\validation\ErrorHandling.class
+com\example\validation\violation\Violation.class

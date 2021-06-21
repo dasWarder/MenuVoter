@@ -19,5 +19,5 @@ public interface CustomerService {
 
     List<Customer> getAllVotedCustomers();
 
-    Customer updateCustomer(Customer updatingCustomer, Long customerId);
+    Customer updateCustomer(Customer updatingCustomer, Long customerId) throws EntityNotFoundException;
 }
