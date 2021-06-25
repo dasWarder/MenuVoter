@@ -1,0 +1,32 @@
+import './App.css';
+import HeadComponent from "./components/HeadComponent";
+import FooterComponent from "./components/FooterComponent";
+import RestaurantsListComponent from "./components/restaurant/RestaurantsListComponent";
+import TodayMenuComponent from "./components/menu/TodayMenuComponent";
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
+function App() {
+  return (
+      <div>
+          <div className={ "container-fluid" } >
+              <Router>
+                  <HeadComponent/>
+                  <div className={ "row my-5" }>
+                      <div className={ "col-md-8 offset-md-2" }>
+
+                          <Switch>
+                            <Route path={ "/" } exact={ true } component={ RestaurantsListComponent }></Route>
+                            <Route path={ "/restaurants" } exact={ true } component={ RestaurantsListComponent }></Route>
+                            <Route path={ "/restaurants/restaurant/:id/menus/menu" } exact={ true } component={ TodayMenuComponent }></Route>
+                            <RestaurantsListComponent/>
+                          </Switch>
+                      </div>
+                  </div>
+                  <FooterComponent/>
+              </Router>
+          </div>
+      </div>
+  );
+}
+
+export default App;
