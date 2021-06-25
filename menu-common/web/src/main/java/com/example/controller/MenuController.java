@@ -23,6 +23,7 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/restaurants/restaurant/{restId}/menus")
 public class MenuController {
 

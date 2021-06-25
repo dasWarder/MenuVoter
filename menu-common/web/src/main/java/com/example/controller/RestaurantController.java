@@ -2,7 +2,6 @@ package com.example.controller;
 
 
 import com.example.exception.EntityNotFoundException;
-import com.example.exception.RestaurantNotFoundException;
 import com.example.restaurant.Restaurant;
 import com.example.service.restaurant.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +22,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequestMapping( "/restaurants")
+@CrossOrigin(origins = "http://localhost:3000")
 public class RestaurantController {
 
     private RestaurantService restaurantService;
