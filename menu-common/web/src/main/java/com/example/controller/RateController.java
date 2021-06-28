@@ -18,6 +18,7 @@ import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping( "/restaurants/restaurant/{restId}/menus/menu")
 public class RateController {
 

@@ -3,6 +3,7 @@ import HeadComponent from "./components/HeadComponent";
 import FooterComponent from "./components/FooterComponent";
 import RestaurantsListComponent from "./components/restaurant/RestaurantsListComponent";
 import TodayMenuComponent from "./components/menu/TodayMenuComponent";
+import VoteComponent from "./components/vote/VoteComponent";
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                             <Route path={ "/" } exact={ true } component={ RestaurantsListComponent }></Route>
                             <Route path={ "/restaurants" } exact={ true } component={ RestaurantsListComponent }></Route>
                             <Route path={ "/restaurants/restaurant/:id/menus/menu" } exact={ true } component={ TodayMenuComponent }></Route>
+                            <Route path={ "/restaurants/restaurant/:restaurant_id/menus/menu/:menu_id/rate" } exact={ true } component={ VoteComponent }></Route>
                             <RestaurantsListComponent/>
                           </Switch>
                       </div>
