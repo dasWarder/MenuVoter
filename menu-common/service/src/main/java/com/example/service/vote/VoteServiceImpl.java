@@ -42,7 +42,12 @@ public class VoteServiceImpl implements VoteService {
 
         Customer customer = getOrCreateCustomer(voteDto);
         MenuRatedDto updatedMenuWithRate = checkCustomerIsVotedAndUpdateItOrReturnNull(customer, voteDto, restaurantId);
-        sendThankfulEmailToCustomer(customer);
+
+        if (updatedMenuWithRate != null) {
+
+            sendThankfulEmailToCustomer(customer);
+
+        }
 
         return updatedMenuWithRate;
     }
@@ -73,8 +78,8 @@ public class VoteServiceImpl implements VoteService {
 
 
     private MenuRatedDto checkCustomerIsVotedAndUpdateItOrReturnNull(Customer customerToCheckVote, VoteDto voteDto,
-                                                                     Long restaurantId)
-            throws EntityNotFoundException {
+                                                                                                   Long restaurantId)
+                                                                                                   throws EntityNotFoundException {
         if (!customerToCheckVote.isVoted()) {
 
             MenuRatedDto menuRatedDtoForMenuWithUpdatedRate = updateCustomerAndRate(customerToCheckVote, voteDto, restaurantId);
@@ -89,9 +94,9 @@ public class VoteServiceImpl implements VoteService {
     private MenuRatedDto updateCustomerAndRate(Customer customer, VoteDto voteDto, Long restaurantId) throws EntityNotFoundException {
 
         customerService.updateCustomer(new Customer(customer.getEmail(), true),
-                customer.getId());
+                                                                                    customer.getId());
         log.info("Voting for menu of a restaurant with ID = {}",
-                restaurantId);
+                                                                restaurantId);
         MenuRatedDto menuRatedDtoForMenuWithUpdatedRate = rateService.updateMenuRateForRestaurant(voteDto, restaurantId);
 
         return menuRatedDtoForMenuWithUpdatedRate;
@@ -99,8 +104,9 @@ public class VoteServiceImpl implements VoteService {
 
 
     private void sendThankfulEmailToCustomer(Customer customerToCheckVote) {
+
         log.info("Send a thankful message to a customer with email = {}",
-                customerToCheckVote.getEmail());
+                                                                        customerToCheckVote.getEmail());
         mailService.sendMail(customerToCheckVote);
     }
 }
