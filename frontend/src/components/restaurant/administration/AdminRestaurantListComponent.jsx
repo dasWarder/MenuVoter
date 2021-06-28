@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import RestaurantService from "../../../service/RestaurantService";
+import MenuService from "../../../service/MenuService";
 
 class AdminRestaurantListComponent extends Component {
 
@@ -46,6 +47,14 @@ class AdminRestaurantListComponent extends Component {
         )
     }
 
+    editMenu(restaurant_id) {
+
+        console.log('Redirect to /admin/restaurants/restaurant/' + restaurant_id + '/menu');
+
+        this.props.history.push(`/admin/restaurants/restaurant/${restaurant_id}/menu`);
+
+    }
+
     render() {
         return (
             <div className={ "row" }>
@@ -70,7 +79,7 @@ class AdminRestaurantListComponent extends Component {
                                 <td>{ restaurant.title }</td>
                                 <td>{ restaurant.description }</td>
                                 <td>
-                                    <button className={ "btn btn-info mx-2"}>Menu</button>
+                                    <button className={ "btn btn-info mx-2"} onClick={ () => this.editMenu(restaurant.id)}>Menu</button>
                                     <button onClick={ () => this.deleteRestaurantById(restaurant.id) } className={ "btn btn-danger mx-2"}>Delete</button>
                                     <button onClick={ () => this.editRestaurant(restaurant.id) } className={ "btn btn-success mx-2"}>Update</button>
                                 </td>
