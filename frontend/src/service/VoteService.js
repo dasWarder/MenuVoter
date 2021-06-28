@@ -1,6 +1,4 @@
 import axios from "axios";
-import xtype from 'xtypejs';
-
 
 
 const BASE_VOTE_URL = `http://localhost:8080/restaurants/restaurant/`;

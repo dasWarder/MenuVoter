@@ -4,6 +4,8 @@ import FooterComponent from "./components/FooterComponent";
 import RestaurantsListComponent from "./components/restaurant/RestaurantsListComponent";
 import TodayMenuComponent from "./components/menu/TodayMenuComponent";
 import VoteComponent from "./components/vote/VoteComponent";
+import AdminRestaurantListComponent from "./components/restaurant/administration/AdminRestaurantListComponent";
+import CreateRestaurantComponent from "./components/restaurant/administration/CreateRestaurantComponent";
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App() {
@@ -18,7 +20,8 @@ function App() {
                           <Switch>
                             <Route path={ "/" } exact={ true } component={ RestaurantsListComponent }></Route>
                             <Route path={ "/restaurants" } exact={ true } component={ RestaurantsListComponent }></Route>
-                            <Route path={ "/restaurants/restaurant/:id/menus/menu" } exact={ true } component={ TodayMenuComponent }></Route>
+                            <Route path={ "/admin/restaurants" } exact={ true } component={ AdminRestaurantListComponent }></Route>
+                            <Route path={ "/admin/restaurants/restaurant/:id" } exact={ true } component={ CreateRestaurantComponent }></Route><Route path={ "/restaurants/restaurant/:id/menus/menu" } exact={ true } component={ TodayMenuComponent }></Route>
                             <Route path={ "/restaurants/restaurant/:restaurant_id/menus/menu/:menu_id/rate" } exact={ true } component={ VoteComponent }></Route>
                             <RestaurantsListComponent/>
                           </Switch>
