@@ -8,6 +8,7 @@ import AdminRestaurantListComponent from "./components/restaurant/administration
 import CreateRestaurantComponent from "./components/restaurant/administration/CreateRestaurantComponent";
 import AdminMenuListComponent from "./components/menu/administration/AdminMenuListComponent";
 import AllMenusListComponent from "./components/menu/administration/AllMenusListComponent";
+import AdminCreateMenu from "./components/menu/administration/AdminCreateMenu";
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                             <Route path={ "/admin/restaurants/restaurant/:id" } exact={ true } component={ CreateRestaurantComponent }></Route>
                             <Route path={ "/admin/restaurants/restaurant/:restaurant_id/menu" } exact={ true } component={ AdminMenuListComponent }></Route>
                             <Route path={ "/admin/restaurants/restaurant/:restaurant_id/menu/menus" } exact={ true } component={ AllMenusListComponent }></Route>
+                            <Route path={ "/admin/restaurants/restaurant/:restaurant_id/menu/:menu_id" } exact={ true } component={ AdminCreateMenu }></Route>
                             <Route path={ "/restaurants/restaurant/:id/menus/menu" } exact={ true } component={ TodayMenuComponent }></Route>
                             <Route path={ "/restaurants/restaurant/:restaurant_id/menus/menu/:menu_id/rate" } exact={ true } component={ VoteComponent }></Route>
                             <RestaurantsListComponent/>
