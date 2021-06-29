@@ -24,13 +24,6 @@ public class MenuDto {
     private String id;
 
 
-    @NotNull(message =
-            "Creating date must be not Null")
-    @JsonFormat(pattern = "yyyy-MM-dd",
-                shape = JsonFormat.Shape.STRING)
-    private LocalDate creatingDate;
-
-
     @Valid
     @Size(min = 1)
     @NotEmpty(message =
@@ -38,8 +31,7 @@ public class MenuDto {
     private List<Dish> dishes;
 
 
-    public MenuDto(LocalDate creatingDate, List<Dish> dishes) {
-        this.creatingDate = creatingDate;
+    public MenuDto( List<Dish> dishes) {
         this.dishes = dishes;
     }
 }

@@ -12,8 +12,6 @@ public interface MappingService {
 
     MenuRatedDto mappingFromMenuToRatedDto(Menu menu);
 
-    List<Menu> mappingFromMenuDtoListToMenuList(List<MenuDto> listOfDto, Long restaurantId);
-
     List<MenuRatedDto> mappingFromMenuListToMenuRatedDtoList(List<Menu> menuList);
 
     MenuRatedDto mappingFromMenuDtoToRatedMenuDTO(MenuDto dto, Long restaurantId);

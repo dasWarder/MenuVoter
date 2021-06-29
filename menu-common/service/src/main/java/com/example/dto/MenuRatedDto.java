@@ -1,6 +1,7 @@
 package com.example.dto;
 
 import com.example.menu.Dish;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -27,6 +28,12 @@ public class MenuRatedDto extends MenuDto {
             "The id must be not null")
     private String id;
 
+    @NotNull(message =
+            "Creating date must be not Null")
+    @JsonFormat(pattern = "yyyy-MM-dd",
+            shape = JsonFormat.Shape.STRING)
+    private LocalDate creatingDate;
+
 
     @NotNull(message =
             "The rate must be not null")
@@ -47,8 +54,9 @@ public class MenuRatedDto extends MenuDto {
     @Builder
     public MenuRatedDto(LocalDate creatingDate, List<Dish> dishes, String id,
                         Double rate, Long votesCount) {
-        super(creatingDate, dishes);
+        super(dishes);
         this.id = id;
+        this.creatingDate = creatingDate;
         this.rate = rate;
         this.votesCount = votesCount;
     }

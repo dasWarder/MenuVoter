@@ -63,8 +63,7 @@ public class MenuController {
                                                          "The Id of a restaurant must be not null")
                                                  Long restaurantId) {
 
-        log.info("Storing the menu from = {} for a restaurant with ID = {}",
-                                                                            menuDto.getCreatingDate(),
+        log.info("Storing the menu for a restaurant with ID = {}",
                                                                             restaurantId);
         MenuRatedDto stored = menuService.saveMenu(menuDto, restaurantId);
 

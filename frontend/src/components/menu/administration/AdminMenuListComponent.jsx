@@ -43,9 +43,10 @@ class AdminMenuListComponent extends Component {
         } else {
             return (
                 <div className={ "row" }>
+                    <div className={ "col-md-8" }>
                     {
                         this.state.dishes.map(dish =>
-                            <div className={"row text-center"}>
+                            <div className={"row text-center alert-warning text-dark"}>
                                 <table>
                                     <tbody>
                                     <tr>
@@ -61,7 +62,26 @@ class AdminMenuListComponent extends Component {
                             </div>
                         )
                     }
+                    </div>
+                    <div className={ "col-md-4" }>
+                        <div className={ "col-md-12" }>
+                            <div className={ "col" }>
+                                <button className={ "btn btn-success my-2" }>List of all</button>
+                            </div>
+                            <div className={ "col" }>
+                                <button className={ "btn btn-warning my-2" }>Update current</button>
+                            </div>
+                            <div className={ "col" }>
+                                <button className={ "btn btn-success my-2"}>Create new one</button>
+                            </div>
+                            <div className={ "col" }>
+                                <button className={ "btn btn-danger my-2"}>Delete current</button>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+
             )
         }
     }
