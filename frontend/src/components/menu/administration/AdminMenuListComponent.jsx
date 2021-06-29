@@ -16,6 +16,8 @@ class AdminMenuListComponent extends Component {
             rate: 1,
             votes_count: 0
         }
+
+        this.getListOfAllMenus = this.getListOfAllMenus.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +34,13 @@ class AdminMenuListComponent extends Component {
                 votes_count: menu.votes_count
             })
         })
+    }
+
+    getListOfAllMenus(restaurant_id) {
+
+        console.log("Redirect to /admin/restaurants/restaurant/:restaurant_id/menu/menus");
+
+        this.props.history.push(`/admin/restaurants/restaurant/${restaurant_id}/menu/menus`);
     }
 
     getMenuDetailsOrMessage() {
@@ -66,7 +75,7 @@ class AdminMenuListComponent extends Component {
                     <div className={ "col-md-4" }>
                         <div className={ "col-md-12" }>
                             <div className={ "col" }>
-                                <button className={ "btn btn-success my-2" }>List of all</button>
+                                <button onClick={ this.getListOfAllMenus(this.state.restaurant_id) } className={ "btn btn-success my-2" }>List of all</button>
                             </div>
                             <div className={ "col" }>
                                 <button className={ "btn btn-warning my-2" }>Update current</button>
