@@ -28,16 +28,24 @@ class TodayMenuComponent extends Component {
 
             console.log('Response for menu: ', menu);
 
-            this.setState({
-                id: menu.id,
-                creating_date: menu.creating_date,
-                dishes: menu.dishes,
-                rate: menu.rate,
-                votes_count: menu.votes_count
-            })
-        })
+            if(menu === 'Menu not found') {
 
-        this.getRestaurantById(this.state.restaurant_id);
+                this.setState({})
+
+            } else {
+
+                this.setState({
+                    id: menu.id,
+                    creating_date: menu.creating_date,
+                    dishes: menu.dishes,
+                    rate: menu.rate,
+                    votes_count: menu.votes_count
+                })
+            }
+
+            this.getRestaurantById(this.state.restaurant_id);
+
+        })
     }
 
     getRestaurantById(restaurant_id) {

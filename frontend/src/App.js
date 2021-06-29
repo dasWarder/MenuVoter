@@ -9,6 +9,7 @@ import CreateRestaurantComponent from "./components/restaurant/administration/Cr
 import AdminMenuListComponent from "./components/menu/administration/AdminMenuListComponent";
 import AllMenusListComponent from "./components/menu/administration/AllMenusListComponent";
 import AdminCreateMenu from "./components/menu/administration/AdminCreateMenu";
+import MainPageComponent from "./components/MainPageComponent";
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
                       <div className={ "col-md-8 offset-md-2" }>
 
                           <Switch>
-                            <Route path={ "/" } exact={ true } component={ RestaurantsListComponent }></Route>
+                            <Route path={ "/" } exact={ true } component={ MainPageComponent }></Route>
                             <Route path={ "/restaurants" } exact={ true } component={ RestaurantsListComponent }></Route>
                             <Route path={ "/admin/restaurants" } exact={ true } component={ AdminRestaurantListComponent }></Route>
                             <Route path={ "/admin/restaurants/restaurant/:id" } exact={ true } component={ CreateRestaurantComponent }></Route>
