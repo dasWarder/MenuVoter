@@ -41,8 +41,8 @@ public class TestData {
     public static final List<Dish> TEST_FIRST_DISHES_LIST = List.of(TEST_DISH, TEST_DISH_2);
     public static final List<Dish> TEST_SECOND_DISHES_LIST = List.of(TEST_DISH_3, TEST_DISH_4);
 
-    public static final MenuDto TEST_MENU_DTO = new MenuDto("a1", LocalDate.now(), TEST_FIRST_DISHES_LIST);
-    public static final MenuDto TEST_MENU_DTO_WITH_NULL_ID = new MenuDto(null, LocalDate.now(), TEST_SECOND_DISHES_LIST);
+    public static final MenuDto TEST_MENU_DTO = new MenuDto("a1", TEST_FIRST_DISHES_LIST);
+    public static final MenuDto TEST_MENU_DTO_WITH_NULL_ID = new MenuDto(null,  TEST_SECOND_DISHES_LIST);
 
     public static final Menu TEST_MENU = new Menu("a1", TEST_RESTAURANT.getId(), 0.0, 0L, LocalDate.now(), TEST_FIRST_DISHES_LIST);
     public static final Menu TEST_MENU_WITH_NULL_ID = new Menu(null, TEST_RESTAURANT.getId(), 0.0, 0L, LocalDate.now(), TEST_SECOND_DISHES_LIST);

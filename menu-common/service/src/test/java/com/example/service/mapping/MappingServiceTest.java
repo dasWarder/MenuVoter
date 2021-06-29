@@ -76,51 +76,7 @@ class MappingServiceTest {
         Assertions.assertThrows(NullPointerException.class,
                 () -> mappingService.mappingFromMenuToRatedDto(menu));
     }
-
-    @Test
-    public void shouldMapFromListOfMenuDtoToMenuListProperly() {
-        log.info("Test correctness of mapping a list of MenuDTOs to a list of Menus");
-        List<MenuDto> menuDtoList = List.of(TEST_MENU_DTO, TEST_MENU_DTO_WITH_NULL_ID);
-        Long restaurantId = TEST_RESTAURANT.getId();
-        List<Menu> expectedMenu = List.of(TEST_MENU, TEST_MENU_WITH_NULL_ID);
-
-        List<Menu> actualMenus = mappingService.mappingFromMenuDtoListToMenuList(menuDtoList, restaurantId);
-
-        Assertions.assertNotNull(actualMenus);
-        Assertions.assertEquals(expectedMenu, actualMenus);
-    }
-
-    @Test
-    public void shouldMapForEmptyMenuDtoListProperly() {
-        log.info("Test correctness of mapping an empty list of MenuDTOs");
-        List<MenuDto> emptyList = new ArrayList<>();
-        Long restaurantId = TEST_RESTAURANT.getId();
-
-        List<Menu> menus = mappingService.mappingFromMenuDtoListToMenuList(emptyList, restaurantId);
-
-        Assertions.assertNotNull(menus);
-        Assertions.assertTrue(menus.isEmpty());
-    }
-
-    @Test
-    public void shouldThrowExceptionWhenMenuDtoListIsNull() {
-        log.info("Test throwing IllegalArgumentException when try to map a NULL list of MenuDTO");
-        List<MenuDto> nullableMenuDto = null;
-        Long restaurantId = TEST_RESTAURANT.getId();
-
-        Assertions.assertThrows(NullPointerException.class,
-                () -> mappingService.mappingFromMenuDtoListToMenuList(nullableMenuDto, restaurantId));
-    }
-
-    @Test
-    public void shouldThrowExceptionWhenListIsOkAndRestaurantIdIsNull() {
-        log.info("Test throwing IllegalArgumentException when try to map with a NULL restaurant ID");
-        List<MenuDto> menuDtoList = List.of(TEST_MENU_DTO, TEST_MENU_DTO_WITH_NULL_ID);
-        Long restaurantId = null;
-
-        Assertions.assertThrows(NullPointerException.class,
-                () -> mappingService.mappingFromMenuDtoListToMenuList(menuDtoList, restaurantId));
-    }
+    
 
     @Test
     public void shouldMapFromMenuListToRatedDtoListProperly() {

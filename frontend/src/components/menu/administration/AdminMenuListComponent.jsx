@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MenuService from "../../../service/MenuService";
 
 
+
 class AdminMenuListComponent extends Component {
 
 
@@ -16,6 +17,9 @@ class AdminMenuListComponent extends Component {
             rate: 1,
             votes_count: 0
         }
+
+        this.getListOfAllMenus = this.getListOfAllMenus.bind(this);
+        this.deleteMenuById = this.deleteMenuById.bind(this);
     }
 
     componentDidMount() {
@@ -24,15 +28,83 @@ class AdminMenuListComponent extends Component {
 
             let menu = response.data;
 
-            this.setState( {
-                id: menu.id,
-                creating_date: menu.creating_date,
-                dishes: menu.dishes,
-                rate: menu.rate,
-                votes_count: menu.votes_count
-            })
+            if(menu === 'Menu not found') {
+
+                this.setState({})
+
+            } else  {
+
+                this.setState( {
+                    id: menu.id,
+                    creating_date: menu.creating_date,
+                    dishes: menu.dishes,
+                    rate: menu.rate,
+                    votes_count: menu.votes_count
+                })
+
+            }
         })
     }
+
+    getListOfAllMenus(restaurant_id) {
+
+        console.log("Redirect to /admin/restaurants/restaurant/:restaurant_id/menu/menus");
+
+        this.props.history.push(`/admin/restaurants/restaurant/${restaurant_id}/menu/menus`);
+    }
+
+    createOrUpdateMenu(restaurant_id) {
+
+        console.log("Redirect to /admin/restaurants/restaurant/:restaurant_id/menu/:menu_id")
+
+        if(this.state.id === '') {
+
+            this.props.history.push(`/admin/restaurants/restaurant/${restaurant_id}/menu/` + null);
+
+        } else {
+
+            this.props.history.push(`/admin/restaurants/restaurant/${restaurant_id}/menu/${this.state.id}`);
+
+        }
+
+
+    }
+
+    deleteMenuById(restaurant_id, menu_id) {
+
+        MenuService.deleteMenuById(restaurant_id, menu_id).then(
+
+            window.location.reload()
+        )
+    }
+
+    getTitle() {
+
+        if(this.state.id === '') {
+
+            return "Create a new";
+
+        } else {
+
+            return "Update current";
+        }
+    }
+
+    getDeleteButton() {
+
+        if(this.state.id === '') {
+
+            return;
+
+        } else {
+
+            return (
+                    <button onClick={() => this.deleteMenuById(this.state.restaurant_id, this.state.id)}
+                            className={ "btn btn-danger my-2 mx-2" }>Delete current</button>
+            )
+        }
+    }
+
 
     getMenuDetailsOrMessage() {
 
@@ -43,9 +115,10 @@ class AdminMenuListComponent extends Component {
         } else {
             return (
                 <div className={ "row" }>
+                    <div className={ "col-md-8" }>
                     {
                         this.state.dishes.map(dish =>
-                            <div className={"row text-center"}>
+                            <div className={"row text-center alert-warning text-dark"} key={ dish.title }>
                                 <table>
                                     <tbody>
                                     <tr>
@@ -61,7 +134,9 @@ class AdminMenuListComponent extends Component {
                             </div>
                         )
                     }
+                    </div>
                 </div>
+
             )
         }
     }
@@ -73,6 +148,15 @@ class AdminMenuListComponent extends Component {
                 {
                     this.getMenuDetailsOrMessage()
                 }
+                <div className={ "col-md-12" }>
+                    <div className={ "col-md-12" }>
+                            <button onClick={ () => this.getListOfAllMenus(this.state.restaurant_id) }
+                                    className={ "btn btn-success my-2 mx-2" }>List of all</button>
+                            <button onClick={ () => this.createOrUpdateMenu(this.state.restaurant_id) }
+                                    className={ "btn btn-warning my-2 mx-2" }>{ this.getTitle() }</button>
+                            { this.getDeleteButton() }
+                    </div>
+                </div>
             </div>
         )
     }

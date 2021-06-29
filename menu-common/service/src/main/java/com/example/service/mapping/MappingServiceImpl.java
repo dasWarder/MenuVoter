@@ -3,16 +3,15 @@ package com.example.service.mapping;
 import com.example.dto.MenuDto;
 import com.example.dto.MenuRatedDto;
 import com.example.menu.Menu;
-import com.example.util.ParamValidationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.util.ParamValidationUtil.*;
-import static org.springframework.util.Assert.notNull;
+import static com.example.util.ParamValidationUtil.validateParametersNotNull;
 
 
 @Slf4j
@@ -29,7 +28,7 @@ public class MappingServiceImpl implements MappingService {
         Menu newMenu = Menu.builder()
                                     .id(dto.getId())
                                     .restaurantId(restaurantId)
-                                    .creatingDate(dto.getCreatingDate())
+                                    .creatingDate(LocalDate.now())
                                     .dishes(dto.getDishes())
                                     .rate(0.0)
                                     .votesCount(0L)
@@ -55,31 +54,6 @@ public class MappingServiceImpl implements MappingService {
                                                 .dishes(menu.getDishes())
                                                 .build();
         return dto;
-    }
-
-
-    @Override
-    @Transactional
-    public List<Menu> mappingFromMenuDtoListToMenuList(List<MenuDto> listOfDto, Long restaurantId) {
-
-        validateParametersNotNull(listOfDto, restaurantId);
-        log.info("Mapping from MenuDTO List to Menu List for the restaurant with ID = {}",
-                                                                                          restaurantId);
-        List<Menu> menus = new ArrayList<>(listOfDto.size());
-        listOfDto.forEach(dto -> {
-
-                menus.add(
-                          Menu.builder()
-                                      .id(dto.getId())
-                                      .creatingDate(dto.getCreatingDate())
-                                      .restaurantId(restaurantId)
-                                      .dishes(dto.getDishes())
-                                      .rate(0.0)
-                                      .votesCount(0L)
-                                      .build());
-        });
-
-        return menus;
     }
 
 

@@ -55,8 +55,7 @@ public class MenuServiceImpl implements MenuService {
         validateParametersNotNull(menuDtoToSave, restaurantId);
         Menu menu = mappingService.mappingFromDtoToMenu(menuDtoToSave, restaurantId);
 
-        log.info("Storing the menu from date = {} for a restaurant with ID = {}",
-                                                                                 menuDtoToSave.getCreatingDate(),
+        log.info("Storing today's menu for a restaurant with ID = {}",
                                                                                  restaurantId);
         Menu storedMenu = menuRepository.save(menu);
 

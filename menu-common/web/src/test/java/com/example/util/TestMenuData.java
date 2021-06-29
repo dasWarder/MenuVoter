@@ -25,12 +25,10 @@ public class TestMenuData {
     //DTO to test CREATE and UPDATE methods
     public static final MenuDto SECOND_RESTAURANT_CREATE_DTO = new MenuDto(
             "60c1ec6082f1f45502f687c0",
-            LocalDate.of(2021, 12, 1),
             List.of(TEST_DISH_5, TEST_DISH_9, TEST_DISH_7));
 
     public static final MenuDto FIRST_RESTAURANT_UPDATE_DTO = new MenuDto(
             FIRST_RESTAURANT_FIRST_MENU.getId(),
-            LocalDate.of(2021, 06, 9),
             List.of(TEST_DISH_5, TEST_DISH_6, TEST_DISH_7));
 
     //a message as a body to ResponseEntity when DELETE
