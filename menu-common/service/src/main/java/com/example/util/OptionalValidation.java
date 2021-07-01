@@ -21,19 +21,10 @@ public class OptionalValidation {
 
     public static <T> T checkOptionalAndReturnOrThrowException(Optional<T> validationObject, Class validateObjectClass)
                                                                                              throws EntityNotFoundException {
-        if (validationObject.isPresent()) {
 
-            log.info("Receiving an object from the optional");
-            T validObject = validationObject.get();
+        T validObject = validationObject.orElseThrow(() -> exceptionQualifier(validateObjectClass.getName()));
 
-            return validObject;
-        }
-
-        log.info("The object not found exception occurred for the class = {}",
-                                                                              validateObjectClass.getName());
-        EntityNotFoundException exceptionFromObject = exceptionQualifier(validateObjectClass.getName());
-
-        throw exceptionFromObject;
+        return validObject;
     }
 
 
@@ -41,6 +32,9 @@ public class OptionalValidation {
 
 
     private static EntityNotFoundException exceptionQualifier(String validateObjectClass) {
+
+        log.info("The object not found exception occurred for the class = {}",
+                                                                              validateObjectClass);
 
         if(validateObjectClass.equals(Menu.class.getName())) {
 
