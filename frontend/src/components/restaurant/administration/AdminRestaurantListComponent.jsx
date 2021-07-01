@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import RestaurantService from "../../../service/RestaurantService";
-import MenuService from "../../../service/MenuService";
 
 class AdminRestaurantListComponent extends Component {
 
@@ -11,8 +10,8 @@ class AdminRestaurantListComponent extends Component {
             restaurants: []
         }
 
-        this.addRestaurant = this.addRestaurant.bind(this);
         this.editRestaurant = this.editRestaurant.bind(this);
+        this.addRestaurant = this.addRestaurant.bind(this);
         this.deleteRestaurantById = this.deleteRestaurantById.bind(this);
     }
 
@@ -55,39 +54,51 @@ class AdminRestaurantListComponent extends Component {
 
     }
 
+    backPrev() {
+
+        console.log("Redirect to /");
+
+        this.props.history.push("/");
+    }
+
     render() {
         return (
-            <div className={ "row" }>
-                <h1 className={ "display-4" }>Restaurants list</h1>
-                <div className={ "row" }>
-                    <div className={ "col-sm" }>
-                        <button className={ "btn btn-primary btn-success my-3" } onClick={ this.addRestaurant }>Create a restaurant</button>
-                    </div>
+            <div>
+                <div className={ "row text-start col-md-12" }>
+                    <a onClick={ () => this.backPrev() } className={ "lead" }>Back</a>
                 </div>
-                <table className={ "table table-bordered" }>
-                    <thead className={ "bg-warning" }>
-                        <tr>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody className={ "table-success" }>
-                    {
-                        this.state.restaurants.map(restaurant =>
-                            <tr key={ restaurant.id }>
-                                <td>{ restaurant.title }</td>
-                                <td>{ restaurant.description }</td>
-                                <td>
-                                    <button className={ "btn btn-info mx-2"} onClick={ () => this.editMenu(restaurant.id)}>Menu</button>
-                                    <button onClick={ () => this.deleteRestaurantById(restaurant.id) } className={ "btn btn-danger mx-2"}>Delete</button>
-                                    <button onClick={ () => this.editRestaurant(restaurant.id) } className={ "btn btn-success mx-2"}>Update</button>
-                                </td>
+                <div className={ "row" }>
+                    <h1 className={ "display-4" }>Restaurants list</h1>
+                    <div className={ "row" }>
+                        <div className={ "col-sm" }>
+                            <button className={ "btn btn-primary btn-success my-3" } onClick={ this.addRestaurant }>Create a restaurant</button>
+                        </div>
+                    </div>
+                    <table className={ "table table-bordered" }>
+                        <thead className={ "bg-warning" }>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Actions</th>
                             </tr>
-                        )
-                    }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className={ "table-success" }>
+                        {
+                            this.state.restaurants.map(restaurant =>
+                                <tr key={ restaurant.id }>
+                                    <td>{ restaurant.title }</td>
+                                    <td>{ restaurant.description }</td>
+                                    <td>
+                                        <button className={ "btn btn-info mx-2"} onClick={ () => this.editMenu(restaurant.id)}>Menu</button>
+                                        <button onClick={ () => this.deleteRestaurantById(restaurant.id) } className={ "btn btn-danger mx-2"}>Delete</button>
+                                        <button onClick={ () => this.editRestaurant(restaurant.id) } className={ "btn btn-success mx-2"}>Update</button>
+                                    </td>
+                                </tr>
+                            )
+                        }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
     }

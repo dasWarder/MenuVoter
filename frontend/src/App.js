@@ -31,7 +31,7 @@ function App() {
                             <Route path={ "/admin/restaurants/restaurant/:restaurant_id/menu/:menu_id" } exact={ true } component={ AdminCreateMenu }></Route>
                             <Route path={ "/restaurants/restaurant/:id/menus/menu" } exact={ true } component={ TodayMenuComponent }></Route>
                             <Route path={ "/restaurants/restaurant/:restaurant_id/menus/menu/:menu_id/rate" } exact={ true } component={ VoteComponent }></Route>
-                            <RestaurantsListComponent/>
+                            <MainPageComponent/>
                           </Switch>
                       </div>
                   </div>

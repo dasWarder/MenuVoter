@@ -22,6 +22,22 @@ class MenuService {
 
     }
 
+    async getMenuById(restaurant_id, menu_id) {
+        console.log("Receive today's menu for a restaurant with ID = ", restaurant_id);
+
+
+        try {
+
+            return await axios.get(BASE_MENU_URL + '/' + restaurant_id + '/menus/menu/' + menu_id);
+
+        } catch (e) {
+
+            return {
+                data: "Menu not found"
+            };
+        }
+    }
+
     getAllMenus(restaurant_id) {
 
         console.log("Receiving a list of all menus for a restaurant with ID = ", restaurant_id);
@@ -29,16 +45,25 @@ class MenuService {
         return axios.get(BASE_MENU_URL + '/' + restaurant_id + '/menus');
     }
 
-    createTodayMenu(restaurant_id, menu) {
+    createTodayMenu(restaurant_id, dishes) {
 
-        console.log("Storing a menu for a restaurant with ID = ", restaurant_id);
+        let menu = {
+            dishes: dishes
+        };
+
+        console.log("Storing a menu for a restaurant with ID = " + restaurant_id + " and menu = " + menu);
 
         return axios.post(BASE_MENU_URL + '/' + restaurant_id + '/menus/menu', menu);
     }
 
-    updateTodayMenu(restaurant_id, menu_id, menu) {
+    updateTodayMenu(restaurant_id, menu_id, dishes) {
 
-        console.log("Updating today menu for a restaurant with ID = ", restaurant_id);
+        let menu = {
+            dishes: dishes
+        };
+
+        console.log(`Updating today menu with ID = ${menu_id} for a restaurant with ID = ${restaurant_id}`, );
+        console.log(`Dishes: ${dishes}`);
 
         return axios.put(BASE_MENU_URL + '/' + restaurant_id + '/menus/menu/' + menu_id, menu);
     }

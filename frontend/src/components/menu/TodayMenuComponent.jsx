@@ -122,18 +122,30 @@ class TodayMenuComponent extends Component {
         }
     }
 
+    backPrev() {
+
+        console.log("Redirect to /restaurants");
+
+        this.props.history.push("/restaurants");
+    }
+
 
     render() {
         return (
-            <div className={ "row" }>
-                <p className={ "display-3" }>
+            <div>
+                <div className={ "row text-start col-md-12" }>
+                    <a onClick={ () => this.backPrev() } className={ "lead" }>Back</a>
+                </div>
+                <div className={ "row" }>
+                    <p className={ "display-3" }>
+                        {
+                            this.state.restaurant_title
+                        } menu
+                    </p>
                     {
-                        this.state.restaurant_title
-                    } menu
-                </p>
-                {
-                    this.getMenu()
-                }
+                        this.getMenu()
+                    }
+                </div>
             </div>
         )
     }
