@@ -9,16 +9,27 @@ class AdminCreateMenu extends Component {
         this.state = {
             menu_id: this.props.match.params.menu_id,
             restaurant_id: this.props.match.params.restaurant_id,
-            dishes: [],
-            dish: {
-                title: '',
-                description: ''
-            }
+            dishes: [
+                {
+                    title: '',
+                    description: ''
+                },
+                {
+                    title: '',
+                    description: ''
+                },
+                {
+                    title: '',
+                    description: ''
+                },
+                {
+                    title: '',
+                    description: ''
+                }
+            ]
         }
 
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-
+        this.createOrUpdateMenu = this.createOrUpdateMenu.bind(this);
     }
 
     componentDidMount() {
@@ -28,62 +39,66 @@ class AdminCreateMenu extends Component {
             return;
 
         } else {
-            MenuService.getMenuForToday(this.state.restaurant_id).then(response => {
-                let menu = response.data;
-                let  item = [...this.state.dishes];
 
-                item.push({
-                    dish: this.state.dish
-                });
+            console.log("Receive a today's menu for updating");
 
-                this.setState({
-                    item,
-                    dish: {
-                        title: '',
-                        description: ''
-                    }
-                });
+            MenuService.getMenuById(this.state.restaurant_id, this.state.menu_id).then(response => {
+
+                let todayMenu = response.data;
+
+                console.log("ID: ", todayMenu.id);
+
+                this.setState( {
+                    menu_id: todayMenu.id,
+                    dishes: todayMenu.dishes
+                })
             })
         }
     }
 
-    handleTitleChange=(e) => {
-        let temp = this.state.dish;
-        temp.title = e.title;
+    createOrUpdateMenu = (m) => {
 
-        this.setState({
-            dish: temp
-        });
-    }
-
-    handleDescriptionChange=(e) => {
-        let temp = this.state.dish;
-        temp.description = e.description;
-
-        this.setState({
-            dish: temp
-        });
-    }
-
-    createMenu = (m) => {
         m.preventDefault();
 
-        let  item = [...this.state.dishes];
+        if (this.state.menu_id === 'null') {
 
-        item.push({
-            dish: this.state.dish
-        });
+            console.log("Redirect to create menu");
+
+            MenuService.createTodayMenu(this.state.restaurant_id, this.state.dishes);
+
+        } else {
+
+            console.log("Redirect to update menu");
+
+            MenuService.updateTodayMenu(this.state.restaurant_id, this.state.menu_id, this.state.dishes);
+
+        }
+
+        this.handleCloseAndReload();
+    }
+
+
+    titleHandler(title, index) {
+
+        console.log(`For index ${index} change title to ${title.target.value}`);
+
+        let temp = this.state.dishes;
+        temp[index].title = title.target.value;
 
         this.setState({
-            item,
-            dish: {
-                title: '',
-                description: ''
-            }
-        });
+            dishes: temp
+        })
+    }
 
-        MenuService.createTodayMenu(this.state.restaurant_id, this.state.dishes).then(response => {
-            console.log("Resposne: ", response);
+    descriptionHandler(description, index) {
+
+        console.log(`For index ${index} change description to ${description.target.value}`);
+
+        let temp = this.state.dishes;
+        temp[index].description = description.target.value;
+
+        this.setState({
+            dishes: temp
         })
     }
 
@@ -93,6 +108,13 @@ class AdminCreateMenu extends Component {
         console.log(`Redirect to /admin/restaurants/restaurant/${this.state.restaurant_id}/menu`);
 
         this.props.history.push(`/admin/restaurants/restaurant/${this.state.restaurant_id}/menu`);
+    }
+
+    handleCloseAndReload() {
+
+        this.handleClose();
+
+        window.location.reload();
     }
 
     getTitle() {
@@ -124,44 +146,52 @@ class AdminCreateMenu extends Component {
                                     <div className={ "mb-3 alert alert-info" }>
                                         <label className={ "mb-1" }><i>Title</i></label>
                                         <input type={ "text" } className={ "form-control col-md-12" } placeholder={ "Title" }
-                                            onChange={ this.handleTitleChange }/>
+                                               onChange={(e) => this.titleHandler(e, 0)}
+                                               value={ this.state.dishes[0].title }/>
                                         <label className={ "mb-1" }><i>Description</i></label>
                                         <input type={ "text" } className={ "form-control col-md-12" } placeholder={ "Description" }
-                                            onChange={ this.handleDescriptionChange }/>
+                                               onChange={(e) => this.descriptionHandler(e, 0)}
+                                               value={ this.state.dishes[0].description }/>
                                     </div>
                                     <p className={ "lead" }><b>Second course</b></p>
                                     <div className={ "mb-3 alert alert-info" }>
                                         <label className={ "mb-1" }><i>Title</i></label>
                                         <input type={ "text" } className={ "form-control col-md-12" } placeholder={ "Title" }
-                                            onChange={ this.handleTitleChange }/>
+                                               onChange={(e) => this.titleHandler(e, 1)}
+                                               value={ this.state.dishes[1].title }/>
                                         <label className={ "mb-1" }><i>Description</i></label>
                                         <input type={ "text" } className={ "form-control col-md-12" } placeholder={ "Description" }
-                                            onChange={ this.handleDescriptionChange }/>
+                                               onChange={(e) => this.descriptionHandler(e, 1)}
+                                               value={ this.state.dishes[1].description }/>
                                     </div>
                                     <p className={ "lead" }><b>Dessert</b></p>
                                     <div className={ "mb-3 alert alert-info" }>
                                         <label className={ "mb-1" }><i>Title</i></label>
                                         <input type={ "text" } className={ "form-control col-md-12" } placeholder={ "Title" }
-                                            onChange={ this.handleTitleChange }/>
+                                               onChange={(e) => this.titleHandler(e, 2)}
+                                               value={ this.state.dishes[2].title }/>
                                         <label className={ "mb-1" }><i>Description</i></label>
                                         <input type={ "text" } className={ "form-control col-md-12" } placeholder={ "Description" }
-                                            onChange={ this.handleDescriptionChange }/>
+                                               onChange={(e) => this.descriptionHandler(e, 2)}
+                                               value={ this.state.dishes[2].description }/>
                                     </div>
                                     <p className={ "lead" }><b>Beverage</b></p>
                                     <div className={ "mb-3 alert alert-info" }>
                                         <label className={ "mb-1" }><i>Title</i></label>
                                         <input type={ "text" } className={ "form-control col-md-12" } placeholder={ "Title" }
-                                            onChange={ this.handleTitleChange }/>
+                                               onChange={(e) => this.titleHandler(e, 3)}
+                                               value={ this.state.dishes[3].title }/>
                                         <label className={ "mb-1" }><i>Description</i></label>
                                         <input type={ "text" } className={ "form-control col-md-12" } placeholder={ "Description" }
-                                            onChange={ this.handleDescriptionChange }/>
+                                               onChange={(e) => this.descriptionHandler(e, 3)}
+                                               value={ this.state.dishes[3].description }/>
                                     </div>
-                                    <button onClick={ this.handleFormSubmit } type="submit" className="btn btn-success col-md-3 mx-1">
+                                    <button onClick={ this.createOrUpdateMenu } type="submit" className="btn btn-success col-md-3 mx-1">
                                         {
                                             this.getTitle()
                                         }
                                     </button>
-                                    <button onClick={ () =>this.handleClose() } type="submit" className="btn btn-danger col-md-3 mx-1">Cancel</button>
+                                    <button onClick={ () => this.handleClose() } type="submit" className="btn btn-danger col-md-3 mx-1">Cancel</button>
                                 </div>
                             </form>
                         </div>

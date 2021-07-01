@@ -31,9 +31,22 @@ class AllMenusListComponent extends Component {
         )
     }
 
+    backPrev() {
+
+        let rest_id = this.state.restaurant_id;
+
+        console.log("Redirect to /admin/restaurants/restaurant/" + rest_id + "/menu");
+
+        this.props.history.push(`/admin/restaurants/restaurant/${rest_id}/menu`);
+    }
+
 
     render() {
         return (
+            <div>
+                <div className={ "row text-start col-md-12" }>
+                    <a onClick={ () => this.backPrev() } className={ "lead" }>Back</a>
+                </div>
                 <table className={ "table col-md-12 offset-md-12" }>
                     <thead>
                         <tr>
@@ -66,6 +79,7 @@ class AllMenusListComponent extends Component {
                             }
                     </tbody>
                 </table>
+            </div>
         )
     }
 }

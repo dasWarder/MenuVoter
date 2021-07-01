@@ -31,9 +31,19 @@ class RestaurantsListComponent extends Component {
         this.props.history.push(`/restaurants/restaurant/${id}/menus/menu`);
     }
 
+    backPrev() {
+
+        console.log("Redirect to /");
+
+        this.props.history.push("/");
+    }
+
     render() {
         return (
             <div>
+                <div className={ "row text-start col-md-12" }>
+                    <a onClick={ () => this.backPrev() } className={ "lead" }>Back</a>
+                </div>
                 <div className={ "row" }>
                     <h2 className={ "display-3" }>Today's restaurant</h2>
                     <p>A list of restaurants which menus are available today for your voting</p>

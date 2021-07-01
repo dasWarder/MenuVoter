@@ -98,7 +98,6 @@ class VoteComponent extends Component {
     }
 
 
-
     render() {
         return (
             <div className={ "row" }>

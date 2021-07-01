@@ -108,7 +108,7 @@ class AdminMenuListComponent extends Component {
 
     getMenuDetailsOrMessage() {
 
-        if(this.state.id === '') {
+        if (this.state.id === '') {
             return (
                 <p className={ "lead" }>There is no actual menu for today</p>
             )
@@ -141,20 +141,32 @@ class AdminMenuListComponent extends Component {
         }
     }
 
+    backPrev() {
+
+        console.log("Redirect to /admin/restaurants");
+
+        this.props.history.push("/admin/restaurants");
+    }
+
     render() {
         return (
-            <div className={ "row" }>
-                <p className={ "display-4" }>Active menu:</p>
-                {
-                    this.getMenuDetailsOrMessage()
-                }
-                <div className={ "col-md-12" }>
+            <div>
+                <div className={ "row text-start col-md-12" }>
+                    <a onClick={ () => this.backPrev() } className={ "lead" }>Back</a>
+                </div>
+                <div className={ "row" }>
+                    <p className={ "display-4" }>Active menu:</p>
+                    {
+                        this.getMenuDetailsOrMessage()
+                    }
                     <div className={ "col-md-12" }>
-                            <button onClick={ () => this.getListOfAllMenus(this.state.restaurant_id) }
-                                    className={ "btn btn-success my-2 mx-2" }>List of all</button>
-                            <button onClick={ () => this.createOrUpdateMenu(this.state.restaurant_id) }
-                                    className={ "btn btn-warning my-2 mx-2" }>{ this.getTitle() }</button>
-                            { this.getDeleteButton() }
+                        <div className={ "col-md-12" }>
+                                <button onClick={ () => this.getListOfAllMenus(this.state.restaurant_id) }
+                                        className={ "btn btn-success my-2 mx-2" }>List of all</button>
+                                <button onClick={ () => this.createOrUpdateMenu(this.state.restaurant_id) }
+                                        className={ "btn btn-warning my-2 mx-2" }>{ this.getTitle() }</button>
+                                { this.getDeleteButton() }
+                        </div>
                     </div>
                 </div>
             </div>
