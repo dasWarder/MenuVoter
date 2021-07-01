@@ -7,6 +7,9 @@ import com.example.exception.EntityNotFoundException;
 import com.example.menu.Menu;
 import com.example.service.mapping.MappingService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +53,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "menus", allEntries = true)
     public MenuRatedDto saveMenu(MenuDto menuDtoToSave, long restaurantId) {
 
         validateParametersNotNull(menuDtoToSave, restaurantId);
@@ -64,6 +68,7 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
+    @CachePut("menus")
     public MenuRatedDto getMenuById(String menuId, long restaurantId) throws EntityNotFoundException {
 
         validateParametersNotNull(menuId, restaurantId);
@@ -80,6 +85,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional
+    @CacheEvict("menus")
     public void deleteMenuById(String menuId, long restaurantId) {
 
         validateParametersNotNull(menuId,restaurantId);
@@ -90,6 +96,7 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
+    @CachePut("menus")
     public MenuRatedDto getMenuByCreatingDate(LocalDate creatingDate, Long restaurantId) throws EntityNotFoundException {
 
         validateParametersNotNull(restaurantId);
@@ -106,6 +113,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional
+    @CacheEvict("menus")
     public MenuRatedDto updateMenu(long restaurantId, String menuId, MenuDto menuDtoForUpdating) throws EntityNotFoundException {
 
         validateParametersNotNull(restaurantId, menuId, menuDtoForUpdating);

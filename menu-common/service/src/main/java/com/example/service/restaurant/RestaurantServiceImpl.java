@@ -6,6 +6,9 @@ import com.example.exception.EntityNotFoundException;
 import com.example.restaurant.Restaurant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,6 +29,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
+    @Override
     public List<Restaurant> getAllRestaurants() {
 
         log.info("Receiving the collection of restaurants");
@@ -35,6 +39,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional
+    @CacheEvict("restaurants")
     public Restaurant saveRestaurant(Restaurant restaurantToSave) {
 
         validateParametersNotNull(restaurantToSave);
@@ -45,6 +50,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional
+    @CacheEvict(value = {"restaurants", "menus"} , allEntries = true)
     public void deleteRestaurantById(Long restaurantId) {
 
         validateParametersNotNull(restaurantId);
@@ -54,6 +60,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @CachePut("restaurants")
     public Restaurant getRestaurantById(Long restaurantId) throws EntityNotFoundException {
 
         validateParametersNotNull(restaurantId);
@@ -65,6 +72,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @CachePut("restaurants")
     public Restaurant getRestaurantByName(String name) throws EntityNotFoundException {
 
         validateParametersNotNull(name);
@@ -77,6 +85,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant updateRestaurant(Long restaurantId, Restaurant restaurant) {
 
         validateParametersNotNull(restaurantId, restaurant);

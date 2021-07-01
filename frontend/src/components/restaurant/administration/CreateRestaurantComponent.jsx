@@ -49,30 +49,24 @@ class CreateRestaurantComponent extends Component {
 
         if(this.state.id === 'null') {
 
-            RestaurantService.createRestaurant(restaurant).then(
-
-                this.redirectAndReload()
-            );
-
+            RestaurantService.createRestaurant(restaurant);
         } else {
 
-            RestaurantService.updateRestaurant(this.state.id, restaurant).then(() =>
-
-                    this.redirectAndReload()
-            );
-
+            RestaurantService.updateRestaurant(this.state.id, restaurant);
         }
+
+        this.redirectAndReload();
     }
 
 
-    changeTitleHandler = (event) => {
+    changeTitleHandler(event) {
 
         this.setState({
             title: event.target.value
         })
     }
 
-    changeDescriptionHandler = (event) => {
+    changeDescriptionHandler(event) {
 
         this.setState( {
             description: event.target.value

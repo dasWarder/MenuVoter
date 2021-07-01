@@ -1,7 +1,6 @@
 package com.example.dto;
 
 
-import com.example.menu.Dish;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -10,13 +9,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class VoteDto {
+public class VoteDto implements Serializable {
 
     @NotNull(message =
             "The menu ID must be not null")
