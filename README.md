@@ -14,6 +14,7 @@ only Json. </p>
 <li>JUnit</li>
 <li>Jackson databind</li>
 <li>JPA/Hibernate</li>
+<li>Hazelcast</li>
 <li>Lombok</li>
 <li>Springdoc openapi ui</li>
 <li>Embedded H2, Mongo DB</li>
