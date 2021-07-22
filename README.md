@@ -1,9 +1,8 @@
 <h2> Menu voter</h2>
 <h3> A simple application to manage a restaurants list, create daily menu for it and voting this menu</h3>
-<p>This version doesn't have any view parts and works only like REST, so it's possible to see
-only Json. </p>
 
 <b>Stack:</b>
+<li><b>Backend</b></li>
 <li>Spring Boot</li>
 <li>Data jpa</li>
 <li>Data mongoDB</li>
@@ -18,6 +17,9 @@ only Json. </p>
 <li>Lombok</li>
 <li>Springdoc openapi ui</li>
 <li>Embedded H2, Mongo DB</li>
+<li><b>Frontend</b></li>
+<li>React JS</li>
+<li>Axios</li>
 <hr>
 <h2>Main points for working:</h2>
 
