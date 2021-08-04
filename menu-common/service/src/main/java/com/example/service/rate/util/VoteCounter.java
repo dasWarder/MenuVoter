@@ -5,6 +5,7 @@ import com.example.menu.Menu;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -18,6 +19,7 @@ public class VoteCounter {
 
     private ConcurrentHashMap<String, AtomicLong> votes = new ConcurrentHashMap<>();
 
+    @Transactional
     public Long incrementCurrentCountOfVotesForMenu(Menu menu) {
 
         log.info("Add one vote to votes for menu with ID = {}, current count = {}",
@@ -29,7 +31,7 @@ public class VoteCounter {
         return vote;
     }
 
-
+    @Transactional(readOnly = true)
     public Long getCurrentCountOfVotesForMenu(Menu menu) {
 
         log.info("Receiving a counter without incrementation for menu with ID = {}",

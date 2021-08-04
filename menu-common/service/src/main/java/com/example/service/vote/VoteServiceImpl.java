@@ -53,10 +53,6 @@ public class VoteServiceImpl implements VoteService {
     }
 
 
-
-
-
-
     private Customer getOrCreateCustomer(VoteDto voteDto) {
 
         String email = voteDto.getEmail();

@@ -27,12 +27,17 @@
 <h3>To build and update project:</h3>
 <p>(stop an old container if it's running, build, start a new container, update databases by Liquibase)</p>
 
-    bash start.sh
+    $bash start.sh
 <hr>
 
 <h3>To stop container and clean build:</h3>
     
-    bash stop.sh
+    $bash stop.sh
+<hr>
+
+<p>To start frontend (React):</p>
+
+    $npm start
 <hr>
 
 <h3>Restaurant</h3>
