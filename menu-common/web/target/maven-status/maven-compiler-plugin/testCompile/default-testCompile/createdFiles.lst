@@ -1,9 +1,0 @@
-com\example\util\TestCustomerData.class
-com\example\util\TestDishData.class
-com\example\util\TestRestaurantData.class
-com\example\integration\customer\CustomerRepositoryIntegrationTest.class
-com\example\integration\customer\CustomerServiceIntegrationTest.class
-com\example\controller\RestaurantControllerTest.class
-com\example\WebApplicationTests.class
-com\example\controller\MenuControllerTest.class
-com\example\util\TestMenuData.class
