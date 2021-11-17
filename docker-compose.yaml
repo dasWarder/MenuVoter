@@ -1,17 +1,17 @@
 version: '3.0'
 
 services:
-#PostgreSQL database image
+
   postgre:
-      image: postgres:12
-      restart: always
-      ports:
-        - 8081:5432
-      environment:
-        POSTGRES_USER: user
-        POSTGRES_PASSWORD: password
-        POSTGRES_DB: menu-voter
-#MongoDB database image
+    image: postgres:12
+    restart: always
+    ports:
+      - 8081:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: menu-voter
+
   mongo:
     image: mongo
     restart: always

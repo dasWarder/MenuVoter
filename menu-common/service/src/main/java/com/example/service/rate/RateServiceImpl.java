@@ -67,14 +67,10 @@ public class RateServiceImpl implements RateService {
     }
 
 
-
-
-
-
     private Double getAverageRateForMenu(Menu menu, Double userRate) {
 
         String menuId = menu.getId();
-        //in case when there is no rate for the menu need to add a new 0.0 value
+        //in case when there is no rate for the menu, need to add a new 0.0 value
         computeIfMenuRateIsAbsent(menu, menuId);
         log.info("Calculating average menu rate for menu with ID = {}",
                                                                       menu.getId());
